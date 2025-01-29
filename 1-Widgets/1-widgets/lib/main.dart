@@ -1,5 +1,6 @@
 import 'package:widgets/column_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:widgets/row_layout.dart';
 
 void main() {
   runApp(App());
@@ -17,7 +18,8 @@ class App extends StatelessWidget {
           height: double.infinity,
           width: double.infinity,
           color: Colors.brown,
-          child: ColumnLayout(),
+          child: RowLayout(),
+          //child: ColumnLayout(),
         ),
       ),
     );
