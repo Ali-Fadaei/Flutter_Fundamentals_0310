@@ -17,19 +17,25 @@ class ColumnLayout extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           textDirection: TextDirection.rtl,
           verticalDirection: VerticalDirection.up,
-          spacing: 20,
+          // spacing: 20,
           children: [
-            CustomWidget(
-              color: Colors.red,
-              width: 100,
+            Expanded(
+              child: CustomWidget(
+                color: Colors.red,
+                width: 100,
+              ),
             ),
-            CustomWidget(
-              color: Colors.blue,
-              width: 200,
+            Expanded(
+              child: CustomWidget(
+                color: Colors.blue,
+                width: 200,
+              ),
             ),
-            CustomWidget(
-              color: Colors.green,
-              width: 300,
+            Expanded(
+              child: CustomWidget(
+                color: Colors.green,
+                width: 300,
+              ),
             ),
           ],
         ),
