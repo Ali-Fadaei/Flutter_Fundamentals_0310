@@ -32,7 +32,7 @@ class _CounterPageState extends State<CounterPage> {
 
   @override
   void initState() {
-    print('init state fired!!!');
+    print('CounterPage init state fired!!!');
     count = widget.initialCount;
     super.initState();
   }
