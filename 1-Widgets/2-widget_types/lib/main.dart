@@ -11,7 +11,10 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: CounterPage(),
+      home: CounterPage(
+        initialCount: 2,
+        counterStep: 10,
+      ),
     );
   }
 }
