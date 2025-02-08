@@ -8,6 +8,7 @@ class Todo {
 
   Todo({
     required this.title,
-    required this.date,
-  });
+  }) : date = DateTime.now().toString() {
+    print(date);
+  }
 }

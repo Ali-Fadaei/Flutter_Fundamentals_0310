@@ -22,11 +22,24 @@ class _TodoPageState extends State<TodoPage> {
     setState(() {
       var data = Todo(
         title: taskCtrl.text,
-        date: DateTime.now().toString(),
       );
       tasks.add(data);
       taskCtrl.clear();
     });
+  }
+
+  void onTaskRemovePressed(Todo data) {
+    tasks.remove(data);
+    setState(() {});
+  }
+
+  void onTaskCheckPressed(Todo data) {
+    final temp = tasks.firstWhere((e) => e == data);
+    temp.isCkeck = !temp.isCkeck;
+    final tempIndex = tasks.indexOf(data);
+    tasks.removeAt(tempIndex);
+    tasks.insert(tempIndex, temp);
+    setState(() {});
   }
 
   @override
@@ -44,6 +57,8 @@ class _TodoPageState extends State<TodoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // elevation: 6,\
+        scrolledUnderElevation: 6,
         centerTitle: true,
         title: Text(
           'TODO APP',
@@ -69,7 +84,11 @@ class _TodoPageState extends State<TodoPage> {
                   // spacing: 16,
                   children: tasks.expand((value) {
                     return [
-                      TodoCard(todoData: value),
+                      TodoCard(
+                        todoData: value,
+                        onTaskChecked: onTaskCheckPressed,
+                        onTaskRemoved: onTaskRemovePressed,
+                      ),
                       const SizedBox(height: 16)
                     ];
                   }).toList(),
@@ -81,6 +100,7 @@ class _TodoPageState extends State<TodoPage> {
                 Expanded(
                   child: TextField(
                     controller: taskCtrl,
+                    onEditingComplete: textIsEmpty ? null : onTaskAddPressed,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(100),
