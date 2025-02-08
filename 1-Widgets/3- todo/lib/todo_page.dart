@@ -16,6 +16,8 @@ class _TodoPageState extends State<TodoPage> {
 
   final List<Todo> tasks = [];
 
+  var textIsEmpty = true;
+
   void onTaskAddPressed() {
     setState(() {
       var data = Todo(
@@ -25,6 +27,17 @@ class _TodoPageState extends State<TodoPage> {
       tasks.add(data);
       taskCtrl.clear();
     });
+  }
+
+  @override
+  void initState() {
+    print('init state!');
+    taskCtrl.addListener(() {
+      setState(() {
+        textIsEmpty = taskCtrl.text.isEmpty;
+      });
+    });
+    super.initState();
   }
 
   @override
@@ -53,8 +66,12 @@ class _TodoPageState extends State<TodoPage> {
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
-                  children: tasks.map((value) {
-                    return TodoCard(todoData: value);
+                  // spacing: 16,
+                  children: tasks.expand((value) {
+                    return [
+                      TodoCard(todoData: value),
+                      const SizedBox(height: 16)
+                    ];
                   }).toList(),
                 ),
               ),
@@ -65,14 +82,23 @@ class _TodoPageState extends State<TodoPage> {
                   child: TextField(
                     controller: taskCtrl,
                     decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
                       hintText: 'write you\'re task here!',
                     ),
                   ),
                 ),
+                const SizedBox(
+                  width: 8,
+                ),
                 IconButton.filled(
                   iconSize: 40,
-                  onPressed: onTaskAddPressed,
-                  icon: Icon(Icons.add_task),
+                  icon: Icon(
+                    Icons.add_task,
+                    size: 30,
+                  ),
+                  onPressed: textIsEmpty ? null : onTaskAddPressed,
                 ),
               ],
             )
