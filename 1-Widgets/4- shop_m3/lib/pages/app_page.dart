@@ -34,28 +34,24 @@ class _AppPageState extends State<AppPage> {
         height: double.infinity,
         width: 200,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: selectedIndex,
-        onTap: (value) {
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: selectedIndex,
+        onDestinationSelected: (value) {
           selectedIndex = value;
           setState(() {});
         },
-        type: BottomNavigationBarType.fixed,
-        items: [
-          BottomNavigationBarItem(
+        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        destinations: [
+          NavigationDestination(
             label: 'Store',
-            backgroundColor: Colors.blueGrey,
             icon: Icon(
               Icons.store,
-              color: Colors.cyan,
             ),
           ),
-          BottomNavigationBarItem(
+          NavigationDestination(
             label: 'Category',
-            backgroundColor: Colors.blueGrey,
             icon: Icon(
               Icons.category_rounded,
-              color: Colors.cyan,
             ),
           ),
         ],
