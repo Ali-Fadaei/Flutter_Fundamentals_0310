@@ -34,10 +34,9 @@ class _TodoPageState extends State<TodoPage> {
   }
 
   void onTaskCheckPressed(Todo data) {
-    final temp = tasks.firstWhere((e) => e == data);
-    temp.isCkeck = !temp.isCkeck;
     final tempIndex = tasks.indexOf(data);
-    tasks.removeAt(tempIndex);
+    final temp = tasks.removeAt(tempIndex);
+    temp.isCkeck = !temp.isCkeck;
     tasks.insert(tempIndex, temp);
     setState(() {});
   }
