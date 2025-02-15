@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_m3/pages/store/product_card.dart';
+import 'package:shop_m3/pages/app_page.dart';
 
 class StorePage extends StatelessWidget {
   //
@@ -49,11 +50,14 @@ class StorePage extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          //TODO:
-          const SizedBox(
+          SizedBox(
             height: 320,
-            child: Center(
-              child: ProductCard(),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                spacing: 8,
+                children: products.map((e) => ProductCard(data: e)).toList(),
+              ),
             ),
           ),
           const SizedBox(
@@ -77,9 +81,16 @@ class StorePage extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          //TODO:
-          const SizedBox(
+          SizedBox(
             height: 320,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                spacing: 8,
+                children:
+                    products.reversed.map((e) => ProductCard(data: e)).toList(),
+              ),
+            ),
           ),
           const SizedBox(
             height: 20,

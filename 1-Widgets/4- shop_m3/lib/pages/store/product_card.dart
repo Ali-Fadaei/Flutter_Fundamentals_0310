@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:shop_m3/models/product.dart';
 
 class ProductCard extends StatelessWidget {
   //
-  const ProductCard({super.key});
+  final Product data;
+
+  const ProductCard({
+    super.key,
+    required this.data,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +21,7 @@ class ProductCard extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           child: Column(
             children: [
-              Image.asset('assets/imgs/products/asus_rt.png'),
+              Image.asset(data.image),
               // const Size
               const SizedBox(
                 height: 12,
@@ -23,7 +29,7 @@ class ProductCard extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'Product Title',
+                    data.title,
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -38,7 +44,7 @@ class ProductCard extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'Rating: 4.5',
+                    'Rating: ${data.rating}',
                     style: TextStyle(
                       fontSize: 12,
                       color: theme.colorScheme.outline,
@@ -65,7 +71,7 @@ class ProductCard extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    '\$230',
+                    '\$${data.price}',
                   )
                 ],
               ),
