@@ -22,6 +22,10 @@ class ShopCartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
       itemCount: shopItems.length,
+      padding: const EdgeInsets.symmetric(
+        vertical: 16,
+        horizontal: 16,
+      ),
       separatorBuilder: (context, index) {
         return const SizedBox(height: 16);
       },

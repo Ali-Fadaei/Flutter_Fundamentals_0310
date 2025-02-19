@@ -64,8 +64,8 @@ class ShopCartCard extends StatelessWidget {
                   Text(
                     '\$${(shopItem.count * shopItem.product.price)}',
                     style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.normal,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -73,7 +73,7 @@ class ShopCartCard extends StatelessWidget {
                     children: [
                       IconButton.filledTonal(
                         onPressed: () => onRemovePressed(shopItem.product),
-                        icon: Icon(Icons.minimize),
+                        icon: Icon(Icons.remove),
                       ),
                       const SizedBox(width: 4),
                       SizedBox(
@@ -82,8 +82,8 @@ class ShopCartCard extends StatelessWidget {
                           shopItem.count.toString(),
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.normal,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
