@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:shop_m3/models/product.dart';
 import 'package:shop_m3/pages/store/product_card.dart';
 import 'package:shop_m3/pages/app_page.dart';
 
 class StorePage extends StatelessWidget {
   //
-  const StorePage({super.key});
+  final void Function(Product data) onFavoritesPressed;
+
+  const StorePage({
+    super.key,
+    required this.onFavoritesPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -56,25 +62,17 @@ class StorePage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             scrollDirection: Axis.horizontal,
             separatorBuilder: (_, index) {
-              print('separetor builder executed. index: $index');
               return const SizedBox(
                 width: 16,
               );
             },
             itemBuilder: (_, index) {
-              print('item builder executed. index: $index');
               return ProductCard(
                 data: products[index],
+                onFavoritesPressed: onFavoritesPressed,
               );
             },
           ),
-          // child: SingleChildScrollView(
-          //   scrollDirection: Axis.horizontal,
-          //   child: Row(
-          //     spacing: 8,
-          //     children: products.map((e) => ProductCard(data: e)).toList(),
-          //   ),
-          // ),
         ),
         const SizedBox(
           height: 20,
@@ -97,17 +95,25 @@ class StorePage extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        // SizedBox(
-        //   height: 320,
-        //   child: SingleChildScrollView(
-        //     scrollDirection: Axis.horizontal,
-        //     child: Row(
-        //       spacing: 8,
-        //       children:
-        //           products.reversed.map((e) => ProductCard(data: e)).toList(),
-        //     ),
-        //   ),
-        // ),
+        SizedBox(
+          height: 320,
+          child: ListView.separated(
+            itemCount: products.length,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            scrollDirection: Axis.horizontal,
+            separatorBuilder: (_, index) {
+              return const SizedBox(
+                width: 16,
+              );
+            },
+            itemBuilder: (_, index) {
+              return ProductCard(
+                data: products[index],
+                onFavoritesPressed: onFavoritesPressed,
+              );
+            },
+          ),
+        ),
         const SizedBox(
           height: 20,
         ),

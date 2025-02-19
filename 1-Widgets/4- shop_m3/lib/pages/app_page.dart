@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_m3/models/product.dart';
 import 'package:shop_m3/pages/category/category_page.dart';
+import 'package:shop_m3/pages/favorites/favorites_page.dart';
 import 'package:shop_m3/pages/store/store_page.dart';
 import 'package:shop_m3/models/category.dart';
 
@@ -162,6 +163,18 @@ class _AppPageState extends State<AppPage> {
   //
   int selectedIndex = 0;
 
+  List<Product> favorites = [];
+
+  void onFavoriteButtonTapped(Product data) {
+    final dataIndex = favorites.indexOf(data);
+    if (dataIndex == -1) {
+      favorites.add(data);
+    } else {
+      favorites.remove(data);
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -191,6 +204,12 @@ class _AppPageState extends State<AppPage> {
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         destinations: [
           NavigationDestination(
+            label: 'Favorites',
+            icon: Icon(
+              Icons.favorite,
+            ),
+          ),
+          NavigationDestination(
             label: 'Store',
             icon: Icon(
               Icons.store,
@@ -207,7 +226,13 @@ class _AppPageState extends State<AppPage> {
       body: IndexedStack(
         index: selectedIndex,
         children: [
-          StorePage(),
+          FavoritesPage(
+            favorites: favorites,
+            onFavoritesPressed: onFavoriteButtonTapped,
+          ),
+          StorePage(
+            onFavoritesPressed: onFavoriteButtonTapped,
+          ),
           CategoryPage(),
         ],
       ),
