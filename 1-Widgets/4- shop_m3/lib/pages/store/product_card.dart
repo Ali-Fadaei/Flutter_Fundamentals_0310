@@ -7,10 +7,13 @@ class ProductCard extends StatelessWidget {
 
   final void Function(Product data) onFavoritesPressed;
 
+  final void Function(Product data) onAddtoCartPressed;
+
   const ProductCard({
     super.key,
     required this.data,
     required this.onFavoritesPressed,
+    required this.onAddtoCartPressed,
   });
 
   @override
@@ -71,7 +74,7 @@ class ProductCard extends StatelessWidget {
                 Row(
                   children: [
                     IconButton.filledTonal(
-                      onPressed: () {},
+                      onPressed: () => onAddtoCartPressed(data),
                       icon: Icon(Icons.add),
                     ),
                     const Spacer(),

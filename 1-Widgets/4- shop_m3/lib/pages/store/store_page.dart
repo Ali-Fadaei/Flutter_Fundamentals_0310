@@ -7,9 +7,12 @@ class StorePage extends StatelessWidget {
   //
   final void Function(Product data) onFavoritesPressed;
 
+  final void Function(Product data) onAddtoCartPressed;
+
   const StorePage({
     super.key,
     required this.onFavoritesPressed,
+    required this.onAddtoCartPressed,
   });
 
   @override
@@ -69,6 +72,7 @@ class StorePage extends StatelessWidget {
             itemBuilder: (_, index) {
               return ProductCard(
                 data: products[index],
+                onAddtoCartPressed: onAddtoCartPressed,
                 onFavoritesPressed: onFavoritesPressed,
               );
             },
@@ -109,6 +113,7 @@ class StorePage extends StatelessWidget {
             itemBuilder: (_, index) {
               return ProductCard(
                 data: products[index],
+                onAddtoCartPressed: onAddtoCartPressed,
                 onFavoritesPressed: onFavoritesPressed,
               );
             },

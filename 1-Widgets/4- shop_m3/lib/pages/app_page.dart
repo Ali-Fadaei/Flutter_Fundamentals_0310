@@ -1,8 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_m3/models/product.dart';
+import 'package:shop_m3/models/shop_item.dart';
 import 'package:shop_m3/pages/category/category_page.dart';
 import 'package:shop_m3/pages/favorites/favorites_page.dart';
+import 'package:shop_m3/pages/shop_cart/shop_cart_page.dart';
 import 'package:shop_m3/pages/store/store_page.dart';
 import 'package:shop_m3/models/category.dart';
 
@@ -165,12 +166,44 @@ class _AppPageState extends State<AppPage> {
 
   List<Product> favorites = [];
 
+  List<ShopItem> shopItems = [];
+
   void onFavoriteButtonTapped(Product data) {
     final dataIndex = favorites.indexOf(data);
     if (dataIndex == -1) {
       favorites.add(data);
     } else {
       favorites.remove(data);
+    }
+    setState(() {});
+  }
+
+  void onAddToShopCartPressed(Product data) {
+    final dataInex = shopItems.indexWhere(
+      (e) => e.product == data,
+    );
+    if (dataInex == -1) {
+      shopItems.add(ShopItem(product: data));
+    } else {
+      final temp = shopItems[dataInex];
+      if (temp.count + 1 <= 10) {
+        temp.count = temp.count + 1;
+        shopItems.removeAt(dataInex);
+        shopItems.insert(dataInex, temp);
+      }
+    }
+    setState(() {});
+  }
+
+  void onRemoveFromShopCartPressed(Product data) {
+    final temp = shopItems.firstWhere((element) => element.product == data);
+    if (temp.count <= 1) {
+      shopItems.remove(temp);
+    } else {
+      temp.count = temp.count - 1;
+      final dataIndex = shopItems.indexWhere((e) => e.product == data);
+      shopItems.removeAt(dataIndex);
+      shopItems.insert(dataIndex, temp);
     }
     setState(() {});
   }
@@ -216,6 +249,12 @@ class _AppPageState extends State<AppPage> {
             ),
           ),
           NavigationDestination(
+            label: 'ShopCart',
+            icon: Icon(
+              Icons.shopping_cart,
+            ),
+          ),
+          NavigationDestination(
             label: 'Category',
             icon: Icon(
               Icons.category_rounded,
@@ -232,6 +271,12 @@ class _AppPageState extends State<AppPage> {
           ),
           StorePage(
             onFavoritesPressed: onFavoriteButtonTapped,
+            onAddtoCartPressed: onAddToShopCartPressed,
+          ),
+          ShopCartPage(
+            shopItems: shopItems,
+            onAddPressed: onAddToShopCartPressed,
+            onRemovePressed: onRemoveFromShopCartPressed,
           ),
           CategoryPage(),
         ],
