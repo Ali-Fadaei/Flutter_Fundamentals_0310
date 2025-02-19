@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:shop_m3/pages/app_page.dart';
+import 'package:shop_m3/models/category.dart';
 import 'package:shop_m3/pages/category/category_card.dart';
 
 class CategoryPage extends StatelessWidget {
   //
-  const CategoryPage({super.key});
+  final List<CategoryData> categories;
+
+  const CategoryPage({
+    super.key,
+    required this.categories,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SingleChildScrollView(
-        child: Column(
-          children: categories
-              .map(
-                (e) => CategoryCard(
-                  data: e,
-                ),
-              )
-              .toList(),
-        ),
-      ),
+    final size = MediaQuery.of(context).size;
+    return GridView.count(
+      padding: const EdgeInsets.all(16),
+      crossAxisCount: (size.width / 200).floor(),
+      mainAxisSpacing: 4,
+      crossAxisSpacing: 4,
+      childAspectRatio: 200 / 320,
+      children: categories.map((e) => CategoryCard(data: e)).toList(),
     );
   }
 }

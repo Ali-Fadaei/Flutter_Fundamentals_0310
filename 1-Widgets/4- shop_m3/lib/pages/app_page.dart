@@ -278,7 +278,9 @@ class _AppPageState extends State<AppPage> {
             onAddPressed: onAddToShopCartPressed,
             onRemovePressed: onRemoveFromShopCartPressed,
           ),
-          CategoryPage(),
+          CategoryPage(
+            categories: categories,
+          ),
         ],
       ),
     );
