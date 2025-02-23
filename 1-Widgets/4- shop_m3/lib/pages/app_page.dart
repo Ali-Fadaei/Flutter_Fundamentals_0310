@@ -162,7 +162,7 @@ class AppPage extends StatefulWidget {
 
 class _AppPageState extends State<AppPage> {
   //
-  int selectedIndex = 0;
+  int selectedIndex = 1;
 
   List<Product> favorites = [];
 

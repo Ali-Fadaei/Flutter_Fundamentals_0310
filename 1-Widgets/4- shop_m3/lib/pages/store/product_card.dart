@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_m3/models/product.dart';
+import 'package:shop_m3/pages/store/product_btms.dart';
 
 class ProductCard extends StatelessWidget {
   //
@@ -20,7 +21,22 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return GestureDetector(
-      onTap: () => onFavoritesPressed(data),
+      onTap: () {
+        showModalBottomSheet(
+          context: context,
+          // isDismissible: false,
+          isScrollControlled: true,
+          // backgroundColor: Colors.cyan,
+          // barrierColor: Colors.blueGrey.withValues(alpha: 0.50),
+          constraints: BoxConstraints(
+            maxWidth: 600,
+            maxHeight: MediaQuery.of(context).size.height * 0.75,
+          ),
+          builder: (context) {
+            return ProductBottomSheet();
+          },
+        );
+      },
       child: SizedBox(
         height: 320,
         width: 200,
