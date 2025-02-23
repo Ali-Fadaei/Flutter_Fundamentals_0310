@@ -270,8 +270,11 @@ class _AppPageState extends State<AppPage> {
             onFavoritesPressed: onFavoriteButtonTapped,
           ),
           StorePage(
+            favorites: favorites,
+            shopItems: shopItems,
             onFavoritesPressed: onFavoriteButtonTapped,
             onAddtoCartPressed: onAddToShopCartPressed,
+            onRemoveFromCartPressed: onRemoveFromShopCartPressed,
           ),
           ShopCartPage(
             shopItems: shopItems,

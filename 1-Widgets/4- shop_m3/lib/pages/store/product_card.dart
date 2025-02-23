@@ -1,20 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:shop_m3/models/product.dart';
+import 'package:shop_m3/models/shop_item.dart';
 import 'package:shop_m3/pages/store/product_btms.dart';
 
 class ProductCard extends StatelessWidget {
   //
   final Product data;
 
+  final List<Product> favorites;
+
+  final List<ShopItem> shopItems;
+
   final void Function(Product data) onFavoritesPressed;
 
   final void Function(Product data) onAddtoCartPressed;
 
+  final void Function(Product data) onRemoveFromCartPressed;
+
   const ProductCard({
     super.key,
     required this.data,
+    required this.favorites,
+    required this.shopItems,
     required this.onFavoritesPressed,
     required this.onAddtoCartPressed,
+    required this.onRemoveFromCartPressed,
   });
 
   @override
@@ -33,7 +43,14 @@ class ProductCard extends StatelessWidget {
             maxHeight: MediaQuery.of(context).size.height * 0.75,
           ),
           builder: (context) {
-            return ProductBottomSheet();
+            return ProductBottomSheet(
+              product: data,
+              favorites: favorites,
+              shopItems: shopItems,
+              onFavoriteTapped: onFavoritesPressed,
+              onAddToCartPressed: onAddtoCartPressed,
+              onRemoveFromCartPressed: onRemoveFromCartPressed,
+            );
           },
         );
       },

@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:shop_m3/models/product.dart';
+import 'package:shop_m3/models/shop_item.dart';
 import 'package:shop_m3/pages/store/product_card.dart';
 import 'package:shop_m3/pages/app_page.dart';
 
 class StorePage extends StatelessWidget {
   //
+  final List<Product> favorites;
+
+  final List<ShopItem> shopItems;
+
   final void Function(Product data) onFavoritesPressed;
 
   final void Function(Product data) onAddtoCartPressed;
 
+  final void Function(Product data) onRemoveFromCartPressed;
+
   const StorePage({
     super.key,
+    required this.favorites,
+    required this.shopItems,
     required this.onFavoritesPressed,
     required this.onAddtoCartPressed,
+    required this.onRemoveFromCartPressed,
   });
 
   @override
@@ -72,8 +82,11 @@ class StorePage extends StatelessWidget {
             itemBuilder: (_, index) {
               return ProductCard(
                 data: products[index],
-                onAddtoCartPressed: onAddtoCartPressed,
+                favorites: favorites,
+                shopItems: shopItems,
                 onFavoritesPressed: onFavoritesPressed,
+                onAddtoCartPressed: onAddtoCartPressed,
+                onRemoveFromCartPressed: onRemoveFromCartPressed,
               );
             },
           ),
@@ -113,8 +126,11 @@ class StorePage extends StatelessWidget {
             itemBuilder: (_, index) {
               return ProductCard(
                 data: products[index],
-                onAddtoCartPressed: onAddtoCartPressed,
+                favorites: favorites,
+                shopItems: shopItems,
                 onFavoritesPressed: onFavoritesPressed,
+                onAddtoCartPressed: onAddtoCartPressed,
+                onRemoveFromCartPressed: onRemoveFromCartPressed,
               );
             },
           ),
