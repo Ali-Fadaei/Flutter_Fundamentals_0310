@@ -2,8 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:shop_m3/models/product.dart';
 import 'package:shop_m3/models/shop_item.dart';
 
-class ProductBottomSheet extends StatelessWidget {
+class ProductBottomSheet extends StatefulWidget {
   //
+  static show(
+    BuildContext context, {
+    required Product product,
+    required List<Product> favorites,
+    required List<ShopItem> shopItems,
+    required void Function(Product data) onFavoritesPressed,
+    required void Function(Product data) onAddtoCartPressed,
+    required void Function(Product data) onRemoveFromCartPressed,
+  }) {
+    print('test!');
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      constraints: BoxConstraints(
+        maxWidth: 600,
+        maxHeight: MediaQuery.of(context).size.height * 0.75,
+      ),
+      builder: (context) {
+        return ProductBottomSheet(
+          product: product,
+          favorites: favorites,
+          shopItems: shopItems,
+          onFavoriteTapped: onFavoritesPressed,
+          onAddToCartPressed: onAddtoCartPressed,
+          onRemoveFromCartPressed: onRemoveFromCartPressed,
+        );
+      },
+    );
+  }
+
   final Product product;
 
   final List<Product> favorites;
@@ -26,17 +56,53 @@ class ProductBottomSheet extends StatelessWidget {
     required this.onRemoveFromCartPressed,
   });
 
-  bool get isFav {
-    return favorites.any((e) => e == product);
+  @override
+  State<ProductBottomSheet> createState() => _ProductBottomSheetState();
+}
+
+class _ProductBottomSheetState extends State<ProductBottomSheet> {
+  //
+  bool isFav = false;
+
+  int count = 0;
+
+  // bool get isFav1 {
+  //   return widget.favorites.any((e) => e == widget.product);
+  // }
+
+  void onFavoriteTapped() {
+    widget.onFavoriteTapped(widget.product);
+    isFav = !isFav;
+    setState(() {});
   }
 
-  int get count {
-    final temp = shopItems.where((e) => e.product == product).firstOrNull;
-    if (temp == null) {
-      return 0;
-    } else {
-      return temp.count;
+  void onAddToShopCartTapped() {
+    widget.onAddToCartPressed(widget.product);
+    if (count <= 10) {
+      count = count + 1;
+      setState(() {});
     }
+  }
+
+  void onRemoveFromShopCartTapped() {
+    widget.onRemoveFromCartPressed(widget.product);
+    if (count > 0) {
+      count = count - 1;
+      setState(() {});
+    }
+  }
+
+  @override
+  void initState() {
+    isFav = widget.favorites.any((e) => e == widget.product);
+    final temp =
+        widget.shopItems.where((e) => e.product == widget.product).firstOrNull;
+    if (temp == null) {
+      count = 0;
+    } else {
+      count = temp.count;
+    }
+    super.initState();
   }
 
   @override
@@ -70,7 +136,7 @@ class ProductBottomSheet extends StatelessWidget {
                     SizedBox.square(
                       dimension: 350,
                       child: Image.asset(
-                        product.image,
+                        widget.product.image,
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -79,7 +145,7 @@ class ProductBottomSheet extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              product.title,
+                              widget.product.title,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -87,7 +153,7 @@ class ProductBottomSheet extends StatelessWidget {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              product.categoryData.title,
+                              widget.product.categoryData.title,
                               style: TextStyle(
                                 fontSize: 12,
                                 // fontWeight: FontWeight.bold,
@@ -97,7 +163,7 @@ class ProductBottomSheet extends StatelessWidget {
                         ),
                         const Spacer(),
                         IconButton(
-                          onPressed: () => onFavoriteTapped(product),
+                          onPressed: onFavoriteTapped,
                           icon: Icon(
                             isFav ? Icons.favorite : Icons.favorite_border,
                           ),
@@ -117,7 +183,7 @@ class ProductBottomSheet extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          product.rating.toString(),
+                          widget.product.rating.toString(),
                           style: TextStyle(
                             fontSize: 16,
                           ),
@@ -141,7 +207,7 @@ class ProductBottomSheet extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
-                        Text('\$${product.price}'),
+                        Text('\$${widget.product.price}'),
                         const Spacer(),
                       ],
                     ),
@@ -168,7 +234,7 @@ class ProductBottomSheet extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      product.description,
+                      widget.product.description,
                     ),
                   ],
                 ),
@@ -179,14 +245,14 @@ class ProductBottomSheet extends StatelessWidget {
                   height: 60,
                   child: count <= 0
                       ? ElevatedButton(
-                          onPressed: () {},
+                          onPressed: onAddToShopCartTapped,
                           child: Text('ADD To Cart'),
                         )
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             IconButton.filledTonal(
-                              onPressed: () => onRemoveFromCartPressed(product),
+                              onPressed: onRemoveFromShopCartTapped,
                               icon: Icon(
                                 Icons.remove,
                               ),
@@ -201,7 +267,7 @@ class ProductBottomSheet extends StatelessWidget {
                             ),
                             const SizedBox(width: 16),
                             IconButton.filledTonal(
-                              onPressed: () => onAddToCartPressed(product),
+                              onPressed: onAddToShopCartTapped,
                               icon: Icon(
                                 Icons.add,
                               ),

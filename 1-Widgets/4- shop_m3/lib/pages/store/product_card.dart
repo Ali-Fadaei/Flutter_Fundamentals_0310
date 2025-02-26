@@ -32,26 +32,14 @@ class ProductCard extends StatelessWidget {
     final theme = Theme.of(context);
     return GestureDetector(
       onTap: () {
-        showModalBottomSheet(
-          context: context,
-          // isDismissible: false,
-          isScrollControlled: true,
-          // backgroundColor: Colors.cyan,
-          // barrierColor: Colors.blueGrey.withValues(alpha: 0.50),
-          constraints: BoxConstraints(
-            maxWidth: 600,
-            maxHeight: MediaQuery.of(context).size.height * 0.75,
-          ),
-          builder: (context) {
-            return ProductBottomSheet(
-              product: data,
-              favorites: favorites,
-              shopItems: shopItems,
-              onFavoriteTapped: onFavoritesPressed,
-              onAddToCartPressed: onAddtoCartPressed,
-              onRemoveFromCartPressed: onRemoveFromCartPressed,
-            );
-          },
+        ProductBottomSheet.show(
+          context,
+          product: data,
+          favorites: favorites,
+          shopItems: shopItems,
+          onFavoritesPressed: onFavoritesPressed,
+          onAddtoCartPressed: onAddtoCartPressed,
+          onRemoveFromCartPressed: onRemoveFromCartPressed,
         );
       },
       child: SizedBox(

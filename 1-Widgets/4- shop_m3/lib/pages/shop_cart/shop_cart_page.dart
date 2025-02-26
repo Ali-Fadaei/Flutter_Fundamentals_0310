@@ -5,17 +5,23 @@ import 'package:shop_m3/pages/shop_cart/shop_cart_card.dart';
 
 class ShopCartPage extends StatelessWidget {
   //
+  final List<Product> favorites;
+
   final List<ShopItem> shopItems;
 
-  final void Function(Product data) onAddPressed;
+  final void Function(Product data) onFavoritesPressed;
 
-  final void Function(Product data) onRemovePressed;
+  final void Function(Product data) onAddtoCartPressed;
+
+  final void Function(Product data) onRemoveFromCartPressed;
 
   const ShopCartPage({
     super.key,
+    required this.favorites,
     required this.shopItems,
-    required this.onAddPressed,
-    required this.onRemovePressed,
+    required this.onFavoritesPressed,
+    required this.onAddtoCartPressed,
+    required this.onRemoveFromCartPressed,
   });
 
   @override
@@ -32,8 +38,11 @@ class ShopCartPage extends StatelessWidget {
       itemBuilder: (context, index) {
         return ShopCartCard(
           shopItem: shopItems[index],
-          onAddPressed: onAddPressed,
-          onRemovePressed: onRemovePressed,
+          favorites: favorites,
+          shopItems: shopItems,
+          onFavoritesPressed: onFavoritesPressed,
+          onAddPressed: onAddtoCartPressed,
+          onRemovePressed: onRemoveFromCartPressed,
         );
       },
     );

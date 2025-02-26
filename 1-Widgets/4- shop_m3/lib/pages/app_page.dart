@@ -267,7 +267,10 @@ class _AppPageState extends State<AppPage> {
         children: [
           FavoritesPage(
             favorites: favorites,
+            shopItems: shopItems,
             onFavoritesPressed: onFavoriteButtonTapped,
+            onAddtoCartPressed: onAddToShopCartPressed,
+            onRemoveFromCartPressed: onRemoveFromShopCartPressed,
           ),
           StorePage(
             favorites: favorites,
@@ -277,9 +280,11 @@ class _AppPageState extends State<AppPage> {
             onRemoveFromCartPressed: onRemoveFromShopCartPressed,
           ),
           ShopCartPage(
+            favorites: favorites,
             shopItems: shopItems,
-            onAddPressed: onAddToShopCartPressed,
-            onRemovePressed: onRemoveFromShopCartPressed,
+            onFavoritesPressed: onFavoriteButtonTapped,
+            onAddtoCartPressed: onAddToShopCartPressed,
+            onRemoveFromCartPressed: onRemoveFromShopCartPressed,
           ),
           CategoryPage(
             categories: categories,
