@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_uikit/pages/profile/profile_page.dart';
 import '/models/product.dart';
 import '/models/shop_item.dart';
 import '/pages/category/category_page.dart';
@@ -260,6 +261,12 @@ class _AppPageState extends State<AppPage> {
               Icons.category_rounded,
             ),
           ),
+          NavigationDestination(
+            label: 'Profile',
+            icon: Icon(
+              Icons.person,
+            ),
+          ),
         ],
       ),
       body: IndexedStack(
@@ -289,6 +296,7 @@ class _AppPageState extends State<AppPage> {
           CategoryPage(
             categories: categories,
           ),
+          ProfilePage(),
         ],
       ),
     );
