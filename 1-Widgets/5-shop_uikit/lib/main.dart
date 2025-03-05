@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import './pages/app_page.dart';
 
 void main() {
@@ -19,6 +20,16 @@ class MainApp extends StatelessWidget {
           seedColor: Colors.cyan,
         ),
       ),
+      localizationsDelegates: {
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+      },
+      supportedLocales: [
+        Locale('en', 'UK'),
+        Locale('fa', 'IR'),
+      ],
+      locale: Locale('en', 'UK'),
       scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
         PointerDeviceKind.mouse,
         PointerDeviceKind.stylus,
