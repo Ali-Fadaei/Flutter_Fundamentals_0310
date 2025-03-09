@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_uikit/ui_kit/text.dart' as U;
+import 'package:shop_uikit/ui_kit/ui_kit.dart' as U;
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -7,11 +7,36 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: U.Text(
-        'متن تستی شماره 1',
-        size: U.TextSize.s12,
-        font: U.TextFont.yekan,
-        weight: U.TextWeight.regular,
+      child: Column(
+        children: [
+          U.Image(
+            path: U.Images.emptyFav,
+            height: 80,
+            width: 120,
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          U.Image.icon(
+            path: U.Icons.store,
+            size: 48,
+            color: Colors.blue,
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          U.NetworkImage(
+            url:
+                'https://fadaei-storage.storage.iran.liara.space/shop_app/banners/banner_1.jpg',
+          ),
+          U.Text(
+            'متن تستی شماره 1',
+            size: U.TextSize.s12,
+            font: U.TextFont.yekan,
+            weight: U.TextWeight.regular,
+            color: Colors.red,
+          ),
+        ],
       ),
     );
   }

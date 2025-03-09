@@ -29,7 +29,7 @@ class MainApp extends StatelessWidget {
         Locale('en', 'UK'),
         Locale('fa', 'IR'),
       ],
-      locale: Locale('en', 'UK'),
+      locale: Locale('fa', 'IR'),
       scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
         PointerDeviceKind.mouse,
         PointerDeviceKind.stylus,

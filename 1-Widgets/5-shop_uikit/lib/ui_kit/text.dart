@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart' as M;
 import 'package:flutter/widgets.dart';
+import './theme.dart';
+// import './theme.dart';
 
 enum TextFont {
   iranSans,
@@ -32,12 +34,15 @@ class Text extends M.StatelessWidget {
 
   final TextWeight weight;
 
+  final Color color;
+
   const Text(
     this.text, {
     super.key,
     this.font = TextFont.iranSans,
     this.size = TextSize.s14,
     this.weight = TextWeight.regular,
+    this.color = Theme.onBackground,
   });
 
   String get _font {
@@ -84,8 +89,9 @@ class Text extends M.StatelessWidget {
     return M.Text(
       text,
       style: TextStyle(
-        fontFamily: _font,
+        color: color,
         fontSize: _size,
+        fontFamily: _font,
         fontWeight: _weight,
       ),
     );
