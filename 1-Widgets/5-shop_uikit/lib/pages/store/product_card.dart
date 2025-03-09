@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '/models/product.dart';
 import '/models/shop_item.dart';
 import '/pages/store/product_btms.dart';
+import '/ui_kit/ui_kit.dart' as U;
 
 class ProductCard extends StatelessWidget {
   //
@@ -50,8 +51,7 @@ class ProductCard extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             child: Column(
               children: [
-                Image.asset(data.image),
-                // const Size
+                U.Image(path: data.image),
                 const SizedBox(
                   height: 12,
                 ),
@@ -76,12 +76,10 @@ class ProductCard extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text(
-                      'Rating: ${data.rating}',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: theme.colorScheme.outline,
-                      ),
+                    U.Text(
+                      'امتیاز: ${data.rating}',
+                      size: U.TextSize.s12,
+                      color: U.Theme.outline2,
                     ),
                     const SizedBox(
                       width: 1,
@@ -103,8 +101,8 @@ class ProductCard extends StatelessWidget {
                       icon: Icon(Icons.add),
                     ),
                     const Spacer(),
-                    Text(
-                      '\$${data.price}',
+                    U.Text(
+                      'تومان${data.price}',
                     )
                   ],
                 ),

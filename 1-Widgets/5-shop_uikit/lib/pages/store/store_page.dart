@@ -3,6 +3,7 @@ import '/models/product.dart';
 import '/models/shop_item.dart';
 import '/pages/store/product_card.dart';
 import '/pages/app_page.dart';
+import '/ui_kit/ui_kit.dart' as U;
 
 class StorePage extends StatelessWidget {
   //
@@ -54,13 +55,19 @@ class StorePage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             children: [
-              Text(
-                'Exclusive Offers',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+              U.Text(
+                'فروش ویژه',
+                size: U.TextSize.s20,
+                weight: U.TextWeight.bold,
               ),
+              // Text(
+              //   'Exclusive Offers',
+              //   style: TextStyle(
+              //     fontSize: 20,
+              //     fontFamily: 'IransSq',
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              // ),
               const Spacer(),
             ],
           ),
@@ -98,12 +105,10 @@ class StorePage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             children: [
-              Text(
-                'Exclusive Offers',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+              U.Text(
+                'پرفروش‌ها',
+                size: U.TextSize.s20,
+                weight: U.TextWeight.bold,
               ),
               const Spacer(),
             ],
