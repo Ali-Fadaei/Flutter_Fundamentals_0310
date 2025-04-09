@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart' as M;
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 abstract class Images {
@@ -12,6 +11,10 @@ abstract class Images {
 abstract class Icons {
   //
   static const store = 'assets/icons/store.png';
+  static const checkBoxEmpty = 'assets/icons/checkbox_empty.png';
+  static const checkBoxFill = 'assets/icons/checkbox_fill.png';
+  static const radioEmpty = 'assets/icons/radio_empty.png';
+  static const radioFill = 'assets/icons/radio_fill.png';
 }
 
 class Image extends M.StatelessWidget {
