@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'ui_kit.dart' as U;
 
-class RadioButton extends StatelessWidget {
+class RadioButton<T> extends StatelessWidget {
   //
   final String title;
 
-  final dynamic value;
+  final T value;
 
-  final dynamic groupValue;
+  final T groupValue;
 
   final void Function() onPressed;
 

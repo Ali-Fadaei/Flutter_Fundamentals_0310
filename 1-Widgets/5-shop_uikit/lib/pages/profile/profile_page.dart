@@ -63,7 +63,7 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(height: 15),
             Row(
               children: [
-                U.RadioButton(
+                U.RadioButton<int>(
                   title: 'لپ‌تاپ',
                   value: 1,
                   groupValue: selectedCategory,
@@ -75,7 +75,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(
                   width: 12,
                 ),
-                U.RadioButton(
+                U.RadioButton<int>(
                   title: 'موبایل',
                   value: 2,
                   groupValue: selectedCategory,
