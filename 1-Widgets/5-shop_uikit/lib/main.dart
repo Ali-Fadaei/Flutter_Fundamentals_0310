@@ -29,6 +29,11 @@ class MainApp extends StatelessWidget {
         Locale('en', 'UK'),
         Locale('fa', 'IR'),
       ],
+      builder: (context, child) {
+        return MediaQuery.withNoTextScaling(
+          child: child!,
+        );
+      },
       locale: Locale('fa', 'IR'),
       scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
         PointerDeviceKind.mouse,
