@@ -31,7 +31,8 @@ class ProfilePage extends StatelessWidget {
               title: 'خرید ',
               size: U.ButtonSize.lg,
               color: U.ButtonColor.primary,
-              disabled: true,
+              disabled: false,
+              trailingText: '1500000 تومان',
               onPressed: () {
                 print('button pressed!');
               },

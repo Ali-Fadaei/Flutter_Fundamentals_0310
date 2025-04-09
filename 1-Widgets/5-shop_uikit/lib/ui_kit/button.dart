@@ -22,6 +22,8 @@ class Button extends StatelessWidget {
 
   final ButtonSize size;
 
+  final String trailingText;
+
   final void Function() onPressed;
 
   const Button({
@@ -30,6 +32,7 @@ class Button extends StatelessWidget {
     this.disabled = false,
     this.color = ButtonColor.primary,
     this.size = ButtonSize.md,
+    this.trailingText = '',
     required this.onPressed,
   });
 
@@ -90,18 +93,12 @@ class Button extends StatelessWidget {
         borderRadius: BorderRadius.circular(
           U.Theme.r15,
         ),
-        child: SizedBox(
+        child: Container(
           height: _size,
-          // decoration: BoxDecoration(
-          //   // color: Colors.transparent,
-          //   // color: _color.background,
-          //   borderRadius: BorderRadius.circular(
-          //     U.Theme.r15,
-          //   ),
-          // ),
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 16),
           child: Row(
             children: [
-              const Spacer(),
+              if (trailingText.isEmpty) const Spacer(),
               U.Text(
                 title,
                 size: _textStyle.size,
@@ -109,6 +106,13 @@ class Button extends StatelessWidget {
                 weight: _textStyle.weight,
               ),
               const Spacer(),
+              if (trailingText.isNotEmpty)
+                U.Text(
+                  trailingText,
+                  size: U.TextSize.s12,
+                  weight: U.TextWeight.medium,
+                  color: _color.foreground,
+                ),
             ],
           ),
         ),
