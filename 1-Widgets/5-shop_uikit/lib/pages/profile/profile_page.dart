@@ -84,7 +84,40 @@ class ProfilePage extends StatelessWidget {
                 print('button pressed!');
               },
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 15),
+            U.OutlineButton(
+              title: 'Outline',
+              onPressed: () {},
+            ),
+            const SizedBox(height: 15),
+            U.OutlineButton(
+              title: 'Outline',
+              color: U.ButtonColor.secondary,
+              onPressed: () {},
+            ),
+            const SizedBox(height: 15),
+            U.OutlineButton(
+              title: 'Outline',
+              color: U.ButtonColor.primary,
+              size: U.ButtonSize.sm,
+              onPressed: () {},
+            ),
+            const SizedBox(height: 15),
+            U.OutlineButton(
+              title: 'Outline',
+              color: U.ButtonColor.primary,
+              size: U.ButtonSize.md,
+              onPressed: () {},
+            ),
+            const SizedBox(height: 15),
+            U.OutlineButton(
+              title: 'Outline',
+              color: U.ButtonColor.primary,
+              trailingText: 'fddsfdssdffds',
+              size: U.ButtonSize.lg,
+              onPressed: () {},
+            ),
+            const SizedBox(height: 15),
             U.NetworkImage(
               url:
                   'https://fadaei-storage.storage.iran.liara.space/shop_app/banners/banner_1.jpg',
