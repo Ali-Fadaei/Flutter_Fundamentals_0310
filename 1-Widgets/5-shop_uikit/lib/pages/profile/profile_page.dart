@@ -23,6 +23,13 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Center(
         child: ListView(
           children: [
+            U.AppBar.primary(
+              onMenuPressed: () {},
+              onNotifPressed: () {},
+            ),
+            const SizedBox(
+              height: 30,
+            ),
             U.Image(
               path: U.Images.emptyFav,
               height: 80,

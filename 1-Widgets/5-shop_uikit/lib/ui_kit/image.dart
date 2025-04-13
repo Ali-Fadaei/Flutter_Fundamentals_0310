@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 
 abstract class Images {
   //
+  static const logo = 'assets/logos/Amazon.png';
+
   static const emptyCart = 'assets/imgs/vectors/empty_cart.png';
 
   static const emptyFav = 'assets/imgs/vectors/empty_fav.png';
@@ -15,6 +17,10 @@ abstract class Icons {
   static const checkBoxFill = 'assets/icons/checkbox_fill.png';
   static const radioEmpty = 'assets/icons/radio_empty.png';
   static const radioFill = 'assets/icons/radio_fill.png';
+  static const arrowLeft = 'assets/icons/arrow_left.png';
+  static const bell = 'assets/icons/bell.png';
+  static const filter = 'assets/icons/filter.png';
+  static const humburger = 'assets/icons/humburger.png';
 }
 
 class Image extends M.StatelessWidget {

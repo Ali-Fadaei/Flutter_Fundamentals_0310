@@ -7,6 +7,7 @@ import '/pages/favorites/favorites_page.dart';
 import '/pages/shop_cart/shop_cart_page.dart';
 import '/pages/store/store_page.dart';
 import '/models/category.dart';
+import 'package:shop_uikit/ui_kit/ui_kit.dart' as U;
 
 final categories = [
   CategoryData(
@@ -212,18 +213,18 @@ class _AppPageState extends State<AppPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications),
-            onPressed: () {},
-          ),
-        ],
-        title: Image.asset(
-          'assets/logos/Amazon.png',
-        ),
-      ),
+      // appBar: AppBar(
+      //   centerTitle: true,
+      //   actions: [
+      //     IconButton(
+      //       icon: Icon(Icons.notifications),
+      //       onPressed: () {},
+      //     ),
+      //   ],
+      //   title: Image.asset(
+      //     'assets/logos/Amazon.png',
+      //   ),
+      // ),
       drawer: Container(
         color: Colors.white,
         height: double.infinity,
@@ -269,34 +270,52 @@ class _AppPageState extends State<AppPage> {
           ),
         ],
       ),
-      body: IndexedStack(
-        index: selectedIndex,
+      body: Column(
         children: [
-          FavoritesPage(
-            favorites: favorites,
-            shopItems: shopItems,
-            onFavoritesPressed: onFavoriteButtonTapped,
-            onAddtoCartPressed: onAddToShopCartPressed,
-            onRemoveFromCartPressed: onRemoveFromShopCartPressed,
+          U.AppBar.secondary(
+            title: 'دسته بندی',
+            action: U.IconButton(
+              icon: U.Image.icon(path: U.Icons.filter),
+              onPressed: () {},
+            ),
+            onBackPressed: () {},
           ),
-          StorePage(
-            favorites: favorites,
-            shopItems: shopItems,
-            onFavoritesPressed: onFavoriteButtonTapped,
-            onAddtoCartPressed: onAddToShopCartPressed,
-            onRemoveFromCartPressed: onRemoveFromShopCartPressed,
+          // U.AppBar.primary(
+          //   onMenuPressed: () {},
+          //   onNotifPressed: () {},
+          // ),
+          Expanded(
+            child: IndexedStack(
+              index: selectedIndex,
+              children: [
+                FavoritesPage(
+                  favorites: favorites,
+                  shopItems: shopItems,
+                  onFavoritesPressed: onFavoriteButtonTapped,
+                  onAddtoCartPressed: onAddToShopCartPressed,
+                  onRemoveFromCartPressed: onRemoveFromShopCartPressed,
+                ),
+                StorePage(
+                  favorites: favorites,
+                  shopItems: shopItems,
+                  onFavoritesPressed: onFavoriteButtonTapped,
+                  onAddtoCartPressed: onAddToShopCartPressed,
+                  onRemoveFromCartPressed: onRemoveFromShopCartPressed,
+                ),
+                ShopCartPage(
+                  favorites: favorites,
+                  shopItems: shopItems,
+                  onFavoritesPressed: onFavoriteButtonTapped,
+                  onAddtoCartPressed: onAddToShopCartPressed,
+                  onRemoveFromCartPressed: onRemoveFromShopCartPressed,
+                ),
+                CategoryPage(
+                  categories: categories,
+                ),
+                ProfilePage(),
+              ],
+            ),
           ),
-          ShopCartPage(
-            favorites: favorites,
-            shopItems: shopItems,
-            onFavoritesPressed: onFavoriteButtonTapped,
-            onAddtoCartPressed: onAddToShopCartPressed,
-            onRemoveFromCartPressed: onRemoveFromShopCartPressed,
-          ),
-          CategoryPage(
-            categories: categories,
-          ),
-          ProfilePage(),
         ],
       ),
     );
