@@ -32,17 +32,15 @@ class NavigationBar extends StatelessWidget {
       ),
       child: Row(
         children: [
-          ...destinations.expand((element) {
+          ...destinations.asMap().entries.expand((element) {
             return [
               _NavigationDestination(
-                title: element.title,
-                icon: element.icon,
-                isSelected: destinations.indexOf(element) == selectedIndex,
-                onTap: () =>
-                    onDestinationChanged(destinations.indexOf(element)),
+                title: element.value.title,
+                icon: element.value.icon,
+                isSelected: element.key == selectedIndex,
+                onTap: () => onDestinationChanged(element.key),
               ),
-              if (destinations.indexOf(element) != destinations.length - 1)
-                const Spacer(),
+              if (element.key != destinations.length - 1) const Spacer(),
             ];
           }),
         ],
