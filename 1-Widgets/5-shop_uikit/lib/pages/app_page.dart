@@ -230,46 +230,68 @@ class _AppPageState extends State<AppPage> {
         height: double.infinity,
         width: 200,
       ),
-      bottomNavigationBar: NavigationBar(
+      bottomNavigationBar: U.NavigationBar(
         selectedIndex: selectedIndex,
-        onDestinationSelected: (value) {
-          selectedIndex = value;
-          setState(() {});
-        },
-        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         destinations: [
-          NavigationDestination(
-            label: 'Favorites',
-            icon: Icon(
-              Icons.favorite,
-            ),
+          U.NavigationDestination(
+            title: 'دسته‌بندی',
+            icon: U.Icons.bell,
           ),
-          NavigationDestination(
-            label: 'Store',
-            icon: Icon(
-              Icons.store,
-            ),
+          U.NavigationDestination(
+            title: 'سبدخرید',
+            icon: U.Icons.store,
           ),
-          NavigationDestination(
-            label: 'ShopCart',
-            icon: Icon(
-              Icons.shopping_cart,
-            ),
-          ),
-          NavigationDestination(
-            label: 'Category',
-            icon: Icon(
-              Icons.category_rounded,
-            ),
-          ),
-          NavigationDestination(
-            label: 'Profile',
-            icon: Icon(
-              Icons.person,
-            ),
+          U.NavigationDestination(
+            title: 'فروشگاه',
+            icon: U.Icons.store,
           ),
         ],
+        onDestinationChanged: (index) {
+          selectedIndex = index;
+          setState(() {});
+        },
       ),
+
+      // bottomNavigationBar: NavigationBar(
+      //   selectedIndex: selectedIndex,
+      //   onDestinationSelected: (value) {
+      //     selectedIndex = value;
+      //     setState(() {});
+      //   },
+      //   labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+      //   destinations: [
+      //     NavigationDestination(
+      //       label: 'Favorites',
+      //       icon: Icon(
+      //         Icons.favorite,
+      //       ),
+      //     ),
+      //     NavigationDestination(
+      //       label: 'Store',
+      //       icon: Icon(
+      //         Icons.store,
+      //       ),
+      //     ),
+      //     NavigationDestination(
+      //       label: 'ShopCart',
+      //       icon: Icon(
+      //         Icons.shopping_cart,
+      //       ),
+      //     ),
+      //     NavigationDestination(
+      //       label: 'Category',
+      //       icon: Icon(
+      //         Icons.category_rounded,
+      //       ),
+      //     ),
+      //     NavigationDestination(
+      //       label: 'Profile',
+      //       icon: Icon(
+      //         Icons.person,
+      //       ),
+      //     ),
+      //   ],
+      // ),
       body: Column(
         children: [
           U.AppBar.secondary(
