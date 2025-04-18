@@ -22,10 +22,46 @@ class _ProfilePageState extends State<ProfilePage> {
       padding: const EdgeInsets.all(16),
       child: Center(
         child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           children: [
-            U.AppBar.primary(
-              onMenuPressed: () {},
-              onNotifPressed: () {},
+            U.TextInput(
+              title: 'آدرس',
+              controller: TextEditingController(),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            U.TextInput(
+              title: 'شماره تلفن',
+              isRequired: true,
+              controller: TextEditingController(),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            U.TextInput(
+              title: 'شماره تلفن',
+              isRequired: true,
+              disabled: true,
+              controller: TextEditingController(),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            U.TextInput(
+              title: 'شماره تلفن',
+              isRequired: true,
+              readOnly: true,
+              controller: TextEditingController(),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            U.TextInput(
+              title: 'شماره تلفن',
+              isRequired: true,
+              hint: '09144154202',
+              controller: TextEditingController(),
             ),
             const SizedBox(
               height: 30,

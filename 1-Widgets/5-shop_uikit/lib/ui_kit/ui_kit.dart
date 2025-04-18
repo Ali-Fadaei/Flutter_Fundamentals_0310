@@ -1,4 +1,5 @@
 export './app_bar.dart';
+export './badge.dart';
 export './button.dart';
 export './check_box.dart';
 export './icon_button.dart';
@@ -7,5 +8,6 @@ export './navigation_bar.dart';
 export './outline_button.dart';
 export './radio_button.dart';
 export './text_button.dart';
+export './text_input.dart';
 export './text.dart';
 export './theme.dart';

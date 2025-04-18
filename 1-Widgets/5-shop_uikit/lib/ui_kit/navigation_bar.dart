@@ -47,6 +47,7 @@ class NavigationBar extends StatelessWidget {
                 _NavigationDestination(
                   title: element.value.title,
                   icon: element.value.icon,
+                  badgeCount: element.value.badgeCount,
                   isSelected: element.key == selectedIndex,
                   onTap: () => onDestinationChanged(element.key),
                 ),
@@ -66,9 +67,12 @@ class NavigationDestination {
 
   final String icon;
 
+  final int badgeCount;
+
   const NavigationDestination({
     required this.title,
     required this.icon,
+    this.badgeCount = 0,
   });
 }
 
@@ -80,6 +84,8 @@ class _NavigationDestination extends StatelessWidget {
 
   final bool isSelected;
 
+  final int badgeCount;
+
   final void Function() onTap;
 
   const _NavigationDestination({
@@ -87,6 +93,7 @@ class _NavigationDestination extends StatelessWidget {
     required this.title,
     required this.icon,
     required this.isSelected,
+    required this.badgeCount,
     required this.onTap,
   });
 
@@ -109,9 +116,13 @@ class _NavigationDestination extends StatelessWidget {
             padding: const EdgeInsets.all(6),
             child: Column(
               children: [
-                U.Image.icon(
-                  path: icon,
-                  color: isSelected ? U.Theme.primary : U.Theme.secondary,
+                U.Badge(
+                  count: badgeCount,
+                  align: Alignment(4.4, -1.4),
+                  child: U.Image.icon(
+                    path: icon,
+                    color: isSelected ? U.Theme.primary : U.Theme.secondary,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 U.Text(

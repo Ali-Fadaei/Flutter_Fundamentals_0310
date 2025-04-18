@@ -227,6 +227,7 @@ class _AppPageState extends State<AppPage> {
           ),
           U.NavigationDestination(
             title: 'علاقه‌مندی‌ها',
+            badgeCount: favorites.length,
             icon: U.Icons.favorites,
           ),
           U.NavigationDestination(
@@ -235,6 +236,7 @@ class _AppPageState extends State<AppPage> {
           ),
           U.NavigationDestination(
             title: 'سبدخرید',
+            badgeCount: shopItems.length,
             icon: U.Icons.shopCart,
           ),
           U.NavigationDestination(
@@ -257,6 +259,7 @@ class _AppPageState extends State<AppPage> {
             child: IndexedStack(
               index: selectedIndex,
               children: [
+                ProfilePage(),
                 FavoritesPage(
                   favorites: favorites,
                   shopItems: shopItems,
@@ -281,7 +284,6 @@ class _AppPageState extends State<AppPage> {
                 CategoryPage(
                   categories: categories,
                 ),
-                ProfilePage(),
               ],
             ),
           ),
