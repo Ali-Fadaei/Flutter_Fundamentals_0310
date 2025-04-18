@@ -3,7 +3,7 @@ import 'dart:ui';
 abstract class Theme {
   //
   //neutral colors
-  static const background = Color(0XFFFAFAFA);
+  static const background = Color(0XFFF6F6F6);
 
   static const onBackground = Color(0XFF110E39);
 
