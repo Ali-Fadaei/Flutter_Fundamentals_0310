@@ -74,10 +74,14 @@ class _ProfilePageState extends State<ProfilePage> {
                   title: 'لپ‌تاپ',
                   value: 1,
                   groupValue: selectedCategory,
-                  onPressed: () {
-                    selectedCategory = 1;
+                  onPressed: (value) {
+                    selectedCategory = value;
                     setState(() {});
                   },
+                  // onPressed: () {
+                  //   selectedCategory = 1;
+                  //   setState(() {});
+                  // },
                 ),
                 const SizedBox(
                   width: 12,
@@ -86,8 +90,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   title: 'موبایل',
                   value: 2,
                   groupValue: selectedCategory,
-                  onPressed: () {
-                    selectedCategory = 2;
+                  onPressed: (value) {
+                    selectedCategory = value;
                     setState(() {});
                   },
                 ),

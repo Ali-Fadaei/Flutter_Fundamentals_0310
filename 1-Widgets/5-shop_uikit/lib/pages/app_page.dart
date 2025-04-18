@@ -213,18 +213,6 @@ class _AppPageState extends State<AppPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   centerTitle: true,
-      //   actions: [
-      //     IconButton(
-      //       icon: Icon(Icons.notifications),
-      //       onPressed: () {},
-      //     ),
-      //   ],
-      //   title: Image.asset(
-      //     'assets/logos/Amazon.png',
-      //   ),
-      // ),
       drawer: Container(
         color: Colors.white,
         height: double.infinity,
@@ -234,16 +222,24 @@ class _AppPageState extends State<AppPage> {
         selectedIndex: selectedIndex,
         destinations: [
           U.NavigationDestination(
-            title: 'دسته‌بندی',
-            icon: U.Icons.bell,
+            title: 'پروفایل',
+            icon: U.Icons.profile,
           ),
           U.NavigationDestination(
-            title: 'سبدخرید',
-            icon: U.Icons.store,
+            title: 'علاقه‌مندی‌ها',
+            icon: U.Icons.favorites,
           ),
           U.NavigationDestination(
             title: 'فروشگاه',
             icon: U.Icons.store,
+          ),
+          U.NavigationDestination(
+            title: 'سبدخرید',
+            icon: U.Icons.shopCart,
+          ),
+          U.NavigationDestination(
+            title: 'دسته‌بندی',
+            icon: U.Icons.category,
           ),
         ],
         onDestinationChanged: (index) {
@@ -251,61 +247,12 @@ class _AppPageState extends State<AppPage> {
           setState(() {});
         },
       ),
-
-      // bottomNavigationBar: NavigationBar(
-      //   selectedIndex: selectedIndex,
-      //   onDestinationSelected: (value) {
-      //     selectedIndex = value;
-      //     setState(() {});
-      //   },
-      //   labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-      //   destinations: [
-      //     NavigationDestination(
-      //       label: 'Favorites',
-      //       icon: Icon(
-      //         Icons.favorite,
-      //       ),
-      //     ),
-      //     NavigationDestination(
-      //       label: 'Store',
-      //       icon: Icon(
-      //         Icons.store,
-      //       ),
-      //     ),
-      //     NavigationDestination(
-      //       label: 'ShopCart',
-      //       icon: Icon(
-      //         Icons.shopping_cart,
-      //       ),
-      //     ),
-      //     NavigationDestination(
-      //       label: 'Category',
-      //       icon: Icon(
-      //         Icons.category_rounded,
-      //       ),
-      //     ),
-      //     NavigationDestination(
-      //       label: 'Profile',
-      //       icon: Icon(
-      //         Icons.person,
-      //       ),
-      //     ),
-      //   ],
-      // ),
       body: Column(
         children: [
-          U.AppBar.secondary(
-            title: 'دسته بندی',
-            action: U.IconButton(
-              icon: U.Image.icon(path: U.Icons.filter),
-              onPressed: () {},
-            ),
-            onBackPressed: () {},
+          U.AppBar.primary(
+            onMenuPressed: () {},
+            onNotifPressed: () {},
           ),
-          // U.AppBar.primary(
-          //   onMenuPressed: () {},
-          //   onNotifPressed: () {},
-          // ),
           Expanded(
             child: IndexedStack(
               index: selectedIndex,
@@ -343,6 +290,3 @@ class _AppPageState extends State<AppPage> {
     );
   }
 }
-
-
-//

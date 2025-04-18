@@ -21,6 +21,15 @@ abstract class Icons {
   static const bell = 'assets/icons/bell.png';
   static const filter = 'assets/icons/filter.png';
   static const humburger = 'assets/icons/humburger.png';
+  static const add = 'assets/icons/add.png';
+  static const min = 'assets/icons/min.png';
+  static const category = 'assets/icons/category.png';
+  static const favorites = 'assets/icons/favorites.png';
+  static const profile = 'assets/icons/profile.png';
+  static const shopCart = 'assets/icons/shop_cart.png';
+  static const required = 'assets/icons/required.png';
+  static const search = 'assets/icons/search.png';
+  static const clear = 'assets/icons/clear.png';
 }
 
 class Image extends M.StatelessWidget {

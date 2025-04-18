@@ -9,7 +9,7 @@ class RadioButton<T> extends StatelessWidget {
 
   final T groupValue;
 
-  final void Function() onPressed;
+  final void Function(T value) onPressed;
 
   const RadioButton({
     super.key,
@@ -24,7 +24,7 @@ class RadioButton<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onPressed,
+      onTap: () => onPressed(value),
       borderRadius: BorderRadius.circular(U.Theme.r15),
       child: Padding(
         padding: const EdgeInsets.symmetric(
