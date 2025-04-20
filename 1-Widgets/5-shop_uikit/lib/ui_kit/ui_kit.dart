@@ -7,6 +7,7 @@ export './image.dart';
 export './navigation_bar.dart';
 export './outline_button.dart';
 export './radio_button.dart';
+export './search_input.dart';
 export './text_button.dart';
 export './text_input.dart';
 export './text.dart';

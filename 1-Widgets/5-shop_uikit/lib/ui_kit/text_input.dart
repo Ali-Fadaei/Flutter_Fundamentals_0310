@@ -13,6 +13,8 @@ class TextInput extends StatefulWidget {
 
   final bool readOnly;
 
+  final bool autoFocus;
+
   final TextEditingController controller;
 
   const TextInput({
@@ -21,6 +23,7 @@ class TextInput extends StatefulWidget {
     this.isRequired = false,
     this.disabled = false,
     this.readOnly = false,
+    this.autoFocus = false,
     required this.title,
     required this.controller,
   });
@@ -37,9 +40,10 @@ class _TextInputState extends State<TextInput> {
 
   @override
   void initState() {
+    if (widget.autoFocus) {
+      focusNode.requestFocus();
+    }
     focusNode.addListener(() {
-      print('focusNode.hasFocus');
-      print(focusNode.hasFocus);
       isFocused = focusNode.hasFocus;
       setState(() {});
     });
@@ -77,8 +81,8 @@ class _TextInputState extends State<TextInput> {
                 children: [
                   U.Text(
                     '${widget.title}:',
-                    font: U.TextFont.yekan,
                     size: U.TextSize.s14,
+                    weight: U.TextWeight.medium,
                   ),
                   if (widget.isRequired)
                     Positioned(

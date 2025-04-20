@@ -129,6 +129,7 @@ class _NavigationDestination extends StatelessWidget {
                   title,
                   size: U.TextSize.s14,
                   font: U.TextFont.iranSans,
+                  weight: isSelected ? U.TextWeight.bold : U.TextWeight.medium,
                   color: isSelected ? U.Theme.primary : U.Theme.secondary,
                 )
               ],

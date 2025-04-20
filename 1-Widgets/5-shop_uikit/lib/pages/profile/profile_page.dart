@@ -16,6 +16,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
   int selectedCategory = 0;
 
+  bool isSearched = false;
+
+  final controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,8 +28,21 @@ class _ProfilePageState extends State<ProfilePage> {
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           children: [
+            U.SearchInput(
+              isSearched: isSearched,
+              controller: controller,
+              onSearched: () {
+                print('test');
+                isSearched = true;
+                setState(() {});
+              },
+            ),
+            const SizedBox(
+              height: 30,
+            ),
             U.TextInput(
               title: 'آدرس',
+              autoFocus: true,
               controller: TextEditingController(),
             ),
             const SizedBox(
