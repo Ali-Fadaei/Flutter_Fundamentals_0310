@@ -264,6 +264,16 @@ class _ProfilePageState extends State<ProfilePage> {
               onPressed: () {},
             ),
             const SizedBox(height: 15),
+            U.ToolTip(
+              message: 'افزودن به سبد',
+              child: U.IconButton(
+                icon: U.Image.icon(
+                  path: U.Icons.add,
+                ),
+                onPressed: () {},
+              ),
+            ),
+            const SizedBox(height: 15),
             U.NetworkImage(
               url:
                   'https://fadaei-storage.storage.iran.liara.space/shop_app/banners/banner_1.jpg',

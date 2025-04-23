@@ -1,5 +1,6 @@
 export './app_bar.dart';
 export './badge.dart';
+export './bottom_sheet.dart';
 export './button.dart';
 export './check_box.dart';
 export './icon_button.dart';
@@ -12,3 +13,4 @@ export './text_button.dart';
 export './text_input.dart';
 export './text.dart';
 export './theme.dart';
+export './tool_tip.dart';
