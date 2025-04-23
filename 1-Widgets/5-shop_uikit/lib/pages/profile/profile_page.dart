@@ -32,8 +32,8 @@ class _ProfilePageState extends State<ProfilePage> {
               isSearched: isSearched,
               controller: controller,
               onSearched: () {
-                print('test');
-                isSearched = true;
+                print('onSearched Fired!');
+                isSearched = controller.text.isNotEmpty;
                 setState(() {});
               },
             ),

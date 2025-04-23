@@ -34,6 +34,8 @@ class _SearchInputState extends State<SearchInput> {
 
   final focusNode = FocusNode();
 
+  String lastSearch = '';
+
   @override
   void initState() {
     if (widget.autoFocus) {
@@ -42,7 +44,9 @@ class _SearchInputState extends State<SearchInput> {
     textIsEmpty = widget.controller.text.isEmpty;
     widget.controller.addListener(() {
       textIsEmpty = widget.controller.text.isEmpty;
-      if (textIsEmpty && widget.isSearched) widget.onSearched();
+      if (textIsEmpty && widget.isSearched) {
+        onSearch();
+      }
       setState(() {});
     });
     focusNode.addListener(() {
@@ -50,6 +54,13 @@ class _SearchInputState extends State<SearchInput> {
       setState(() {});
     });
     super.initState();
+  }
+
+  void onSearch() {
+    if (lastSearch != widget.controller.text) {
+      lastSearch = widget.controller.text;
+      widget.onSearched();
+    }
   }
 
   @override
@@ -77,7 +88,7 @@ class _SearchInputState extends State<SearchInput> {
         child: Row(
           children: [
             GestureDetector(
-              onTap: widget.onSearched,
+              onTap: onSearch,
               child: U.Image.icon(
                 size: 24,
                 path: U.Icons.search,
@@ -88,7 +99,7 @@ class _SearchInputState extends State<SearchInput> {
             Expanded(
               child: TextField(
                 focusNode: focusNode,
-                onEditingComplete: widget.onSearched,
+                onEditingComplete: onSearch,
                 controller: widget.controller,
                 style: TextStyle(
                   fontSize: 14,
@@ -113,10 +124,7 @@ class _SearchInputState extends State<SearchInput> {
             if (!textIsEmpty) ...[
               const SizedBox(width: 8),
               GestureDetector(
-                onTap: () {
-                  widget.controller.clear();
-                  widget.onSearched();
-                },
+                onTap: () => widget.controller.clear(),
                 child: U.Image.icon(
                   size: 24,
                   path: U.Icons.clear,
