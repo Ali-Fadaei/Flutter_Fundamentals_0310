@@ -18,7 +18,11 @@ class BottomSheet extends StatelessWidget {
         maxWidth: maxWidth ?? 600,
         maxHeight: maxHeight ?? MediaQuery.of(context).size.height * 0.75,
       ),
-      builder: builder,
+      builder: (context) {
+        return U.BottomSheet(
+          child: builder(context),
+        );
+      },
     );
   }
 

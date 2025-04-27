@@ -15,6 +15,8 @@ class TextInput extends StatefulWidget {
 
   final bool autoFocus;
 
+  final void Function()? onEditingComplete;
+
   final TextEditingController controller;
 
   const TextInput({
@@ -24,6 +26,7 @@ class TextInput extends StatefulWidget {
     this.disabled = false,
     this.readOnly = false,
     this.autoFocus = false,
+    this.onEditingComplete,
     required this.title,
     required this.controller,
   });
@@ -101,7 +104,9 @@ class _TextInputState extends State<TextInput> {
               Expanded(
                 child: TextField(
                   focusNode: focusNode,
+                  canRequestFocus: !widget.readOnly && !widget.disabled,
                   controller: widget.controller,
+                  onEditingComplete: widget.onEditingComplete,
                   enabled: !widget.readOnly && !widget.disabled,
                   style: TextStyle(
                     fontSize: 14,

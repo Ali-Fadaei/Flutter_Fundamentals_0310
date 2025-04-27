@@ -14,25 +14,6 @@ class ProductBottomSheet extends StatefulWidget {
     required void Function(Product data) onAddtoCartPressed,
     required void Function(Product data) onRemoveFromCartPressed,
   }) {
-    // showModalBottomSheet(
-    //   context: context,
-    //   isScrollControlled: true,
-    //   constraints: BoxConstraints(
-    //     maxWidth: 600,
-    //     maxHeight: MediaQuery.of(context).size.height * 0.75,
-    //   ),
-    //   builder: (context) {
-    //     return ProductBottomSheet(
-    //       product: product,
-    //       favorites: favorites,
-    //       shopItems: shopItems,
-    //       onFavoriteTapped: onFavoritesPressed,
-    //       onAddToCartPressed: onAddtoCartPressed,
-    //       onRemoveFromCartPressed: onRemoveFromCartPressed,
-    //     );
-    //   },
-    // );
-
     U.BottomSheet.show(
       context,
       builder: (context) {
@@ -80,10 +61,6 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
 
   int count = 0;
 
-  // bool get isFav1 {
-  //   return widget.favorites.any((e) => e == widget.product);
-  // }
-
   void onFavoriteTapped() {
     widget.onFavoriteTapped(widget.product);
     isFav = !isFav;
@@ -121,157 +98,154 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return U.BottomSheet(
-      child: Stack(
-        children: [
-          ListView(
-            children: [
-              SizedBox.square(
-                dimension: 350,
-                child: Image.asset(
-                  widget.product.image,
-                  fit: BoxFit.contain,
+    return Stack(
+      children: [
+        ListView(
+          children: [
+            SizedBox.square(
+              dimension: 350,
+              child: Image.asset(
+                widget.product.image,
+                fit: BoxFit.contain,
+              ),
+            ),
+            Row(
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      widget.product.title,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      widget.product.categoryData.title,
+                      style: TextStyle(
+                        fontSize: 12,
+                        // fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              Row(
-                children: [
-                  Column(
-                    children: [
-                      Text(
-                        widget.product.title,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+                const Spacer(),
+                IconButton(
+                  onPressed: onFavoriteTapped,
+                  icon: Icon(
+                    isFav ? Icons.favorite : Icons.favorite_border,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 4),
+            Divider(),
+            const SizedBox(height: 4),
+            Row(
+              children: [
+                Text(
+                  'Rating: ',
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  widget.product.rating.toString(),
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                const Spacer(),
+                SizedBox(
+                  height: 20,
+                  child: VerticalDivider(
+                    width: 12,
+                    thickness: 1.5,
+                  ),
+                ),
+                Text(
+                  'Price: ',
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                const Spacer(),
+                Text('\$${widget.product.price}'),
+                const Spacer(),
+              ],
+            ),
+            const SizedBox(height: 4),
+            Divider(),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Text(
+                  'Product Detail',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const Spacer(),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.arrow_drop_down_outlined,
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(
+              widget.product.description,
+            ),
+            const SizedBox(height: 100),
+          ],
+        ),
+        Positioned(
+          left: 8,
+          right: 8,
+          bottom: 16,
+          height: 60,
+          child: count <= 0
+              ? ElevatedButton(
+                  onPressed: onAddToShopCartTapped,
+                  child: Text('ADD To Cart'),
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton.filledTonal(
+                      onPressed: onRemoveFromShopCartTapped,
+                      icon: Icon(
+                        Icons.remove,
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        widget.product.categoryData.title,
-                        style: TextStyle(
-                          fontSize: 12,
-                          // fontWeight: FontWeight.bold,
-                        ),
+                    ),
+                    const SizedBox(width: 16),
+                    SizedBox(
+                      width: 65,
+                      child: Text(
+                        count.toString(),
+                        textAlign: TextAlign.center,
                       ),
-                    ],
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    onPressed: onFavoriteTapped,
-                    icon: Icon(
-                      isFav ? Icons.favorite : Icons.favorite_border,
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 4),
-              Divider(),
-              const SizedBox(height: 4),
-              Row(
-                children: [
-                  Text(
-                    'Rating: ',
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                  const Spacer(),
-                  Text(
-                    widget.product.rating.toString(),
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                  Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
-                  const Spacer(),
-                  SizedBox(
-                    height: 20,
-                    child: VerticalDivider(
-                      width: 12,
-                      thickness: 1.5,
-                    ),
-                  ),
-                  Text(
-                    'Price: ',
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                  const Spacer(),
-                  Text('\$${widget.product.price}'),
-                  const Spacer(),
-                ],
-              ),
-              const SizedBox(height: 4),
-              Divider(),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Text(
-                    'Product Detail',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.arrow_drop_down_outlined,
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(height: 8),
-              Text(
-                widget.product.description,
-              ),
-              const SizedBox(height: 100),
-            ],
-          ),
-          Positioned(
-            left: 8,
-            right: 8,
-            bottom: 16,
-            height: 60,
-            child: count <= 0
-                ? ElevatedButton(
-                    onPressed: onAddToShopCartTapped,
-                    child: Text('ADD To Cart'),
-                  )
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton.filledTonal(
-                        onPressed: onRemoveFromShopCartTapped,
-                        icon: Icon(
-                          Icons.remove,
-                        ),
+                    const SizedBox(width: 16),
+                    IconButton.filledTonal(
+                      onPressed: onAddToShopCartTapped,
+                      icon: Icon(
+                        Icons.add,
                       ),
-                      const SizedBox(width: 16),
-                      SizedBox(
-                        width: 65,
-                        child: Text(
-                          count.toString(),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      IconButton.filledTonal(
-                        onPressed: onAddToShopCartTapped,
-                        icon: Icon(
-                          Icons.add,
-                        ),
-                      ),
-                    ],
-                  ),
-          ),
-        ],
-      ),
+                    ),
+                  ],
+                ),
+        ),
+      ],
     );
   }
 }

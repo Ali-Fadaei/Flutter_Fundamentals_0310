@@ -43,6 +43,9 @@ class _ProfilePageState extends State<ProfilePage> {
             U.TextInput(
               title: 'آدرس',
               autoFocus: true,
+              onEditingComplete: () {
+                FocusScope.of(context).nextFocus();
+              },
               controller: TextEditingController(),
             ),
             const SizedBox(
@@ -51,6 +54,9 @@ class _ProfilePageState extends State<ProfilePage> {
             U.TextInput(
               title: 'شماره تلفن',
               isRequired: true,
+              onEditingComplete: () {
+                FocusScope.of(context).nextFocus();
+              },
               controller: TextEditingController(),
             ),
             const SizedBox(
@@ -60,15 +66,9 @@ class _ProfilePageState extends State<ProfilePage> {
               title: 'شماره تلفن',
               isRequired: true,
               disabled: true,
-              controller: TextEditingController(),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            U.TextInput(
-              title: 'شماره تلفن',
-              isRequired: true,
-              readOnly: true,
+              onEditingComplete: () {
+                FocusScope.of(context).nextFocus();
+              },
               controller: TextEditingController(),
             ),
             const SizedBox(
@@ -78,6 +78,21 @@ class _ProfilePageState extends State<ProfilePage> {
               title: 'شماره تلفن',
               isRequired: true,
               hint: '09144154202',
+              onEditingComplete: () {
+                print('Posting Form!!!');
+              },
+              controller: TextEditingController(),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            U.TextInput(
+              title: 'شماره تلفن',
+              isRequired: true,
+              readOnly: true,
+              onEditingComplete: () {
+                FocusScope.of(context).nextFocus();
+              },
               controller: TextEditingController(),
             ),
             const SizedBox(
