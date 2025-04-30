@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './ui_kit.dart' as U;
+import 'ui_kit.dart' as U;
 
 class TextInput extends StatefulWidget {
   //

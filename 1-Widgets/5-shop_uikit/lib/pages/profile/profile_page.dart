@@ -32,7 +32,6 @@ class _ProfilePageState extends State<ProfilePage> {
               isSearched: isSearched,
               controller: controller,
               onSearched: () {
-                print('onSearched Fired!');
                 isSearched = controller.text.isNotEmpty;
                 setState(() {});
               },
@@ -78,9 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
               title: 'شماره تلفن',
               isRequired: true,
               hint: '09144154202',
-              onEditingComplete: () {
-                print('Posting Form!!!');
-              },
+              onEditingComplete: () {},
               controller: TextEditingController(),
             ),
             const SizedBox(
@@ -146,10 +143,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     selectedCategory = value;
                     setState(() {});
                   },
-                  // onPressed: () {
-                  //   selectedCategory = 1;
-                  //   setState(() {});
-                  // },
                 ),
                 const SizedBox(
                   width: 12,

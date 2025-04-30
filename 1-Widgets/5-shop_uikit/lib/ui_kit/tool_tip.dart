@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart' as M;
-import './ui_kit.dart' as U;
+import 'ui_kit.dart' as U;
 
 class ToolTip extends M.StatelessWidget {
   //

@@ -60,14 +60,6 @@ class StorePage extends StatelessWidget {
                 size: U.TextSize.s20,
                 weight: U.TextWeight.bold,
               ),
-              // Text(
-              //   'Exclusive Offers',
-              //   style: TextStyle(
-              //     fontSize: 20,
-              //     fontFamily: 'IransSq',
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              // ),
               const Spacer(),
             ],
           ),
@@ -146,12 +138,4 @@ class StorePage extends StatelessWidget {
       ],
     );
   }
-  //   return SingleChildScrollView(
-  //     child: Column(
-  //       children: [
-  //
-  //       ],
-  //     ),
-  //   );
-  // }
 }
