@@ -164,7 +164,7 @@ class AppPage extends StatefulWidget {
 
 class _AppPageState extends State<AppPage> {
   //
-  int selectedIndex = 0;
+  int selectedIndex = 2;
 
   List<Product> favorites = [];
 
@@ -213,6 +213,7 @@ class _AppPageState extends State<AppPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: U.Theme.background,
       drawer: Container(
         color: Colors.white,
         height: double.infinity,
@@ -222,17 +223,8 @@ class _AppPageState extends State<AppPage> {
         selectedIndex: selectedIndex,
         destinations: [
           U.NavigationDestination(
-            title: 'پروفایل',
-            icon: U.Icons.profile,
-          ),
-          U.NavigationDestination(
-            title: 'علاقه‌مندی‌ها',
-            badgeCount: favorites.length,
-            icon: U.Icons.favorites,
-          ),
-          U.NavigationDestination(
-            title: 'فروشگاه',
-            icon: U.Icons.store,
+            title: 'دسته‌بندی',
+            icon: U.Icons.category,
           ),
           U.NavigationDestination(
             title: 'سبدخرید',
@@ -240,8 +232,17 @@ class _AppPageState extends State<AppPage> {
             icon: U.Icons.shopCart,
           ),
           U.NavigationDestination(
-            title: 'دسته‌بندی',
-            icon: U.Icons.category,
+            title: 'فروشگاه',
+            icon: U.Icons.store,
+          ),
+          U.NavigationDestination(
+            title: 'علاقه‌مندی‌ها',
+            badgeCount: favorites.length,
+            icon: U.Icons.favorites,
+          ),
+          U.NavigationDestination(
+            title: 'پروفایل',
+            icon: U.Icons.profile,
           ),
         ],
         onDestinationChanged: (index) {
@@ -259,8 +260,10 @@ class _AppPageState extends State<AppPage> {
             child: IndexedStack(
               index: selectedIndex,
               children: [
-                ProfilePage(),
-                FavoritesPage(
+                CategoryPage(
+                  categories: categories,
+                ),
+                ShopCartPage(
                   favorites: favorites,
                   shopItems: shopItems,
                   onFavoritesPressed: onFavoriteButtonTapped,
@@ -274,16 +277,14 @@ class _AppPageState extends State<AppPage> {
                   onAddtoCartPressed: onAddToShopCartPressed,
                   onRemoveFromCartPressed: onRemoveFromShopCartPressed,
                 ),
-                ShopCartPage(
+                FavoritesPage(
                   favorites: favorites,
                   shopItems: shopItems,
                   onFavoritesPressed: onFavoriteButtonTapped,
                   onAddtoCartPressed: onAddToShopCartPressed,
                   onRemoveFromCartPressed: onRemoveFromShopCartPressed,
                 ),
-                CategoryPage(
-                  categories: categories,
-                ),
+                ProfilePage(),
               ],
             ),
           ),

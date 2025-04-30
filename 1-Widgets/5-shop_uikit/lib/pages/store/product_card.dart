@@ -43,70 +43,64 @@ class ProductCard extends StatelessWidget {
         );
       },
       child: SizedBox(
-        height: 320,
+        height: 300,
         width: 200,
-        child: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Column(
-              children: [
-                U.Image(path: data.image),
-                const SizedBox(
-                  height: 12,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        data.title,
-                        textAlign: TextAlign.start,
-                        maxLines: 1,
-                        style: TextStyle(
-                          fontSize: 14,
-                          overflow: TextOverflow.ellipsis,
-                          fontWeight: FontWeight.bold,
-                        ),
+        child: U.Card(
+          padding: const EdgeInsets.all(18),
+          child: Column(
+            children: [
+              U.Image(
+                path: data.image,
+              ),
+              const Spacer(flex: 1),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  U.Text(
+                    data.title,
+                    size: U.TextSize.s14,
+                    weight: U.TextWeight.medium,
+                  ),
+                  Row(
+                    children: [
+                      U.Text(
+                        'امتیاز: ${data.rating}',
+                        size: U.TextSize.s12,
+                        color: U.Theme.outline2,
+                        weight: U.TextWeight.medium,
                       ),
+                      const SizedBox(
+                        width: 2,
+                      ),
+                      Icon(
+                        Icons.star,
+                        color: Color(0xFFFFBB00),
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                ],
+              ),
+              const Spacer(flex: 2),
+              Row(
+                children: [
+                  U.IconButton(
+                    icon: U.Image.icon(
+                      path: U.Icons.add,
+                      color: U.Theme.onPrimary,
                     ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 1,
-                ),
-                Row(
-                  children: [
-                    U.Text(
-                      'امتیاز: ${data.rating}',
-                      size: U.TextSize.s12,
-                      color: U.Theme.outline2,
-                    ),
-                    const SizedBox(
-                      width: 1,
-                    ),
-                    Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    ),
-                    const Spacer(),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  children: [
-                    IconButton.filledTonal(
-                      onPressed: () => onAddtoCartPressed(data),
-                      icon: Icon(Icons.add),
-                    ),
-                    const Spacer(),
-                    U.Text(
-                      'تومان${data.price}',
-                    )
-                  ],
-                ),
-              ],
-            ),
+                    color: U.Theme.primary,
+                    onPressed: () => onAddtoCartPressed(data),
+                  ),
+                  const Spacer(),
+                  U.Text(
+                    'تومان${data.price}',
+                    size: U.TextSize.s12,
+                    weight: U.TextWeight.medium,
+                  )
+                ],
+              ),
+            ],
           ),
         ),
       ),

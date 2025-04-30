@@ -7,12 +7,15 @@ class Card extends StatelessWidget {
 
   final double? width;
 
+  final EdgeInsetsGeometry? padding;
+
   final Widget child;
 
   const Card({
     super.key,
     this.height,
     this.width,
+    this.padding,
     required this.child,
   });
 
@@ -21,9 +24,9 @@ class Card extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      color: U.Theme.surface,
-      padding: const EdgeInsets.all(16),
+      padding: padding ?? const EdgeInsets.all(16),
       decoration: BoxDecoration(
+        color: U.Theme.surface,
         borderRadius: BorderRadius.circular(
           U.Theme.r20,
         ),
