@@ -52,7 +52,7 @@ class ProductCard extends StatelessWidget {
               U.Image(
                 path: data.image,
               ),
-              const Spacer(flex: 1),
+              const SizedBox(height: 15),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -82,7 +82,7 @@ class ProductCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const Spacer(flex: 2),
+              const Spacer(),
               Row(
                 children: [
                   U.IconButton(
