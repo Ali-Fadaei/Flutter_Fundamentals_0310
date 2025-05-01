@@ -12,11 +12,11 @@ class BottomSheet extends StatelessWidget {
   }) {
     return showModalBottomSheet(
       context: context,
-      barrierColor: U.Theme.outline2.withValues(alpha: 0.6),
       isScrollControlled: true,
+      barrierColor: Colors.black54,
       constraints: BoxConstraints(
-        maxWidth: maxWidth ?? 600,
-        maxHeight: maxHeight ?? MediaQuery.of(context).size.height * 0.75,
+        maxWidth: maxWidth ?? 1024,
+        maxHeight: maxHeight ?? MediaQuery.of(context).size.height * 0.80,
       ),
       builder: (context) {
         return U.BottomSheet(

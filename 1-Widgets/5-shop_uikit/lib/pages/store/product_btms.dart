@@ -103,12 +103,13 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
         ListView(
           children: [
             SizedBox.square(
-              dimension: 350,
+              dimension: 300,
               child: Image.asset(
                 widget.product.image,
                 fit: BoxFit.contain,
               ),
             ),
+            const SizedBox(height: 25),
             Row(
               children: [
                 Column(
