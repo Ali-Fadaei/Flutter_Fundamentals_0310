@@ -32,7 +32,7 @@ class Card extends StatelessWidget {
         ),
         border: Border.all(
           width: 1.0,
-          color: U.Theme.outline2,
+          color: U.Theme.outline,
         ),
       ),
       child: child,

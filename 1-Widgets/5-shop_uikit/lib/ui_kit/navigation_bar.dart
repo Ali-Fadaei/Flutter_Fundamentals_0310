@@ -19,9 +19,9 @@ class NavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 76,
+      height: 65,
       padding: const EdgeInsets.symmetric(
-        vertical: 8,
+        vertical: 2,
         horizontal: 18,
       ),
       decoration: BoxDecoration(
@@ -31,10 +31,9 @@ class NavigationBar extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: U.Theme.outline,
-            offset: Offset(2, -5),
-            blurRadius: 15,
-            spreadRadius: 0,
+            blurRadius: 20,
+            offset: Offset(0, 12),
+            color: U.Theme.secondary,
           ),
         ],
       ),
@@ -127,7 +126,7 @@ class _NavigationDestination extends StatelessWidget {
                 const SizedBox(height: 4),
                 U.Text(
                   title,
-                  size: U.TextSize.s14,
+                  size: U.TextSize.s12,
                   font: U.TextFont.iranSans,
                   weight: isSelected ? U.TextWeight.bold : U.TextWeight.medium,
                   color: isSelected ? U.Theme.primary : U.Theme.secondary,

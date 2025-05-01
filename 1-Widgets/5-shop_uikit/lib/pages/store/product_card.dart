@@ -74,6 +74,7 @@ class ProductCard extends StatelessWidget {
                       ),
                       Icon(
                         Icons.star,
+                        size: 16,
                         color: Color(0xFFFFBB00),
                       ),
                       const Spacer(),
@@ -85,6 +86,7 @@ class ProductCard extends StatelessWidget {
               Row(
                 children: [
                   U.IconButton(
+                    size: 35,
                     icon: U.Image.icon(
                       path: U.Icons.add,
                       color: U.Theme.onPrimary,
@@ -93,8 +95,9 @@ class ProductCard extends StatelessWidget {
                     onPressed: () => onAddtoCartPressed(data),
                   ),
                   const Spacer(),
+                  //set the direction
                   U.Text(
-                    'تومان${data.price}',
+                    '${data.price} تومان',
                     size: U.TextSize.s12,
                     weight: U.TextWeight.medium,
                   )

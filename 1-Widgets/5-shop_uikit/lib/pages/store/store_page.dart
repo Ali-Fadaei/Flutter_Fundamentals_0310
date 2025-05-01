@@ -63,7 +63,7 @@ class StorePage extends StatelessWidget {
                 'فروش ویژه',
                 size: U.TextSize.s20,
                 font: U.TextFont.yekan,
-                weight: U.TextWeight.regular,
+                weight: U.TextWeight.bold,
               ),
               const Spacer(),
               SizedBox(
@@ -118,7 +118,7 @@ class StorePage extends StatelessWidget {
                 'دسته بندی',
                 size: U.TextSize.s20,
                 font: U.TextFont.yekan,
-                weight: U.TextWeight.regular,
+                weight: U.TextWeight.bold,
               ),
               const Spacer(),
             ],
@@ -161,7 +161,7 @@ class StorePage extends StatelessWidget {
                 'پرفروش‌ها',
                 size: U.TextSize.s20,
                 font: U.TextFont.yekan,
-                weight: U.TextWeight.regular,
+                weight: U.TextWeight.bold,
               ),
               const Spacer(),
               SizedBox(
