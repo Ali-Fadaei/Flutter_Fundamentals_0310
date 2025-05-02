@@ -102,111 +102,102 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
       children: [
         ListView(
           children: [
-            SizedBox.square(
-              dimension: 300,
-              child: Image.asset(
-                widget.product.image,
-                fit: BoxFit.contain,
-              ),
+            U.Image(
+              path: widget.product.image,
+              height: 300,
+              width: 300,
             ),
             const SizedBox(height: 25),
             Row(
               children: [
                 Column(
                   children: [
-                    Text(
+                    U.Text(
                       widget.product.title,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      size: U.TextSize.s16,
+                      weight: U.TextWeight.bold,
                     ),
-                    const SizedBox(height: 4),
-                    Text(
+                    const SizedBox(height: 2),
+                    U.Text(
                       widget.product.categoryData.title,
-                      style: TextStyle(
-                        fontSize: 12,
-                        // fontWeight: FontWeight.bold,
-                      ),
+                      size: U.TextSize.s12,
+                      color: U.Theme.outline2,
+                      weight: U.TextWeight.regular,
                     ),
                   ],
                 ),
                 const Spacer(),
-                IconButton(
-                  onPressed: onFavoriteTapped,
+                U.IconButton(
+                  color: Colors.transparent,
                   icon: Icon(
+                    size: 24,
                     isFav ? Icons.favorite : Icons.favorite_border,
                   ),
+                  onPressed: onFavoriteTapped,
                 ),
               ],
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 12),
             Divider(),
-            const SizedBox(height: 4),
+            const SizedBox(height: 12),
             Row(
               children: [
-                Text(
-                  'Rating: ',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                U.Text(
+                  'امتیاز: ',
+                  size: U.TextSize.s14,
+                  weight: U.TextWeight.medium,
                 ),
                 const Spacer(),
-                Text(
+                U.Text(
                   widget.product.rating.toString(),
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                  size: U.TextSize.s14,
+                  weight: U.TextWeight.medium,
                 ),
                 Icon(
                   Icons.star,
-                  color: Colors.amber,
+                  size: 14,
+                  color: Color(0xFFFFBB00),
                 ),
                 const Spacer(),
                 SizedBox(
-                  height: 20,
+                  height: 30,
                   child: VerticalDivider(
-                    width: 12,
-                    thickness: 1.5,
+                    width: 28,
+                    thickness: 1,
                   ),
                 ),
-                Text(
-                  'Price: ',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                U.Text(
+                  'قیمت: ',
+                  size: U.TextSize.s14,
+                  weight: U.TextWeight.medium,
                 ),
                 const Spacer(),
-                Text('\$${widget.product.price}'),
+                U.Text(
+                  'تومان ${widget.product.price}',
+                  size: U.TextSize.s14,
+                  weight: U.TextWeight.medium,
+                ),
                 const Spacer(),
               ],
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 12),
             Divider(),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
             Row(
               children: [
-                Text(
-                  'Product Detail',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                U.Text(
+                  'توضیحات محصول',
+                  size: U.TextSize.s14,
+                  weight: U.TextWeight.bold,
                 ),
                 const Spacer(),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.arrow_drop_down_outlined,
-                  ),
-                )
               ],
             ),
-            const SizedBox(height: 8),
-            Text(
+            const SizedBox(height: 12),
+            U.Text(
               widget.product.description,
             ),
-            const SizedBox(height: 100),
+            const SizedBox(height: 80),
           ],
         ),
         Positioned(
@@ -215,9 +206,11 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
           bottom: 16,
           height: 60,
           child: count <= 0
-              ? ElevatedButton(
+              ? U.Button(
+                  title: 'افزودن به سبد خرید',
+                  size: U.ButtonSize.lg,
+                  color: U.ButtonColor.primary,
                   onPressed: onAddToShopCartTapped,
-                  child: Text('ADD To Cart'),
                 )
               : Row(
                   mainAxisAlignment: MainAxisAlignment.center,
