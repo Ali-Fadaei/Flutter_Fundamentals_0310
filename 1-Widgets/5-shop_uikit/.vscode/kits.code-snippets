@@ -7,7 +7,8 @@
   "import uikit": {
     "prefix": "impu",
     "body": [
-      "import 'package:shop_uikit/ui_kit/ui_kit.dart' as U;"
+      "import '/ui_kit/ui_kit.dart' as U;"
+      // "import 'package:shop_uikit/ui_kit/ui_kit.dart' as U;"
     ],
     "description": "Import UiKit"
   }

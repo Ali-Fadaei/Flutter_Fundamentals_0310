@@ -7,7 +7,7 @@ import '/pages/favorites/favorites_page.dart';
 import '/pages/shop_cart/shop_cart_page.dart';
 import '/pages/store/store_page.dart';
 import '/models/category.dart';
-import 'package:shop_uikit/ui_kit/ui_kit.dart' as U;
+import '/ui_kit/ui_kit.dart' as U;
 
 final categories = [
   CategoryData(

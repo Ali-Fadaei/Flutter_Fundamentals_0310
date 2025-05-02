@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_uikit/ui_kit/ui_kit.dart' as U;
+import '/ui_kit/ui_kit.dart' as U;
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});

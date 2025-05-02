@@ -3,7 +3,7 @@ import '/models/product.dart';
 import '/models/shop_item.dart';
 import '/pages/store/product_card.dart';
 import '/pages/app_page.dart';
-import 'package:shop_uikit/ui_kit/ui_kit.dart' as U;
+import '/ui_kit/ui_kit.dart' as U;
 
 class StorePage extends StatelessWidget {
   //
