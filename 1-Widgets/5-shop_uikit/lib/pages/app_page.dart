@@ -180,7 +180,15 @@ class _AppPageState extends State<AppPage> {
     setState(() {});
   }
 
-  void onAddToShopCartPressed(Product data) {
+  Future<bool> asyncTest() async {
+    await Future.delayed(const Duration(seconds: 4));
+    return true;
+  }
+
+  Future<void> onAddToShopCartPressed(Product data) async {
+    //
+    final temp = await asyncTest();
+
     final dataInex = shopItems.indexWhere(
       (e) => e.product == data,
     );
