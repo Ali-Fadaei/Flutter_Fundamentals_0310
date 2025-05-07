@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_cubit/domains/business/models/shop_item.dart';
+import 'package:shop_cubit/modules/app/cubit/app_cubit.dart';
 import 'package:shop_cubit/modules/shop_cart/shop_cart_page.dart';
 import '../profile/profile_page.dart';
 import '../../domains/business/models/product.dart';
@@ -164,7 +166,7 @@ class AppPage extends StatefulWidget {
 
 class _AppPageState extends State<AppPage> {
   //
-  int selectedIndex = 2;
+  // int selectedIndex = 2;
 
   List<Product> favorites = [];
 
@@ -180,14 +182,8 @@ class _AppPageState extends State<AppPage> {
     setState(() {});
   }
 
-  Future<bool> asyncTest() async {
-    await Future.delayed(const Duration(seconds: 4));
-    return true;
-  }
-
   Future<void> onAddToShopCartPressed(Product data) async {
     //
-    final temp = await asyncTest();
 
     final dataInex = shopItems.indexWhere((e) => e.product == data);
     if (dataInex == -1) {
@@ -218,70 +214,75 @@ class _AppPageState extends State<AppPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: U.Theme.background,
-      drawer: Container(
-        color: Colors.white,
-        height: double.infinity,
-        width: 200,
-      ),
-      bottomNavigationBar: U.NavigationBar(
-        selectedIndex: selectedIndex,
-        destinations: [
-          U.NavigationDestination(title: 'دسته‌بندی', icon: U.Icons.category),
-          U.NavigationDestination(
-            title: 'سبدخرید',
-            badgeCount: shopItems.length,
-            icon: U.Icons.shopCart,
+    final appCubit = BlocProvider.of<AppCubit>(context);
+    return BlocBuilder<AppCubit, AppState>(
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: U.Theme.background,
+          drawer: Container(
+            color: Colors.white,
+            height: double.infinity,
+            width: 200,
           ),
-          U.NavigationDestination(title: 'فروشگاه', icon: U.Icons.store),
-          U.NavigationDestination(
-            title: 'علاقه‌مندی‌ها',
-            badgeCount: favorites.length,
-            icon: U.Icons.favorites,
+          bottomNavigationBar: U.NavigationBar(
+            selectedIndex: state.selectedIndex,
+            destinations: [
+              U.NavigationDestination(
+                title: 'دسته‌بندی',
+                icon: U.Icons.category,
+              ),
+              U.NavigationDestination(
+                title: 'سبدخرید',
+                badgeCount: shopItems.length,
+                icon: U.Icons.shopCart,
+              ),
+              U.NavigationDestination(title: 'فروشگاه', icon: U.Icons.store),
+              U.NavigationDestination(
+                title: 'علاقه‌مندی‌ها',
+                badgeCount: favorites.length,
+                icon: U.Icons.favorites,
+              ),
+              U.NavigationDestination(title: 'پروفایل', icon: U.Icons.profile),
+            ],
+            onDestinationChanged: appCubit.onSelectedIndexChanged,
           ),
-          U.NavigationDestination(title: 'پروفایل', icon: U.Icons.profile),
-        ],
-        onDestinationChanged: (index) {
-          selectedIndex = index;
-          setState(() {});
-        },
-      ),
-      body: Column(
-        children: [
-          U.AppBar.primary(onMenuPressed: () {}, onNotifPressed: () {}),
-          Expanded(
-            child: IndexedStack(
-              index: selectedIndex,
-              children: [
-                CategoryPage(categories: categories),
-                ShopCartPage(
-                  favorites: favorites,
-                  shopItems: shopItems,
-                  onFavoritesPressed: onFavoriteButtonTapped,
-                  onAddtoCartPressed: onAddToShopCartPressed,
-                  onRemoveFromCartPressed: onRemoveFromShopCartPressed,
+          body: Column(
+            children: [
+              U.AppBar.primary(onMenuPressed: () {}, onNotifPressed: () {}),
+              Expanded(
+                child: IndexedStack(
+                  index: state.selectedIndex,
+                  children: [
+                    CategoryPage(categories: categories),
+                    ShopCartPage(
+                      favorites: favorites,
+                      shopItems: shopItems,
+                      onFavoritesPressed: onFavoriteButtonTapped,
+                      onAddtoCartPressed: onAddToShopCartPressed,
+                      onRemoveFromCartPressed: onRemoveFromShopCartPressed,
+                    ),
+                    StorePage(
+                      favorites: favorites,
+                      shopItems: shopItems,
+                      onFavoritesPressed: onFavoriteButtonTapped,
+                      onAddtoCartPressed: onAddToShopCartPressed,
+                      onRemoveFromCartPressed: onRemoveFromShopCartPressed,
+                    ),
+                    FavoritesPage(
+                      favorites: favorites,
+                      shopItems: shopItems,
+                      onFavoritesPressed: onFavoriteButtonTapped,
+                      onAddtoCartPressed: onAddToShopCartPressed,
+                      onRemoveFromCartPressed: onRemoveFromShopCartPressed,
+                    ),
+                    ProfilePage(),
+                  ],
                 ),
-                StorePage(
-                  favorites: favorites,
-                  shopItems: shopItems,
-                  onFavoritesPressed: onFavoriteButtonTapped,
-                  onAddtoCartPressed: onAddToShopCartPressed,
-                  onRemoveFromCartPressed: onRemoveFromShopCartPressed,
-                ),
-                FavoritesPage(
-                  favorites: favorites,
-                  shopItems: shopItems,
-                  onFavoritesPressed: onFavoriteButtonTapped,
-                  onAddtoCartPressed: onAddToShopCartPressed,
-                  onRemoveFromCartPressed: onRemoveFromShopCartPressed,
-                ),
-                ProfilePage(),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
