@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '/domains/business/models/shop_item.dart';
 import '/domains/business/models/product.dart';
 import '/modules/store/product_btms.dart';
+import '/ui_kit/ui_kit.dart' as U;
 
 class FavoritesCard extends StatelessWidget {
   //
@@ -41,56 +42,46 @@ class FavoritesCard extends StatelessWidget {
           onRemoveFromCartPressed: onRemoveFromCartPressed,
         );
       },
-      child: SizedBox(
+      child: U.Card(
         height: 140,
-        child: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 120,
-                  child: Image.asset(product.image, fit: BoxFit.contain),
-                ),
-                const SizedBox(width: 5),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Spacer(),
-                      Text(
-                        product.title,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        product.categoryData.title,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Theme.of(context).colorScheme.outline,
-                        ),
-                      ),
-                      Text(
-                        '\$${product.price}',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Theme.of(context).colorScheme.outline,
-                        ),
-                      ),
-                      const Spacer(),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 5),
-                IconButton(
-                  onPressed: () => onFavoritesPressed(product),
-                  icon: const Icon(Icons.favorite),
-                ),
-              ],
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 120,
+              child: Image.asset(product.image, fit: BoxFit.contain),
             ),
-          ),
+            const SizedBox(width: 5),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Spacer(),
+                  U.Text(
+                    product.title,
+                    size: U.TextSize.s14,
+                    weight: U.TextWeight.bold,
+                  ),
+                  U.Text(
+                    product.categoryData.title,
+                    size: U.TextSize.s12,
+                    weight: U.TextWeight.regular,
+                  ),
+                  U.Text(
+                    '${product.price} تومان',
+                    size: U.TextSize.s12,
+                    weight: U.TextWeight.regular,
+                  ),
+                  const Spacer(),
+                ],
+              ),
+            ),
+            const SizedBox(width: 5),
+            U.IconButton(
+              icon: const Icon(Icons.favorite, color: U.Theme.primary),
+              onPressed: () => onFavoritesPressed(product),
+            ),
+          ],
         ),
       ),
     );

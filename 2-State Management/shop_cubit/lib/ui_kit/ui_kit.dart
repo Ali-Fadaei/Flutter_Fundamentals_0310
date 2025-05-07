@@ -3,6 +3,7 @@ export './badge.dart';
 export './bottom_sheet.dart';
 export './button.dart';
 export './check_box.dart';
+export './counter.dart';
 export './card.dart';
 export './icon_button.dart';
 export './image.dart';

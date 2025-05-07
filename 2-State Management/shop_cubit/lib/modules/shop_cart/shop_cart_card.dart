@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '/domains/business/models/shop_item.dart';
 import '/domains/business/models/product.dart';
 import '/modules/store/product_btms.dart';
+import '/ui_kit/ui_kit.dart' as U;
 
 class ShopCartCard extends StatelessWidget {
   //
@@ -42,83 +43,79 @@ class ShopCartCard extends StatelessWidget {
           onRemoveFromCartPressed: onRemovePressed,
         );
       },
-      child: SizedBox(
-        height: 200,
-        child: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Row(
-              children: [
-                SizedBox(
-                  height: 120,
-                  child: Image.asset(shopItem.product.image, fit: BoxFit.cover),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        shopItem.product.title,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        shopItem.product.categoryData.title,
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    ],
+      child: U.Card(
+        height: 140,
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          children: [
+            SizedBox(
+              height: 80,
+              child: Image.asset(shopItem.product.image, fit: BoxFit.cover),
+            ),
+            const SizedBox(width: 5),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  U.Text(
+                    shopItem.product.title,
+                    size: U.TextSize.s16,
+                    weight: U.TextWeight.bold,
                   ),
+                  U.Text(
+                    shopItem.product.categoryData.title,
+                    size: U.TextSize.s12,
+                    weight: U.TextWeight.regular,
+                  ),
+                ],
+              ),
+            ),
+            const Spacer(),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                U.Counter(
+                  count: shopItem.count,
+                  onIncresePressed: () => onAddPressed(shopItem.product),
+                  onDecresePressed: () => onRemovePressed(shopItem.product),
                 ),
-                const SizedBox(width: 8),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '\$${(shopItem.count * shopItem.product.price)}',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        IconButton.filledTonal(
-                          onPressed: () => onRemovePressed(shopItem.product),
-                          icon: Icon(Icons.remove),
-                        ),
-                        const SizedBox(width: 4),
-                        SizedBox(
-                          width: 40,
-                          child: Text(
-                            shopItem.count.toString(),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 4),
-                        IconButton.filledTonal(
-                          onPressed: () => onAddPressed(shopItem.product),
-                          icon: Icon(Icons.add),
-                        ),
-                      ],
-                    ),
-                  ],
+                const SizedBox(height: 6),
+
+                U.Text(
+                  '${(shopItem.count * shopItem.product.price)} تومان',
+                  size: U.TextSize.s14,
+                  weight: U.TextWeight.medium,
                 ),
+                // const SizedBox(height: 8),
+                // Row(
+                //   children: [
+                //     IconButton.filledTonal(
+                //       onPressed: () => onRemovePressed(shopItem.product),
+                //       icon: Icon(Icons.remove),
+                //     ),
+                //     const SizedBox(width: 4),
+                //     SizedBox(
+                //       width: 40,
+                //       child: Text(
+                //         shopItem.count.toString(),
+                //         textAlign: TextAlign.center,
+                //         style: TextStyle(
+                //           fontSize: 14,
+                //           fontWeight: FontWeight.bold,
+                //         ),
+                //       ),
+                //     ),
+                //     const SizedBox(width: 4),
+                //     IconButton.filledTonal(
+                //       onPressed: () => onAddPressed(shopItem.product),
+                //       icon: Icon(Icons.add),
+                //     ),
+                //   ],
+                // ),
               ],
             ),
-          ),
+          ],
         ),
       ),
     );
