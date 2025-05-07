@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_cubit/domains/business/models/shop_item.dart';
+import '/domains/business/models/shop_item.dart';
 import '/domains/business/models/product.dart';
 import 'favorites_card.dart';
 

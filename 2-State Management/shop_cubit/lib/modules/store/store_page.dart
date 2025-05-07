@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '/domains/business/models/shop_item.dart';
-import '../../domains/business/models/product.dart';
-import 'product_card.dart';
-import '../app/app_page.dart';
+import '/domains/business/models/product.dart';
+import '/modules/app/app_page.dart';
+import './product_card.dart';
 import '/ui_kit/ui_kit.dart' as U;
 
 class StorePage extends StatelessWidget {

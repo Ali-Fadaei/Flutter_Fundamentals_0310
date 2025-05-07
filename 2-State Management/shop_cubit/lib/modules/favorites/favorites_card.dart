@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '/domains/business/models/shop_item.dart';
-import '../../domains/business/models/product.dart';
-import '../store/product_btms.dart';
+import '/domains/business/models/product.dart';
+import '/modules/store/product_btms.dart';
 
 class FavoritesCard extends StatelessWidget {
   //

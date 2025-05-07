@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '/domains/business/models/shop_item.dart';
-import '../../domains/business/models/product.dart';
+import '/domains/business/models/product.dart';
 import '/ui_kit/ui_kit.dart' as U;
 
 class ProductBottomSheet extends StatefulWidget {
