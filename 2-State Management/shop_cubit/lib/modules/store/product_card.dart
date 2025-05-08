@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '/domains/business/models/shop_item.dart';
-import '/domains/business/models/product.dart';
+import '../../domains/store/models/shop_item.dart';
+import '../../domains/store/models/product.dart';
 import 'product_btms.dart';
 import '/ui_kit/ui_kit.dart' as U;
 

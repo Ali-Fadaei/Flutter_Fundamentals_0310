@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:shop_cubit/domains/business/business_repository.dart';
+import 'package:shop_cubit/domains/store/store_repository.dart';
 import 'package:shop_cubit/modules/app/cubit/app_cubit.dart';
 import 'modules/app/app_page.dart';
 

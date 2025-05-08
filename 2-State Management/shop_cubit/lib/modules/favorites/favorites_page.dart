@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '/domains/business/models/shop_item.dart';
-import '/domains/business/models/product.dart';
+import '../../domains/store/models/shop_item.dart';
+import '../../domains/store/models/product.dart';
 import 'favorites_card.dart';
 
 class FavoritesPage extends StatelessWidget {

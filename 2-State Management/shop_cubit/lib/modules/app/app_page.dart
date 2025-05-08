@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_cubit/domains/business/models/shop_item.dart';
+import 'package:shop_cubit/domains/store/models/shop_item.dart';
 import 'package:shop_cubit/modules/app/cubit/app_cubit.dart';
 import 'package:shop_cubit/modules/shop_cart/shop_cart_page.dart';
 import '../profile/profile_page.dart';
-import '../../domains/business/models/product.dart';
+import '../../domains/store/models/product.dart';
 import '../category/category_page.dart';
 import '../favorites/favorites_page.dart';
 import '../store/store_page.dart';
-import '../../domains/business/models/category.dart';
+import '../../domains/store/models/category.dart';
 import '/ui_kit/ui_kit.dart' as U;
 
 final categories = [

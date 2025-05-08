@@ -1,7 +1,7 @@
 import 'dart:ui';
-import 'package:shop_cubit/domains/business/models/category.dart';
-import 'package:shop_cubit/domains/business/models/product.dart';
-import 'package:shop_cubit/domains/business/models/shop_item.dart';
+import 'package:shop_cubit/domains/store/models/category.dart';
+import 'package:shop_cubit/domains/store/models/product.dart';
+import 'package:shop_cubit/domains/store/models/shop_item.dart';
 
 class StoreRepository {
   //

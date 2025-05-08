@@ -1,4 +1,4 @@
-import '/domains/business/models/product.dart';
+import 'product.dart';
 
 class ShopItem {
   //

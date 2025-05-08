@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_cubit/modules/category/category_card.dart';
-import '/domains/business/models/shop_item.dart';
-import '/domains/business/models/product.dart';
+import '../../domains/store/models/shop_item.dart';
+import '../../domains/store/models/product.dart';
 import '/modules/app/app_page.dart';
 import './product_card.dart';
 import '/ui_kit/ui_kit.dart' as U;
