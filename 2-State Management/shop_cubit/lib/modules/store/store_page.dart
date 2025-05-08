@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_cubit/modules/category/category_card.dart';
 import '/domains/business/models/shop_item.dart';
 import '/domains/business/models/product.dart';
 import '/modules/app/app_page.dart';
@@ -113,21 +114,14 @@ class StorePage extends StatelessWidget {
         SizedBox(
           height: 200,
           child: ListView.separated(
-            itemCount: products.length,
+            itemCount: categories.length,
             padding: const EdgeInsets.symmetric(horizontal: 16),
             scrollDirection: Axis.horizontal,
             separatorBuilder: (_, index) {
               return const SizedBox(width: 16);
             },
             itemBuilder: (_, index) {
-              return ProductCard(
-                data: products[index],
-                favorites: favorites,
-                shopItems: shopItems,
-                onFavoritesPressed: onFavoritesPressed,
-                onAddtoCartPressed: onAddtoCartPressed,
-                onRemoveFromCartPressed: onRemoveFromCartPressed,
-              );
+              return CategoryCard(data: categories[index]);
             },
           ),
         ),
