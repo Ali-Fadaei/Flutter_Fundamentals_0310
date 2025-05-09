@@ -153,17 +153,10 @@ final products = [
   ),
 ];
 
-class AppPage extends StatefulWidget {
+class AppPage extends StatelessWidget {
   //
   const AppPage({super.key});
 
-  @override
-  State<AppPage> createState() => _AppPageState();
-}
-
-//
-
-class _AppPageState extends State<AppPage> {
   //
   @override
   Widget build(BuildContext context) {
