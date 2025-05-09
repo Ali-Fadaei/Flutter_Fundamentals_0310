@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_cubit/domains/store/models/shop_item.dart';
 import 'package:shop_cubit/modules/app/cubit/app_cubit.dart';
 import 'package:shop_cubit/modules/shop_cart/shop_cart_page.dart';
 import '../profile/profile_page.dart';
@@ -166,52 +165,6 @@ class AppPage extends StatefulWidget {
 
 class _AppPageState extends State<AppPage> {
   //
-  // int selectedIndex = 2;
-
-  List<Product> favorites = [];
-
-  List<ShopItem> shopItems = [];
-
-  void onFavoriteButtonTapped(Product data) {
-    final dataIndex = favorites.indexOf(data);
-    if (dataIndex == -1) {
-      favorites.add(data);
-    } else {
-      favorites.remove(data);
-    }
-    setState(() {});
-  }
-
-  Future<void> onAddToShopCartPressed(Product data) async {
-    //
-
-    final dataInex = shopItems.indexWhere((e) => e.product == data);
-    if (dataInex == -1) {
-      shopItems.add(ShopItem(product: data));
-    } else {
-      final temp = shopItems[dataInex];
-      if (temp.count + 1 <= 10) {
-        temp.count = temp.count + 1;
-        shopItems.removeAt(dataInex);
-        shopItems.insert(dataInex, temp);
-      }
-    }
-    setState(() {});
-  }
-
-  void onRemoveFromShopCartPressed(Product data) {
-    final temp = shopItems.firstWhere((element) => element.product == data);
-    if (temp.count <= 1) {
-      shopItems.remove(temp);
-    } else {
-      temp.count = temp.count - 1;
-      final dataIndex = shopItems.indexWhere((e) => e.product == data);
-      shopItems.removeAt(dataIndex);
-      shopItems.insert(dataIndex, temp);
-    }
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
     final appCubit = BlocProvider.of<AppCubit>(context);
@@ -233,13 +186,13 @@ class _AppPageState extends State<AppPage> {
               ),
               U.NavigationDestination(
                 title: 'سبدخرید',
-                badgeCount: shopItems.length,
+                badgeCount: state.shopItems.length,
                 icon: U.Icons.shopCart,
               ),
               U.NavigationDestination(title: 'فروشگاه', icon: U.Icons.store),
               U.NavigationDestination(
                 title: 'علاقه‌مندی‌ها',
-                badgeCount: favorites.length,
+                badgeCount: state.favorites.length,
                 icon: U.Icons.favorites,
               ),
               U.NavigationDestination(title: 'پروفایل', icon: U.Icons.profile),
@@ -255,25 +208,28 @@ class _AppPageState extends State<AppPage> {
                   children: [
                     CategoryPage(categories: categories),
                     ShopCartPage(
-                      favorites: favorites,
-                      shopItems: shopItems,
-                      onFavoritesPressed: onFavoriteButtonTapped,
-                      onAddtoCartPressed: onAddToShopCartPressed,
-                      onRemoveFromCartPressed: onRemoveFromShopCartPressed,
+                      favorites: state.favorites,
+                      shopItems: state.shopItems,
+                      onFavoritesPressed: appCubit.onFavoriteButtonTapped,
+                      onAddtoCartPressed: appCubit.onAddToShopCartPressed,
+                      onRemoveFromCartPressed:
+                          appCubit.onRemoveFromShopCartPressed,
                     ),
                     StorePage(
-                      favorites: favorites,
-                      shopItems: shopItems,
-                      onFavoritesPressed: onFavoriteButtonTapped,
-                      onAddtoCartPressed: onAddToShopCartPressed,
-                      onRemoveFromCartPressed: onRemoveFromShopCartPressed,
+                      favorites: state.favorites,
+                      shopItems: state.shopItems,
+                      onFavoritesPressed: appCubit.onFavoriteButtonTapped,
+                      onAddtoCartPressed: appCubit.onAddToShopCartPressed,
+                      onRemoveFromCartPressed:
+                          appCubit.onRemoveFromShopCartPressed,
                     ),
                     FavoritesPage(
-                      favorites: favorites,
-                      shopItems: shopItems,
-                      onFavoritesPressed: onFavoriteButtonTapped,
-                      onAddtoCartPressed: onAddToShopCartPressed,
-                      onRemoveFromCartPressed: onRemoveFromShopCartPressed,
+                      favorites: state.favorites,
+                      shopItems: state.shopItems,
+                      onFavoritesPressed: appCubit.onFavoriteButtonTapped,
+                      onAddtoCartPressed: appCubit.onAddToShopCartPressed,
+                      onRemoveFromCartPressed:
+                          appCubit.onRemoveFromShopCartPressed,
                     ),
                     ProfilePage(),
                   ],
