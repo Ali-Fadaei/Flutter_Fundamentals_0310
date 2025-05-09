@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_cubit/modules/app/cubit/app_cubit.dart';
+import 'package:shop_cubit/modules/favorites/cubit/favorites_cubit.dart';
+import 'package:shop_cubit/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_cubit/modules/shop_cart/shop_cart_page.dart';
 import '../profile/profile_page.dart';
 import '../../domains/store/models/product.dart';
@@ -162,7 +164,10 @@ class AppPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final appCubit = BlocProvider.of<AppCubit>(context);
     return BlocBuilder<AppCubit, AppState>(
-      builder: (context, state) {
+      // buildWhen:
+      //     (previous, current) =>
+      //         previous.selectedIndex != current.selectedIndex,
+      builder: (context, appState) {
         return Scaffold(
           backgroundColor: U.Theme.background,
           drawer: Container(
@@ -171,7 +176,7 @@ class AppPage extends StatelessWidget {
             width: 200,
           ),
           bottomNavigationBar: U.NavigationBar(
-            selectedIndex: state.selectedIndex,
+            selectedIndex: appState.selectedIndex,
             destinations: [
               U.NavigationDestination(
                 title: 'دسته‌بندی',
@@ -179,13 +184,15 @@ class AppPage extends StatelessWidget {
               ),
               U.NavigationDestination(
                 title: 'سبدخرید',
-                badgeCount: state.shopItems.length,
+                badgeCount: 0,
+                // badgeCount: state.shopItems.length,
                 icon: U.Icons.shopCart,
               ),
               U.NavigationDestination(title: 'فروشگاه', icon: U.Icons.store),
               U.NavigationDestination(
                 title: 'علاقه‌مندی‌ها',
-                badgeCount: state.favorites.length,
+                badgeCount: 0,
+                // badgeCount: state.favorites.length,
                 icon: U.Icons.favorites,
               ),
               U.NavigationDestination(title: 'پروفایل', icon: U.Icons.profile),
@@ -196,36 +203,56 @@ class AppPage extends StatelessWidget {
             children: [
               U.AppBar.primary(onMenuPressed: () {}, onNotifPressed: () {}),
               Expanded(
-                child: IndexedStack(
-                  index: state.selectedIndex,
-                  children: [
-                    CategoryPage(categories: categories),
-                    ShopCartPage(
-                      favorites: state.favorites,
-                      shopItems: state.shopItems,
-                      onFavoritesPressed: appCubit.onFavoriteButtonTapped,
-                      onAddtoCartPressed: appCubit.onAddToShopCartPressed,
-                      onRemoveFromCartPressed:
-                          appCubit.onRemoveFromShopCartPressed,
-                    ),
-                    StorePage(
-                      favorites: state.favorites,
-                      shopItems: state.shopItems,
-                      onFavoritesPressed: appCubit.onFavoriteButtonTapped,
-                      onAddtoCartPressed: appCubit.onAddToShopCartPressed,
-                      onRemoveFromCartPressed:
-                          appCubit.onRemoveFromShopCartPressed,
-                    ),
-                    FavoritesPage(
-                      favorites: state.favorites,
-                      shopItems: state.shopItems,
-                      onFavoritesPressed: appCubit.onFavoriteButtonTapped,
-                      onAddtoCartPressed: appCubit.onAddToShopCartPressed,
-                      onRemoveFromCartPressed:
-                          appCubit.onRemoveFromShopCartPressed,
-                    ),
-                    ProfilePage(),
-                  ],
+                child: BlocBuilder<ShopCartCubit, ShopCartState>(
+                  builder: (context, shopCartState) {
+                    final shopCartCubit = BlocProvider.of<ShopCartCubit>(
+                      context,
+                    );
+                    return BlocBuilder<FavoritesCubit, FavoritesState>(
+                      builder: (context, favState) {
+                        final favCubit = BlocProvider.of<FavoritesCubit>(
+                          context,
+                        );
+                        return IndexedStack(
+                          index: appState.selectedIndex,
+                          children: [
+                            CategoryPage(categories: categories),
+                            ShopCartPage(
+                              favorites: favState.favorites,
+                              shopItems: shopCartState.shopItems,
+                              onFavoritesPressed:
+                                  favCubit.onFavoriteButtonTapped,
+                              onAddtoCartPressed:
+                                  shopCartCubit.onAddToShopCartPressed,
+                              onRemoveFromCartPressed:
+                                  shopCartCubit.onRemoveFromShopCartPressed,
+                            ),
+                            StorePage(
+                              favorites: favState.favorites,
+                              shopItems: shopCartState.shopItems,
+                              onFavoritesPressed:
+                                  favCubit.onFavoriteButtonTapped,
+                              onAddtoCartPressed:
+                                  shopCartCubit.onAddToShopCartPressed,
+                              onRemoveFromCartPressed:
+                                  shopCartCubit.onRemoveFromShopCartPressed,
+                            ),
+                            FavoritesPage(
+                              favorites: favState.favorites,
+                              shopItems: shopCartState.shopItems,
+                              onFavoritesPressed:
+                                  favCubit.onFavoriteButtonTapped,
+                              onAddtoCartPressed:
+                                  shopCartCubit.onAddToShopCartPressed,
+                              onRemoveFromCartPressed:
+                                  shopCartCubit.onRemoveFromShopCartPressed,
+                            ),
+                            ProfilePage(),
+                          ],
+                        );
+                      },
+                    );
+                  },
                 ),
               ),
             ],

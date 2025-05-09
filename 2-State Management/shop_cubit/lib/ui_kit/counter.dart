@@ -35,6 +35,7 @@ class Counter extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = _size;
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         GestureDetector(
           onTap: onIncresePressed,

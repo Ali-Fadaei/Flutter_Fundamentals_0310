@@ -12,49 +12,4 @@ class AppCubit extends Cubit<AppState> {
   void onSelectedIndexChanged(int selectedIndex) {
     emit(state.copyWith(selectedIndex: selectedIndex));
   }
-
-  void onFavoriteButtonTapped(Product data) {
-    //
-    final favTemp = [...state.favorites];
-    final dataIndex = favTemp.indexOf(data);
-    if (dataIndex == -1) {
-      favTemp.add(data);
-    } else {
-      favTemp.remove(data);
-    }
-    emit(state.copyWith(favorites: favTemp));
-  }
-
-  void onAddToShopCartPressed(Product data) {
-    //
-    final shopItemsTemp = [...state.shopItems];
-
-    final dataInex = shopItemsTemp.indexWhere((e) => e.product == data);
-    if (dataInex == -1) {
-      shopItemsTemp.add(ShopItem(product: data));
-    } else {
-      final temp = shopItemsTemp[dataInex];
-      if (temp.count + 1 <= 10) {
-        temp.count = temp.count + 1;
-        shopItemsTemp.removeAt(dataInex);
-        shopItemsTemp.insert(dataInex, temp);
-      }
-    }
-    emit(state.copyWith(shopItems: shopItemsTemp));
-  }
-
-  void onRemoveFromShopCartPressed(Product data) {
-    //
-    final shopItemsTemp = [...state.shopItems];
-    final temp = shopItemsTemp.firstWhere((element) => element.product == data);
-    if (temp.count <= 1) {
-      shopItemsTemp.remove(temp);
-    } else {
-      temp.count = temp.count - 1;
-      final dataIndex = shopItemsTemp.indexWhere((e) => e.product == data);
-      shopItemsTemp.removeAt(dataIndex);
-      shopItemsTemp.insert(dataIndex, temp);
-    }
-    emit(state.copyWith(shopItems: shopItemsTemp));
-  }
 }

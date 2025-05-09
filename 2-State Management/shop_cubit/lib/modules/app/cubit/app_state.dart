@@ -8,7 +8,7 @@ final class AppState {
 
   final List<CategoryData> categories;
 
-  final List<Product> favorites;
+  // final List<Product> favorites;
 
   final List<ShopItem> shopItems;
 
@@ -16,7 +16,7 @@ final class AppState {
     required this.selectedIndex,
     required this.products,
     required this.categories,
-    required this.favorites,
+    // required this.favorites,
     required this.shopItems,
   });
 
@@ -24,7 +24,7 @@ final class AppState {
     : selectedIndex = 2,
       products = const [],
       categories = const [],
-      favorites = const [],
+      // favorites = const [],
       shopItems = const [];
 
   AppState copyWith({
@@ -38,7 +38,7 @@ final class AppState {
       selectedIndex: selectedIndex ?? this.selectedIndex,
       products: products ?? this.products,
       categories: categories ?? this.categories,
-      favorites: favorites ?? this.favorites,
+      // favorites: favorites ?? this.favorites,
       shopItems: shopItems ?? this.shopItems,
     );
   }

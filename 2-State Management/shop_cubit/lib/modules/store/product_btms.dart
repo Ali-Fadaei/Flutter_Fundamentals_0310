@@ -200,27 +200,11 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                     color: U.ButtonColor.primary,
                     onPressed: onAddToShopCartTapped,
                   )
-                  : Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton.filledTonal(
-                        onPressed: onRemoveFromShopCartTapped,
-                        icon: Icon(Icons.remove),
-                      ),
-                      const SizedBox(width: 16),
-                      SizedBox(
-                        width: 65,
-                        child: Text(
-                          count.toString(),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      IconButton.filledTonal(
-                        onPressed: onAddToShopCartTapped,
-                        icon: Icon(Icons.add),
-                      ),
-                    ],
+                  : U.Counter(
+                    count: count,
+                    size: U.CounterSize.large,
+                    onIncresePressed: onAddToShopCartTapped,
+                    onDecresePressed: onRemoveFromShopCartTapped,
                   ),
         ),
       ],
