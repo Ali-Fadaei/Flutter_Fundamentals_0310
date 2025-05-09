@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_cubit/modules/favorites/cubit/favorites_cubit.dart';
 import '../../domains/store/models/shop_item.dart';
 import '../../domains/store/models/product.dart';
 import '/modules/store/product_btms.dart';
@@ -8,39 +10,30 @@ class FavoritesCard extends StatelessWidget {
   //
   final Product product;
 
-  final List<Product> favorites;
-
-  final List<ShopItem> shopItems;
-
-  final void Function(Product data) onFavoritesPressed;
-
-  final void Function(Product data) onAddtoCartPressed;
-
-  final void Function(Product data) onRemoveFromCartPressed;
-
   const FavoritesCard({
     super.key,
     required this.product,
-    required this.favorites,
-    required this.shopItems,
-    required this.onFavoritesPressed,
-    required this.onAddtoCartPressed,
-    required this.onRemoveFromCartPressed,
+    // required this.favorites,
+    // required this.shopItems,
+    // required this.onFavoritesPressed,
+    // required this.onAddtoCartPressed,
+    // required this.onRemoveFromCartPressed,
   });
 
   @override
   Widget build(BuildContext context) {
+    final favCubit = BlocProvider.of<FavoritesCubit>(context);
     return GestureDetector(
       onTap: () {
-        ProductBottomSheet.show(
-          context,
-          product: product,
-          favorites: favorites,
-          shopItems: shopItems,
-          onFavoritesPressed: onFavoritesPressed,
-          onAddtoCartPressed: onAddtoCartPressed,
-          onRemoveFromCartPressed: onRemoveFromCartPressed,
-        );
+        // ProductBottomSheet.show(
+        //   context,
+        //   product: product,
+        //   favorites: favorites,
+        //   shopItems: shopItems,
+        //   onFavoritesPressed: onFavoritesPressed,
+        //   onAddtoCartPressed: onAddtoCartPressed,
+        //   onRemoveFromCartPressed: onRemoveFromCartPressed,
+        // );
       },
       child: U.Card(
         height: 140,
@@ -79,7 +72,7 @@ class FavoritesCard extends StatelessWidget {
             const SizedBox(width: 5),
             U.IconButton(
               icon: const Icon(Icons.favorite, color: U.Theme.primary),
-              onPressed: () => onFavoritesPressed(product),
+              onPressed: () => favCubit.onFavoriteButtonTapped(product),
             ),
           ],
         ),

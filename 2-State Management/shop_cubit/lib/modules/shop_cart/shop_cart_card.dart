@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_cubit/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import '../../domains/store/models/shop_item.dart';
 import '../../domains/store/models/product.dart';
 import '/modules/store/product_btms.dart';
@@ -9,39 +11,40 @@ class ShopCartCard extends StatelessWidget {
 
   final ShopItem shopItem;
 
-  final List<Product> favorites;
+  // final List<Product> favorites;
 
-  final List<ShopItem> shopItems;
+  // final List<ShopItem> shopItems;
 
-  final void Function(Product data) onFavoritesPressed;
+  // final void Function(Product data) onFavoritesPressed;
 
-  final void Function(Product data) onAddPressed;
+  // final void Function(Product data) onAddPressed;
 
-  final void Function(Product data) onRemovePressed;
+  // final void Function(Product data) onRemovePressed;
 
   const ShopCartCard({
     super.key,
     required this.shopItem,
-    required this.favorites,
-    required this.shopItems,
-    required this.onFavoritesPressed,
-    required this.onAddPressed,
-    required this.onRemovePressed,
+    // required this.favorites,
+    // required this.shopItems,
+    // required this.onFavoritesPressed,
+    // required this.onAddPressed,
+    // required this.onRemovePressed,
   });
 
   @override
   Widget build(BuildContext context) {
+    final shopCartCubit = BlocProvider.of<ShopCartCubit>(context);
     return GestureDetector(
       onTap: () {
-        ProductBottomSheet.show(
-          context,
-          product: shopItem.product,
-          favorites: favorites,
-          shopItems: shopItems,
-          onFavoritesPressed: onFavoritesPressed,
-          onAddtoCartPressed: onAddPressed,
-          onRemoveFromCartPressed: onRemovePressed,
-        );
+        // ProductBottomSheet.show(
+        //   context,
+        //   product: shopItem.product,
+        //   favorites: favorites,
+        //   shopItems: shopItems,
+        //   onFavoritesPressed: onFavoritesPressed,
+        //   onAddtoCartPressed: onAddPressed,
+        //   onRemoveFromCartPressed: onRemovePressed,
+        // );
       },
       child: U.Card(
         height: 140,
@@ -77,8 +80,14 @@ class ShopCartCard extends StatelessWidget {
               children: [
                 U.Counter(
                   count: shopItem.count,
-                  onIncresePressed: () => onAddPressed(shopItem.product),
-                  onDecresePressed: () => onRemovePressed(shopItem.product),
+                  onIncresePressed:
+                      () => shopCartCubit.onAddToShopCartPressed(
+                        shopItem.product,
+                      ),
+                  onDecresePressed:
+                      () => shopCartCubit.onRemoveFromShopCartPressed(
+                        shopItem.product,
+                      ),
                 ),
                 const SizedBox(height: 6),
 

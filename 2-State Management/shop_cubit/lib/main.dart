@@ -5,8 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shop_cubit/domains/store/store_repository.dart';
 import 'package:shop_cubit/modules/app/cubit/app_cubit.dart';
-import 'package:shop_cubit/modules/favorites/cubit/favorites_cubit.dart';
+// import 'package:shop_cubit/modules/favorites/cubit/favorites_cubit.dart';
 import 'package:shop_cubit/modules/shop_cart/cubit/shop_cart_cubit.dart';
+import 'package:shop_cubit/modules/store/cubit/store_cubit.dart';
 import 'modules/app/app_page.dart';
 
 void main() {
@@ -23,7 +24,8 @@ class MainApp extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => AppCubit()),
-          BlocProvider(create: (context) => FavoritesCubit()),
+          BlocProvider(create: (context) => StoreCubit()),
+          // BlocProvider(create: (context) => FavoritesCubit()),
           BlocProvider(create: (context) => ShopCartCubit()),
         ],
         child: MaterialApp(
