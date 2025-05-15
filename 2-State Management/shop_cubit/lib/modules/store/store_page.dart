@@ -50,7 +50,11 @@ class StorePage extends StatelessWidget {
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: U.Image(path: U.Images.logo, height: 105),
+              child: U.Image(
+                path: U.Images.banner1,
+                height: 105,
+                fit: BoxFit.cover,
+              ),
             ),
             const SizedBox(height: 20),
             Padding(

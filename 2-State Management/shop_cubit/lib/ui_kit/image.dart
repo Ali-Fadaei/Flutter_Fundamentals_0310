@@ -8,6 +8,16 @@ abstract class Images {
   static const emptyCart = 'assets/imgs/vectors/empty_cart.png';
 
   static const emptyFav = 'assets/imgs/vectors/empty_fav.png';
+
+  static const banner1 = 'assets/imgs/banners/banner_1.jpg';
+
+  static const banner2 = 'assets/imgs/banners/banner_2.jpg';
+
+  static const banner3 = 'assets/imgs/banners/banner_3.jpg';
+
+  static const banner4 = 'assets/imgs/banners/banner_4.jpg';
+
+  static const banner5 = 'assets/imgs/banners/banner_5.jpg';
 }
 
 abstract class Icons {
@@ -58,9 +68,9 @@ class Image extends M.StatelessWidget {
     required this.path,
     double size = 24.0,
     this.color,
-  })  : height = size,
-        width = size,
-        fit = BoxFit.contain;
+  }) : height = size,
+       width = size,
+       fit = BoxFit.contain;
 
   @override
   M.Widget build(M.BuildContext context) {
@@ -80,17 +90,10 @@ class NetworkImage extends M.StatelessWidget {
 
   final BoxFit? fit;
 
-  const NetworkImage({
-    super.key,
-    required this.url,
-    this.fit,
-  });
+  const NetworkImage({super.key, required this.url, this.fit});
 
   @override
   M.Widget build(M.BuildContext context) {
-    return M.Image.network(
-      url,
-      fit: fit,
-    );
+    return M.Image.network(url, fit: fit);
   }
 }
