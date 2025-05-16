@@ -2,34 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_cubit/modules/category/category_card.dart';
 import 'package:shop_cubit/modules/store/cubit/store_cubit.dart';
-import '../../domains/store/models/shop_item.dart';
-import '../../domains/store/models/product.dart';
 import './product_card.dart';
 import '/ui_kit/ui_kit.dart' as U;
 
 class StorePage extends StatelessWidget {
   //
 
-  // final List<Product> favorites;
-
-  // final List<ShopItem> shopItems;
-
-  // final void Function(Product data) onFavoritesPressed;
-
-  // final void Function(Product data) onAddtoCartPressed;
-
-  // final void Function(Product data) onRemoveFromCartPressed;
-
-  const StorePage({
-    super.key,
-    // required this.products,
-    // required this.categories,
-    // required this.favorites,
-    // required this.shopItems,
-    // required this.onFavoritesPressed,
-    // required this.onAddtoCartPressed,
-    // required this.onRemoveFromCartPressed,
-  });
+  const StorePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -93,15 +72,7 @@ class StorePage extends StatelessWidget {
                   return const SizedBox(width: 16);
                 },
                 itemBuilder: (_, index) {
-                  // Todo: Migrate this Card to UIKIT
-                  return ProductCard(
-                    data: state.products[index],
-                    // favorites: favorites,
-                    // shopItems: shopItems,
-                    // onFavoritesPressed: onFavoritesPressed,
-                    // onAddtoCartPressed: onAddtoCartPressed,
-                    // onRemoveFromCartPressed: onRemoveFromCartPressed,
-                  );
+                  return ProductCard(data: state.products[index]);
                 },
               ),
             ),
@@ -172,15 +143,7 @@ class StorePage extends StatelessWidget {
                   return const SizedBox(width: 16);
                 },
                 itemBuilder: (_, index) {
-                  // Todo: Migrate this Card to UIKIT
-                  return ProductCard(
-                    data: state.products[index],
-                    // favorites: favorites,
-                    // shopItems: shopItems,
-                    // onFavoritesPressed: onFavoritesPressed,
-                    // onAddtoCartPressed: onAddtoCartPressed,
-                    // onRemoveFromCartPressed: onRemoveFromCartPressed,
-                  );
+                  return ProductCard(data: state.products[index]);
                 },
               ),
             ),

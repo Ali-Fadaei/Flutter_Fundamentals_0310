@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_cubit/modules/favorites/cubit/favorites_cubit.dart';
-import '../../domains/store/models/shop_item.dart';
+import 'package:shop_cubit/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import '../../domains/store/models/product.dart';
 import '/modules/store/product_btms.dart';
 import '/ui_kit/ui_kit.dart' as U;
@@ -10,30 +10,19 @@ class FavoritesCard extends StatelessWidget {
   //
   final Product product;
 
-  const FavoritesCard({
-    super.key,
-    required this.product,
-    // required this.favorites,
-    // required this.shopItems,
-    // required this.onFavoritesPressed,
-    // required this.onAddtoCartPressed,
-    // required this.onRemoveFromCartPressed,
-  });
+  const FavoritesCard({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
     final favCubit = BlocProvider.of<FavoritesCubit>(context);
     return GestureDetector(
       onTap: () {
-        // ProductBottomSheet.show(
-        //   context,
-        //   product: product,
-        //   favorites: favorites,
-        //   shopItems: shopItems,
-        //   onFavoritesPressed: onFavoritesPressed,
-        //   onAddtoCartPressed: onAddtoCartPressed,
-        //   onRemoveFromCartPressed: onRemoveFromCartPressed,
-        // );
+        ProductBottomSheet.show(
+          context,
+          product: product,
+          favoritesCubit: favCubit,
+          shopCartCubit: BlocProvider.of<ShopCartCubit>(context),
+        );
       },
       child: U.Card(
         height: 140,

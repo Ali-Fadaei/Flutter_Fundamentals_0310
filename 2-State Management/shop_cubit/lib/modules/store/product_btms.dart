@@ -1,29 +1,27 @@
 import 'package:flutter/material.dart';
-import '../../domains/store/models/shop_item.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_cubit/modules/favorites/cubit/favorites_cubit.dart';
+import 'package:shop_cubit/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import '../../domains/store/models/product.dart';
 import '/ui_kit/ui_kit.dart' as U;
 
-class ProductBottomSheet extends StatefulWidget {
+class ProductBottomSheet extends StatelessWidget {
   //
   static show(
     BuildContext context, {
     required Product product,
-    required List<Product> favorites,
-    required List<ShopItem> shopItems,
-    required void Function(Product data) onFavoritesPressed,
-    required void Function(Product data) onAddtoCartPressed,
-    required void Function(Product data) onRemoveFromCartPressed,
+    required FavoritesCubit favoritesCubit,
+    required ShopCartCubit shopCartCubit,
   }) {
     U.BottomSheet.show(
       context,
       builder: (context) {
-        return ProductBottomSheet(
-          product: product,
-          favorites: favorites,
-          shopItems: shopItems,
-          onFavoriteTapped: onFavoritesPressed,
-          onAddToCartPressed: onAddtoCartPressed,
-          onRemoveFromCartPressed: onRemoveFromCartPressed,
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider.value(value: favoritesCubit),
+            BlocProvider.value(value: shopCartCubit),
+          ],
+          child: ProductBottomSheet(product: product),
         );
       },
     );
@@ -31,91 +29,31 @@ class ProductBottomSheet extends StatefulWidget {
 
   final Product product;
 
-  final List<Product> favorites;
+  const ProductBottomSheet({super.key, required this.product});
 
-  final List<ShopItem> shopItems;
-
-  final void Function(Product data) onFavoriteTapped;
-
-  final void Function(Product data) onAddToCartPressed;
-
-  final void Function(Product data) onRemoveFromCartPressed;
-
-  const ProductBottomSheet({
-    super.key,
-    required this.product,
-    required this.favorites,
-    required this.shopItems,
-    required this.onFavoriteTapped,
-    required this.onAddToCartPressed,
-    required this.onRemoveFromCartPressed,
-  });
-
-  @override
-  State<ProductBottomSheet> createState() => _ProductBottomSheetState();
-}
-
-class _ProductBottomSheetState extends State<ProductBottomSheet> {
   //
-  bool isFav = false;
-
-  int count = 0;
-
-  void onFavoriteTapped() {
-    widget.onFavoriteTapped(widget.product);
-    isFav = !isFav;
-    setState(() {});
-  }
-
-  void onAddToShopCartTapped() {
-    widget.onAddToCartPressed(widget.product);
-    if (count <= 10) {
-      count = count + 1;
-      setState(() {});
-    }
-  }
-
-  void onRemoveFromShopCartTapped() {
-    widget.onRemoveFromCartPressed(widget.product);
-    if (count > 0) {
-      count = count - 1;
-      setState(() {});
-    }
-  }
-
-  @override
-  void initState() {
-    isFav = widget.favorites.any((e) => e == widget.product);
-    final temp =
-        widget.shopItems.where((e) => e.product == widget.product).firstOrNull;
-    if (temp == null) {
-      count = 0;
-    } else {
-      count = temp.count;
-    }
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final favoritesCubit = BlocProvider.of<FavoritesCubit>(context);
+    final shopCartCubit = BlocProvider.of<ShopCartCubit>(context);
     return Stack(
       children: [
         ListView(
           children: [
-            U.Image(path: widget.product.image, height: 300, width: 300),
+            U.Image(path: product.image, height: 300, width: 300),
             const SizedBox(height: 25),
             Row(
               children: [
                 Column(
                   children: [
                     U.Text(
-                      widget.product.title,
+                      product.title,
                       size: U.TextSize.s16,
                       weight: U.TextWeight.bold,
                     ),
                     const SizedBox(height: 2),
                     U.Text(
-                      widget.product.categoryData.title,
+                      product.categoryData.title,
                       size: U.TextSize.s12,
                       color: U.Theme.outline2,
                       weight: U.TextWeight.regular,
@@ -123,13 +61,20 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                   ],
                 ),
                 const Spacer(),
-                U.IconButton(
-                  color: Colors.transparent,
-                  icon: Icon(
-                    size: 24,
-                    isFav ? Icons.favorite : Icons.favorite_border,
-                  ),
-                  onPressed: onFavoriteTapped,
+                BlocBuilder<FavoritesCubit, FavoritesState>(
+                  builder: (context, state) {
+                    return U.IconButton(
+                      color: Colors.transparent,
+                      icon: Icon(
+                        size: 24,
+                        state.favorites.contains(product)
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                      ),
+                      onPressed:
+                          () => favoritesCubit.onFavoriteButtonTapped(product),
+                    );
+                  },
                 ),
               ],
             ),
@@ -145,7 +90,7 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                 ),
                 const Spacer(),
                 U.Text(
-                  widget.product.rating.toString(),
+                  product.rating.toString(),
                   size: U.TextSize.s14,
                   weight: U.TextWeight.medium,
                 ),
@@ -162,7 +107,7 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                 ),
                 const Spacer(),
                 U.Text(
-                  'تومان ${widget.product.price}',
+                  'تومان ${product.price}',
                   size: U.TextSize.s14,
                   weight: U.TextWeight.medium,
                 ),
@@ -183,29 +128,42 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
               ],
             ),
             const SizedBox(height: 12),
-            U.Text(widget.product.description),
+            U.Text(product.description),
             const SizedBox(height: 80),
           ],
         ),
-        Positioned(
-          left: 8,
-          right: 8,
-          bottom: 16,
-          height: 60,
-          child:
-              count <= 0
-                  ? U.Button(
-                    title: 'افزودن به سبد خرید',
-                    size: U.ButtonSize.lg,
-                    color: U.ButtonColor.primary,
-                    onPressed: onAddToShopCartTapped,
-                  )
-                  : U.Counter(
-                    count: count,
-                    size: U.CounterSize.large,
-                    onIncresePressed: onAddToShopCartTapped,
-                    onDecresePressed: onRemoveFromShopCartTapped,
-                  ),
+        BlocBuilder<ShopCartCubit, ShopCartState>(
+          builder: (context, state) {
+            final shopItem =
+                state.shopItems.where((e) => e.product == product).firstOrNull;
+            final shopItemCount = shopItem?.count ?? 0;
+            // final shopItemCount = shopItem?.count ?? 0;
+            return Positioned(
+              left: 8,
+              right: 8,
+              bottom: 16,
+              height: 60,
+              child:
+                  shopItemCount <= 0
+                      ? U.Button(
+                        title: 'افزودن به سبد خرید',
+                        size: U.ButtonSize.lg,
+                        color: U.ButtonColor.primary,
+                        onPressed:
+                            () => shopCartCubit.onAddToShopCartPressed(product),
+                      )
+                      : U.Counter(
+                        count: shopItemCount,
+                        size: U.CounterSize.large,
+                        onIncresePressed:
+                            () => shopCartCubit.onAddToShopCartPressed(product),
+                        onDecresePressed:
+                            () => shopCartCubit.onRemoveFromShopCartPressed(
+                              product,
+                            ),
+                      ),
+            );
+          },
         ),
       ],
     );
