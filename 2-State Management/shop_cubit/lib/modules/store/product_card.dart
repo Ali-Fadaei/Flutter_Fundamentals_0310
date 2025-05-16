@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_cubit/modules/favorites/cubit/favorites_cubit.dart';
 import 'package:shop_cubit/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import '../../domains/store/models/product.dart';
 import 'product_btms.dart';
@@ -21,7 +20,6 @@ class ProductCard extends StatelessWidget {
           context,
           product: data,
           shopCartCubit: shopCartCubit,
-          favoritesCubit: BlocProvider.of<FavoritesCubit>(context),
         );
       },
       child: SizedBox(

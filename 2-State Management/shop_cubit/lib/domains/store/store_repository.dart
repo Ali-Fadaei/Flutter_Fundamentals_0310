@@ -6,7 +6,7 @@ import 'package:shop_cubit/domains/store/models/shop_item.dart';
 class StoreRepository {
   //
 
-  final _delay = 1500;
+  final _delay = 1000;
 
   List<Product> _favorites = [];
 

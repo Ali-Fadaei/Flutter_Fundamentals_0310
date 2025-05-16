@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_cubit/domains/store/store_repository.dart';
+import 'package:shop_cubit/modules/app/cubit/app_cubit.dart';
 import 'package:shop_cubit/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import '/modules/shop_cart/shop_cart_card.dart';
 
@@ -9,19 +11,60 @@ class ShopCartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ShopCartCubit, ShopCartState>(
-      builder: (context, state) {
-        return ListView.separated(
-          itemCount: state.shopItems.length,
-          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-          separatorBuilder: (context, index) {
-            return const SizedBox(height: 16);
+    return BlocProvider(
+      create:
+          (context) => ShopCartCubit(
+            storeRepo: RepositoryProvider.of<StoreRepository>(context),
+          ),
+      child: BlocListener<AppCubit, AppState>(
+        listenWhen:
+            (previous, current) =>
+                previous.selectedIndex != current.selectedIndex,
+        listener: (context, state) {
+          if (state.selectedIndex == 1) {
+            final shopCartCubit = BlocProvider.of<ShopCartCubit>(context);
+            shopCartCubit.onRefresh();
+          }
+        },
+        child: BlocBuilder<ShopCartCubit, ShopCartState>(
+          builder: (context, state) {
+            return state.shopItems.isEmpty
+                ? Center(
+                  child: SizedBox.square(
+                    dimension: 30,
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+                : ListView.separated(
+                  itemCount: state.shopItems.length,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 16,
+                    horizontal: 16,
+                  ),
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(height: 16);
+                  },
+                  itemBuilder: (context, index) {
+                    final data = state.shopItems[index];
+                    return Column(
+                      children: [
+                        ShopCartCard(shopItem: data),
+                        if (state.loading && data == state.shopItems.last) ...[
+                          SizedBox(height: 20),
+                          Center(
+                            child: SizedBox.square(
+                              dimension: 30,
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
+                        ],
+                      ],
+                    );
+                  },
+                );
           },
-          itemBuilder: (context, index) {
-            return ShopCartCard(shopItem: state.shopItems[index]);
-          },
-        );
-      },
+        ),
+      ),
     );
   }
 }

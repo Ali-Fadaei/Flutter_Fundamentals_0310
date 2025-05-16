@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_cubit/domains/store/store_repository.dart';
 import 'package:shop_cubit/modules/favorites/cubit/favorites_cubit.dart';
 import 'package:shop_cubit/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import '../../domains/store/models/product.dart';
@@ -10,16 +11,34 @@ class ProductBottomSheet extends StatelessWidget {
   static show(
     BuildContext context, {
     required Product product,
-    required FavoritesCubit favoritesCubit,
-    required ShopCartCubit shopCartCubit,
+    FavoritesCubit? favoritesCubit,
+    ShopCartCubit? shopCartCubit,
   }) {
     U.BottomSheet.show(
       context,
       builder: (context) {
         return MultiBlocProvider(
           providers: [
-            BlocProvider.value(value: favoritesCubit),
-            BlocProvider.value(value: shopCartCubit),
+            favoritesCubit == null
+                ? BlocProvider(
+                  create:
+                      (context) => FavoritesCubit(
+                        storeRepo: RepositoryProvider.of<StoreRepository>(
+                          context,
+                        ),
+                      ),
+                )
+                : BlocProvider.value(value: favoritesCubit),
+            shopCartCubit == null
+                ? BlocProvider(
+                  create:
+                      (context) => ShopCartCubit(
+                        storeRepo: RepositoryProvider.of<StoreRepository>(
+                          context,
+                        ),
+                      ),
+                )
+                : BlocProvider.value(value: shopCartCubit),
           ],
           child: ProductBottomSheet(product: product),
         );

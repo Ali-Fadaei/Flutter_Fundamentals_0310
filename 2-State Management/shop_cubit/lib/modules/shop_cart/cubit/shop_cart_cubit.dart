@@ -1,14 +1,31 @@
 import 'package:bloc/bloc.dart';
 import 'package:shop_cubit/domains/store/models/product.dart';
 import 'package:shop_cubit/domains/store/models/shop_item.dart';
+import 'package:shop_cubit/domains/store/store_repository.dart';
 
 part 'shop_cart_state.dart';
 
 class ShopCartCubit extends Cubit<ShopCartState> {
   //
-  ShopCartCubit() : super(ShopCartState.init());
+  final StoreRepository storeRepo;
 
-  void onAddToShopCartPressed(Product data) {
+  ShopCartCubit({required this.storeRepo}) : super(ShopCartState.init()) {
+    onInit();
+  }
+
+  Future<void> onInit() async {
+    emit(state.copyWith(loading: true));
+    final res = await storeRepo.getShopItems();
+    emit(state.copyWith(loading: false, shopItems: res));
+  }
+
+  Future<void> onRefresh() async {
+    emit(state.copyWith(loading: true));
+    final res = await storeRepo.getShopItems();
+    emit(state.copyWith(loading: false, shopItems: res));
+  }
+
+  void onAddToShopCartPressed(Product data) async {
     //
     final shopItemsTemp = [...state.shopItems];
 
@@ -24,9 +41,12 @@ class ShopCartCubit extends Cubit<ShopCartState> {
       }
     }
     emit(state.copyWith(shopItems: shopItemsTemp));
+    storeRepo.updateShopItems(state.shopItems);
+    final res = await storeRepo.getShopItems();
+    emit(state.copyWith(loading: false, shopItems: res));
   }
 
-  void onRemoveFromShopCartPressed(Product data) {
+  void onRemoveFromShopCartPressed(Product data) async {
     //
     final shopItemsTemp = [...state.shopItems];
     final temp = shopItemsTemp.firstWhere((element) => element.product == data);
@@ -39,5 +59,8 @@ class ShopCartCubit extends Cubit<ShopCartState> {
       shopItemsTemp.insert(dataIndex, temp);
     }
     emit(state.copyWith(shopItems: shopItemsTemp));
+    storeRepo.updateShopItems(state.shopItems);
+    final res = await storeRepo.getShopItems();
+    emit(state.copyWith(loading: false, shopItems: res));
   }
 }

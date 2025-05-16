@@ -5,10 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shop_cubit/domains/store/store_repository.dart';
 import 'package:shop_cubit/modules/app/cubit/app_cubit.dart';
-import 'package:shop_cubit/modules/favorites/cubit/favorites_cubit.dart';
 import 'package:shop_cubit/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_cubit/modules/shop_cart/shop_cart_page.dart';
-import 'package:shop_cubit/modules/store/cubit/store_cubit.dart';
 import '../profile/profile_page.dart';
 import '../category/category_page.dart';
 import '../favorites/favorites_page.dart';
@@ -95,58 +93,28 @@ class App extends StatelessWidget {
                     );
                   },
                 ),
-                body: MultiBlocProvider(
-                  providers: [
-                    BlocProvider(create: (context) => StoreCubit()),
-                    BlocProvider(create: (context) => FavoritesCubit()),
-                    BlocProvider(create: (context) => ShopCartCubit()),
-                  ],
-                  child: MultiBlocListener(
-                    listeners: [
-                      BlocListener<FavoritesCubit, FavoritesState>(
-                        listenWhen:
-                            (previous, current) =>
-                                previous.favorites.length !=
-                                current.favorites.length,
-                        listener: (context, state) {
-                          appCubit.onFavsCountChanged(state.favorites.length);
-                        },
-                      ),
-                      BlocListener<ShopCartCubit, ShopCartState>(
-                        listenWhen:
-                            (previous, current) =>
-                                previous.shopItems.length !=
-                                current.shopItems.length,
-                        listener: (context, state) {
-                          appCubit.onShopItemsCountChanged(
-                            state.shopItems.length,
-                          );
-                        },
-                      ),
-                    ],
-                    child: Column(
-                      children: [
-                        U.AppBar.primary(
-                          onMenuPressed: () {},
-                          onNotifPressed: () {},
-                        ),
-                        Expanded(
-                          child: IndexedStack(
-                            index: appState.selectedIndex,
-                            children: [
-                              CategoryPage(),
-                              ShopCartPage(),
-                              StorePage(),
-                              FavoritesPage(),
-                              ProfilePage(),
-                            ],
-                          ),
-                        ),
-                      ],
+                body: Column(
+                  children: [
+                    U.AppBar.primary(
+                      onMenuPressed: () {},
+                      onNotifPressed: () {},
                     ),
-                  ),
+                    Expanded(
+                      child: IndexedStack(
+                        index: appState.selectedIndex,
+                        children: [
+                          CategoryPage(),
+                          ShopCartPage(),
+                          StorePage(),
+                          FavoritesPage(),
+                          ProfilePage(),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               );
+              // );
             },
           ),
         ),
