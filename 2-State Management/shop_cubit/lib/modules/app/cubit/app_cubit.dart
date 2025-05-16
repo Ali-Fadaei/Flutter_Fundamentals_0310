@@ -1,7 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:shop_cubit/domains/store/models/category.dart';
-import 'package:shop_cubit/domains/store/models/product.dart';
-import 'package:shop_cubit/domains/store/models/shop_item.dart';
 
 part 'app_state.dart';
 
@@ -11,5 +8,13 @@ class AppCubit extends Cubit<AppState> {
 
   void onSelectedIndexChanged(int selectedIndex) {
     emit(state.copyWith(selectedIndex: selectedIndex));
+  }
+
+  void onFavsCountChanged(int count) {
+    emit(state.copyWith(favsCount: count));
+  }
+
+  void onShopItemsCountChanged(int count) {
+    emit(state.copyWith(shopItemsCount: count));
   }
 }

@@ -63,33 +63,37 @@ class App extends StatelessWidget {
                   height: double.infinity,
                   width: 200,
                 ),
-                bottomNavigationBar: U.NavigationBar(
-                  selectedIndex: appState.selectedIndex,
-                  destinations: [
-                    U.NavigationDestination(
-                      title: 'دسته‌بندی',
-                      icon: U.Icons.category,
-                    ),
-                    U.NavigationDestination(
-                      title: 'سبدخرید',
-                      badgeCount: 0,
-                      icon: U.Icons.shopCart,
-                    ),
-                    U.NavigationDestination(
-                      title: 'فروشگاه',
-                      icon: U.Icons.store,
-                    ),
-                    U.NavigationDestination(
-                      title: 'علاقه‌مندی‌ها',
-                      badgeCount: 0,
-                      icon: U.Icons.favorites,
-                    ),
-                    U.NavigationDestination(
-                      title: 'پروفایل',
-                      icon: U.Icons.profile,
-                    ),
-                  ],
-                  onDestinationChanged: appCubit.onSelectedIndexChanged,
+                bottomNavigationBar: BlocBuilder<AppCubit, AppState>(
+                  builder: (context, state) {
+                    return U.NavigationBar(
+                      selectedIndex: appState.selectedIndex,
+                      destinations: [
+                        U.NavigationDestination(
+                          title: 'دسته‌بندی',
+                          icon: U.Icons.category,
+                        ),
+                        U.NavigationDestination(
+                          title: 'سبدخرید',
+                          badgeCount: state.shopItemsCount,
+                          icon: U.Icons.shopCart,
+                        ),
+                        U.NavigationDestination(
+                          title: 'فروشگاه',
+                          icon: U.Icons.store,
+                        ),
+                        U.NavigationDestination(
+                          title: 'علاقه‌مندی‌ها',
+                          badgeCount: state.favsCount,
+                          icon: U.Icons.favorites,
+                        ),
+                        U.NavigationDestination(
+                          title: 'پروفایل',
+                          icon: U.Icons.profile,
+                        ),
+                      ],
+                      onDestinationChanged: appCubit.onSelectedIndexChanged,
+                    );
+                  },
                 ),
                 body: MultiBlocProvider(
                   providers: [
@@ -97,25 +101,49 @@ class App extends StatelessWidget {
                     BlocProvider(create: (context) => FavoritesCubit()),
                     BlocProvider(create: (context) => ShopCartCubit()),
                   ],
-                  child: Column(
-                    children: [
-                      U.AppBar.primary(
-                        onMenuPressed: () {},
-                        onNotifPressed: () {},
+                  child: MultiBlocListener(
+                    listeners: [
+                      BlocListener<FavoritesCubit, FavoritesState>(
+                        listenWhen:
+                            (previous, current) =>
+                                previous.favorites.length !=
+                                current.favorites.length,
+                        listener: (context, state) {
+                          appCubit.onFavsCountChanged(state.favorites.length);
+                        },
                       ),
-                      Expanded(
-                        child: IndexedStack(
-                          index: appState.selectedIndex,
-                          children: [
-                            CategoryPage(),
-                            ShopCartPage(),
-                            StorePage(),
-                            FavoritesPage(),
-                            ProfilePage(),
-                          ],
-                        ),
+                      BlocListener<ShopCartCubit, ShopCartState>(
+                        listenWhen:
+                            (previous, current) =>
+                                previous.shopItems.length !=
+                                current.shopItems.length,
+                        listener: (context, state) {
+                          appCubit.onShopItemsCountChanged(
+                            state.shopItems.length,
+                          );
+                        },
                       ),
                     ],
+                    child: Column(
+                      children: [
+                        U.AppBar.primary(
+                          onMenuPressed: () {},
+                          onNotifPressed: () {},
+                        ),
+                        Expanded(
+                          child: IndexedStack(
+                            index: appState.selectedIndex,
+                            children: [
+                              CategoryPage(),
+                              ShopCartPage(),
+                              StorePage(),
+                              FavoritesPage(),
+                              ProfilePage(),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );

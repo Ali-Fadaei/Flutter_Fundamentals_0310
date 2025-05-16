@@ -4,17 +4,23 @@ final class AppState {
   //
   final int selectedIndex;
 
-  const AppState({required this.selectedIndex});
+  final int favsCount;
 
-  const AppState.init() : selectedIndex = 2;
+  final int shopItemsCount;
 
-  AppState copyWith({
-    int? selectedIndex,
-    List<Product>? products,
-    List<CategoryData>? categories,
-    List<Product>? favorites,
-    List<ShopItem>? shopItems,
-  }) {
-    return AppState(selectedIndex: selectedIndex ?? this.selectedIndex);
+  const AppState({
+    required this.selectedIndex,
+    required this.favsCount,
+    required this.shopItemsCount,
+  });
+
+  const AppState.init() : selectedIndex = 2, shopItemsCount = 0, favsCount = 0;
+
+  AppState copyWith({int? selectedIndex, int? favsCount, int? shopItemsCount}) {
+    return AppState(
+      selectedIndex: selectedIndex ?? this.selectedIndex,
+      favsCount: favsCount ?? this.favsCount,
+      shopItemsCount: shopItemsCount ?? this.shopItemsCount,
+    );
   }
 }
