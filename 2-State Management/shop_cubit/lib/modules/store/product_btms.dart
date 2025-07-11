@@ -83,6 +83,7 @@ class ProductBottomSheet extends StatelessWidget {
                 BlocBuilder<FavoritesCubit, FavoritesState>(
                   builder: (context, state) {
                     return U.IconButton(
+                      disabled: state.loading,
                       color: Colors.transparent,
                       icon: Icon(
                         size: 24,

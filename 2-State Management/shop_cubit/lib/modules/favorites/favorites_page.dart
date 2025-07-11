@@ -4,6 +4,7 @@ import 'package:shop_cubit/domains/store/store_repository.dart';
 import 'package:shop_cubit/modules/app/cubit/app_cubit.dart';
 import 'package:shop_cubit/modules/favorites/cubit/favorites_cubit.dart';
 import 'favorites_card.dart';
+import '/ui_kit/ui_kit.dart' as U;
 
 class FavoritesPage extends StatelessWidget {
   //
@@ -16,25 +17,40 @@ class FavoritesPage extends StatelessWidget {
           (context) => FavoritesCubit(
             storeRepo: RepositoryProvider.of<StoreRepository>(context),
           ),
-      child: BlocListener<AppCubit, AppState>(
-        listenWhen:
-            (previous, current) =>
-                previous.selectedIndex != current.selectedIndex,
-        listener: (context, state) {
-          if (state.selectedIndex == 3) {
-            final favoritesCubit = BlocProvider.of<FavoritesCubit>(context);
-            favoritesCubit.onRefresh();
-          }
-        },
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<AppCubit, AppState>(
+            listenWhen:
+                (previous, current) =>
+                    previous.selectedIndex != current.selectedIndex,
+            listener: (context, state) {
+              if (state.selectedIndex == 3) {
+                final favoritesCubit = BlocProvider.of<FavoritesCubit>(context);
+                favoritesCubit.onRefresh();
+              }
+            },
+          ),
+          BlocListener<FavoritesCubit, FavoritesState>(
+            listenWhen:
+                (previous, current) =>
+                    previous.favorites.length != current.favorites.length,
+            listener: (context, state) {
+              final appCubit = context.read<AppCubit>();
+              appCubit.onFavsCountChanged(state.favorites.length);
+            },
+          ),
+        ],
         child: BlocBuilder<FavoritesCubit, FavoritesState>(
           builder: (context, state) {
-            return state.favorites.isEmpty
+            return state.loading && state.favorites.isEmpty
                 ? Center(
                   child: SizedBox.square(
                     dimension: 30,
                     child: CircularProgressIndicator(),
                   ),
                 )
+                : state.favorites.isEmpty
+                ? Center(child: U.Text('لیست علاقه‌مندی خالیه!!!'))
                 : ListView.separated(
                   itemCount: state.favorites.length,
                   padding: const EdgeInsets.symmetric(

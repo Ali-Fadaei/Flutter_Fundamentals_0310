@@ -26,6 +26,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
   void onFavoriteButtonTapped(Product data) async {
     //
+    emit(state.copyWith(loading: true));
     final favTemp = [...state.favorites];
     final dataIndex = favTemp.indexOf(data);
     if (dataIndex == -1) {
@@ -36,6 +37,16 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     emit(state.copyWith(favorites: favTemp));
     storeRepo.updateFavorites(state.favorites);
     final res = await storeRepo.getFavorites();
-    emit(state.copyWith(favorites: res));
+    emit(state.copyWith(loading: false, favorites: res));
+  }
+
+  @override
+  void onChange(Change<FavoritesState> change) {
+    print('change.currentState.loading');
+    print(change.currentState.loading);
+    print('change.nextState.loading');
+    print(change.nextState.loading);
+    print('====================================');
+    super.onChange(change);
   }
 }

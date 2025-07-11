@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:shop_cubit/domains/store/models/product.dart';
 import 'package:shop_cubit/domains/store/models/shop_item.dart';
@@ -8,6 +10,8 @@ part 'shop_cart_state.dart';
 class ShopCartCubit extends Cubit<ShopCartState> {
   //
   final StoreRepository storeRepo;
+
+  Timer? updateTimer;
 
   ShopCartCubit({required this.storeRepo}) : super(ShopCartState.init()) {
     onInit();
@@ -41,9 +45,13 @@ class ShopCartCubit extends Cubit<ShopCartState> {
       }
     }
     emit(state.copyWith(shopItems: shopItemsTemp));
-    storeRepo.updateShopItems(state.shopItems);
-    final res = await storeRepo.getShopItems();
-    emit(state.copyWith(loading: false, shopItems: res));
+    updateTimer?.cancel();
+    updateTimer = Timer(const Duration(seconds: 1), () async {
+      print('Timer CallBack Fired!!');
+      await storeRepo.updateShopItems(state.shopItems);
+      final res = await storeRepo.getShopItems();
+      emit(state.copyWith(shopItems: res));
+    });
   }
 
   void onRemoveFromShopCartPressed(Product data) async {
@@ -59,8 +67,18 @@ class ShopCartCubit extends Cubit<ShopCartState> {
       shopItemsTemp.insert(dataIndex, temp);
     }
     emit(state.copyWith(shopItems: shopItemsTemp));
-    storeRepo.updateShopItems(state.shopItems);
-    final res = await storeRepo.getShopItems();
-    emit(state.copyWith(loading: false, shopItems: res));
+    updateTimer?.cancel();
+    updateTimer = Timer(const Duration(seconds: 1), () async {
+      print('Timer CallBack Fired!!');
+      await storeRepo.updateShopItems(state.shopItems);
+      final res = await storeRepo.getShopItems();
+      emit(state.copyWith(shopItems: res));
+    });
+  }
+
+  @override
+  Future<void> close() {
+    updateTimer?.cancel();
+    return super.close();
   }
 }
