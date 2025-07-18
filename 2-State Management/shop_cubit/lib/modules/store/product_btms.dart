@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_cubit/domains/store/store_repository.dart';
+import 'package:shop_cubit/modules/app/cubit/app_cubit.dart';
 import 'package:shop_cubit/modules/favorites/cubit/favorites_cubit.dart';
 import 'package:shop_cubit/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import '../../domains/store/models/product.dart';
@@ -21,26 +22,46 @@ class ProductBottomSheet extends StatelessWidget {
           providers: [
             favoritesCubit == null
                 ? BlocProvider(
-                  create:
-                      (context) => FavoritesCubit(
-                        storeRepo: RepositoryProvider.of<StoreRepository>(
-                          context,
-                        ),
+                    create: (context) => FavoritesCubit(
+                      storeRepo: RepositoryProvider.of<StoreRepository>(
+                        context,
                       ),
-                )
+                    ),
+                  )
                 : BlocProvider.value(value: favoritesCubit),
             shopCartCubit == null
                 ? BlocProvider(
-                  create:
-                      (context) => ShopCartCubit(
-                        storeRepo: RepositoryProvider.of<StoreRepository>(
-                          context,
-                        ),
+                    create: (context) => ShopCartCubit(
+                      storeRepo: RepositoryProvider.of<StoreRepository>(
+                        context,
                       ),
-                )
+                    ),
+                  )
                 : BlocProvider.value(value: shopCartCubit),
           ],
-          child: ProductBottomSheet(product: product),
+          child: MultiBlocListener(
+            listeners: [
+              BlocListener<FavoritesCubit, FavoritesState>(
+                listenWhen: (previous, current) =>
+                    previous.favorites.length != current.favorites.length,
+                listener: (context, state) {
+                  context
+                      .read<AppCubit>()
+                      .onFavsCountChanged(state.favorites.length);
+                },
+              ),
+              BlocListener<ShopCartCubit, ShopCartState>(
+                listenWhen: (previous, current) =>
+                    previous.shopItems.length != current.shopItems.length,
+                listener: (context, state) {
+                  context
+                      .read<AppCubit>()
+                      .onShopItemsCountChanged(state.shopItems.length);
+                },
+              ),
+            ],
+            child: ProductBottomSheet(product: product),
+          ),
         );
       },
     );
@@ -91,8 +112,8 @@ class ProductBottomSheet extends StatelessWidget {
                             ? Icons.favorite
                             : Icons.favorite_border,
                       ),
-                      onPressed:
-                          () => favoritesCubit.onFavoriteButtonTapped(product),
+                      onPressed: () =>
+                          favoritesCubit.onFavoriteButtonTapped(product),
                     );
                   },
                 ),
@@ -163,25 +184,24 @@ class ProductBottomSheet extends StatelessWidget {
               right: 8,
               bottom: 16,
               height: 60,
-              child:
-                  shopItemCount <= 0
-                      ? U.Button(
-                        title: 'افزودن به سبد خرید',
-                        size: U.ButtonSize.lg,
-                        color: U.ButtonColor.primary,
-                        onPressed:
-                            () => shopCartCubit.onAddToShopCartPressed(product),
-                      )
-                      : U.Counter(
-                        count: shopItemCount,
-                        size: U.CounterSize.large,
-                        onIncresePressed:
-                            () => shopCartCubit.onAddToShopCartPressed(product),
-                        onDecresePressed:
-                            () => shopCartCubit.onRemoveFromShopCartPressed(
-                              product,
-                            ),
+              child: shopItemCount <= 0
+                  ? U.Button(
+                      title: 'افزودن به سبد خرید',
+                      size: U.ButtonSize.lg,
+                      color: U.ButtonColor.primary,
+                      onPressed: () =>
+                          shopCartCubit.onAddToShopCartPressed(product),
+                    )
+                  : U.Counter(
+                      count: shopItemCount,
+                      size: U.CounterSize.large,
+                      onIncresePressed: () =>
+                          shopCartCubit.onAddToShopCartPressed(product),
+                      onDecresePressed: () =>
+                          shopCartCubit.onRemoveFromShopCartPressed(
+                        product,
                       ),
+                    ),
             );
           },
         ),

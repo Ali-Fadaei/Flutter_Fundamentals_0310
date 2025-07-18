@@ -57,14 +57,30 @@ class ProductCard extends StatelessWidget {
               const Spacer(),
               Row(
                 children: [
-                  U.IconButton(
-                    size: 35,
-                    icon: U.Image.icon(
-                      path: U.Icons.add,
-                      color: U.Theme.onPrimary,
-                    ),
-                    color: U.Theme.primary,
-                    onPressed: () => shopCartCubit.onAddToShopCartPressed(data),
+                  BlocBuilder<ShopCartCubit, ShopCartState>(
+                    buildWhen: (previous, current) =>
+                        previous.shopItems != current.shopItems,
+                    builder: (context, state) {
+                      final shopItemIndex =
+                          state.shopItems.indexWhere((e) => e.product == data);
+                      final count = shopItemIndex == -1
+                          ? 0
+                          : state.shopItems[shopItemIndex].count;
+                      return U.Badge(
+                        count: count,
+                        color: U.BadgeColor.secondary,
+                        child: U.IconButton(
+                          size: 35,
+                          icon: U.Image.icon(
+                            path: U.Icons.add,
+                            color: U.Theme.onPrimary,
+                          ),
+                          color: U.Theme.primary,
+                          onPressed: () =>
+                              shopCartCubit.onAddToShopCartPressed(data),
+                        ),
+                      );
+                    },
                   ),
                   const Spacer(),
                   //set the direction
