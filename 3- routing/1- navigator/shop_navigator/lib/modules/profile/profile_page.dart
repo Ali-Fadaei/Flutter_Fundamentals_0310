@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_navigator/modules/page_a/page_a.dart';
 import '/ui_kit/ui_kit.dart' as U;
 
 class ProfilePage extends StatefulWidget {
@@ -28,6 +30,22 @@ class _ProfilePageState extends State<ProfilePage> {
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           children: [
+            U.Button(
+              title: 'Go To Page A',
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => PageA(
+                      content: 'Page A Content',
+                    ),
+                  ),
+                  // CupertinoPageRoute(builder: builder)
+                );
+              },
+            ),
+            const SizedBox(
+              height: 30,
+            ),
             U.SearchInput(
               isSearched: isSearched,
               controller: controller,
