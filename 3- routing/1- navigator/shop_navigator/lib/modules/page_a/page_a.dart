@@ -4,6 +4,8 @@ import '/ui_kit/ui_kit.dart' as U;
 
 class PageA extends StatelessWidget {
   //
+  static const route = 'PageA';
+
   final String content;
 
   const PageA({
@@ -13,40 +15,46 @@ class PageA extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        U.Text('Page A'),
-        const SizedBox(
-          height: 30,
-        ),
-        U.Text(content),
-        const SizedBox(
-          height: 30,
-        ),
-        U.Button(
-          title: 'Go Page B',
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return PageB(
-                    content: 'Page B Content',
-                  );
-                },
-              ),
-            );
-          },
-        ),
-        const SizedBox(
-          height: 30,
-        ),
-        U.Button(
-          title: 'Go Back',
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ],
+    return Scaffold(
+      body: Column(
+        children: [
+          U.Text('Page A'),
+          const SizedBox(
+            height: 30,
+          ),
+          U.Text(content),
+          const SizedBox(
+            height: 30,
+          ),
+          U.Button(
+            title: 'Go Page B',
+            onPressed: () {
+              Navigator.of(context).pushNamed(
+                PageB.route,
+                arguments: 'PageB content',
+              );
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (context) {
+              //       return PageB(
+              //         content: 'Page B Content',
+              //       );
+              //     },
+              //   ),
+              // );
+            },
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          U.Button(
+            title: 'Go Back',
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      ),
     );
   }
 }

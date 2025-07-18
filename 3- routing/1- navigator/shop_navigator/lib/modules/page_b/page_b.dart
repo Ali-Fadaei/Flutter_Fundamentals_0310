@@ -4,6 +4,8 @@ import '/ui_kit/ui_kit.dart' as U;
 
 class PageB extends StatelessWidget {
   //
+  static const route = 'PageB';
+
   final String content;
 
   const PageB({
@@ -13,38 +15,44 @@ class PageB extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        U.Text('Page B'),
-        const SizedBox(
-          height: 30,
-        ),
-        U.Text(content),
-        const SizedBox(
-          height: 30,
-        ),
-        U.Button(
-          title: 'Go Page C',
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => PageC(
-                  content: 'Page C Content',
-                ),
-              ),
-            );
-          },
-        ),
-        const SizedBox(
-          height: 30,
-        ),
-        U.Button(
-          title: 'Go Back',
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ],
+    return Scaffold(
+      body: Column(
+        children: [
+          U.Text('Page B'),
+          const SizedBox(
+            height: 30,
+          ),
+          U.Text(content),
+          const SizedBox(
+            height: 30,
+          ),
+          U.Button(
+            title: 'Go Page C',
+            onPressed: () {
+              Navigator.of(context).pushNamed(
+                PageC.route,
+                arguments: 'PageC content',
+              );
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (context) => PageC(
+              //       content: 'Page C Content',
+              //     ),
+              //   ),
+              // );
+            },
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          U.Button(
+            title: 'Go Back',
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      ),
     );
   }
 }

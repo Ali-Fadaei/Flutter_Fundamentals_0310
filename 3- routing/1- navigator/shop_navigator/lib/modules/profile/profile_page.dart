@@ -33,14 +33,18 @@ class _ProfilePageState extends State<ProfilePage> {
             U.Button(
               title: 'Go To Page A',
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => PageA(
-                      content: 'Page A Content',
-                    ),
-                  ),
-                  // CupertinoPageRoute(builder: builder)
+                Navigator.of(context).pushNamed(
+                  PageA.route,
+                  arguments: 'PageA content',
                 );
+                // Navigator.of(context).push(
+                //   MaterialPageRoute(
+                //     builder: (context) => PageA(
+                //       content: 'Page A Content',
+                //     ),
+                //   ),
+                //   // CupertinoPageRoute(builder: builder)
+                // );
               },
             ),
             const SizedBox(

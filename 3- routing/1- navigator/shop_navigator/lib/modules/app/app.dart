@@ -3,6 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shop_navigator/modules/home/home_page.dart';
+import 'package:shop_navigator/modules/page_a/page_a.dart';
+import 'package:shop_navigator/modules/page_b/page_b.dart';
+import 'package:shop_navigator/modules/page_c/page_c.dart';
 import '/domains/store/store_repository.dart';
 import '/modules/app/cubit/app_cubit.dart';
 import '/modules/shop_cart/cubit/shop_cart_cubit.dart';
@@ -48,74 +52,45 @@ class App extends StatelessWidget {
               PointerDeviceKind.invertedStylus,
             },
           ),
-          home: BlocBuilder<AppCubit, AppState>(
-            buildWhen: (previous, current) =>
-                previous.selectedIndex != current.selectedIndex,
-            builder: (context, appState) {
-              final appCubit = BlocProvider.of<AppCubit>(context);
-              return Scaffold(
-                backgroundColor: U.Theme.background,
-                drawer: Container(
-                  color: Colors.white,
-                  height: double.infinity,
-                  width: 200,
-                ),
-                bottomNavigationBar: BlocBuilder<AppCubit, AppState>(
-                  builder: (context, state) {
-                    return U.NavigationBar(
-                      selectedIndex: appState.selectedIndex,
-                      destinations: [
-                        U.NavigationDestination(
-                          title: 'دسته‌بندی',
-                          icon: U.Icons.category,
-                        ),
-                        U.NavigationDestination(
-                          title: 'سبدخرید',
-                          badgeCount: state.shopItemsCount,
-                          icon: U.Icons.shopCart,
-                        ),
-                        U.NavigationDestination(
-                          title: 'فروشگاه',
-                          icon: U.Icons.store,
-                        ),
-                        U.NavigationDestination(
-                          title: 'علاقه‌مندی‌ها',
-                          badgeCount: state.favsCount,
-                          icon: U.Icons.favorites,
-                        ),
-                        U.NavigationDestination(
-                          title: 'پروفایل',
-                          icon: U.Icons.profile,
-                        ),
-                      ],
-                      onDestinationChanged: appCubit.onSelectedIndexChanged,
-                    );
+          // routes: {
+          //   'PageA': (context) => PageA(content: 'Page A Content'),
+          //   'PageB': (context) => PageB(content: 'Page B Content'),
+          //   'PageC': (context) => PageC(content: 'Page C Content'),
+          // },
+          onGenerateRoute: (settings) {
+            final Route route;
+            switch (settings.name) {
+              case '/':
+                route = MaterialPageRoute(
+                  builder: (context) => HomePage(),
+                );
+              case PageA.route:
+                route = MaterialPageRoute(
+                  builder: (context) {
+                    return PageA(content: settings.arguments as String);
                   },
-                ),
-                body: Column(
-                  children: [
-                    U.AppBar.primary(
-                      onMenuPressed: () {},
-                      onNotifPressed: () {},
-                    ),
-                    Expanded(
-                      child: IndexedStack(
-                        index: appState.selectedIndex,
-                        children: [
-                          CategoryPage(),
-                          ShopCartPage(),
-                          StorePage(),
-                          FavoritesPage(),
-                          ProfilePage(),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              );
-              // );
-            },
-          ),
+                );
+              case PageB.route:
+                route = MaterialPageRoute(
+                  builder: (context) {
+                    return PageB(content: settings.arguments as String);
+                  },
+                );
+              case PageC.route:
+                route = MaterialPageRoute(
+                  builder: (context) {
+                    return PageC(content: settings.arguments as String);
+                  },
+                );
+              default:
+                route = MaterialPageRoute(
+                  builder: (context) {
+                    return HomePage();
+                  },
+                );
+            }
+            return route;
+          },
         ),
       ),
     );
