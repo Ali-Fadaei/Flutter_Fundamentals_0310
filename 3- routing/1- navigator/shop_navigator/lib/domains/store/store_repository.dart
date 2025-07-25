@@ -15,21 +15,25 @@ class StoreRepository {
     await Future.delayed(Duration(milliseconds: _delay));
     return [
       CategoryData(
+        id: 0,
         title: 'Mobile Phone',
         image: 'assets/imgs/products/Z_Fold_4.png',
         color: const Color.fromARGB(255, 161, 207, 178),
       ),
       CategoryData(
+        id: 1,
         title: 'Laptop',
         image: 'assets/imgs/products/zenbook_14x.png',
         color: const Color.fromARGB(255, 255, 210, 161),
       ),
       CategoryData(
+        id: 2,
         title: 'AirBuds',
         image: 'assets/imgs/products/sony_airbuds.png',
         color: const Color.fromARGB(255, 217, 197, 224),
       ),
       CategoryData(
+        id: 3,
         title: 'Network Devices',
         image: 'assets/imgs/products/asus_rt.png',
         color: const Color.fromARGB(255, 218, 241, 254),
@@ -37,11 +41,12 @@ class StoreRepository {
     ];
   }
 
-  Future<List<Product>> getProducts() async {
+  Future<List<Product>> getProducts({int? categoryId}) async {
     final categories = await getCategories();
     await Future.delayed(Duration(milliseconds: _delay));
-    return [
+    final products = [
       Product(
+        id: 0,
         title: 'گلکسی S23 Ultra',
         rating: 4.8,
         price: 62000000,
@@ -51,6 +56,7 @@ class StoreRepository {
         categoryData: categories[0],
       ),
       Product(
+        id: 1,
         title: 'گلکسی Z Fold 4',
         rating: 4,
         price: 75500000,
@@ -60,6 +66,7 @@ class StoreRepository {
         categoryData: categories[0],
       ),
       Product(
+        id: 2,
         title: 'آیفون 13 pro',
         rating: 4.8,
         price: 73000000,
@@ -69,6 +76,7 @@ class StoreRepository {
         categoryData: categories[0],
       ),
       Product(
+        id: 3,
         title: 'شیائومی 11 ultra',
         rating: 4.6,
         price: 40000000,
@@ -78,6 +86,7 @@ class StoreRepository {
         categoryData: categories[0],
       ),
       Product(
+        id: 4,
         title: 'اپل Macbook Pro 2023',
         rating: 4.2,
         price: 176500000,
@@ -87,6 +96,7 @@ class StoreRepository {
         categoryData: categories[1],
       ),
       Product(
+        id: 5,
         title: 'مایکروسافت Surface Laptop Studio',
         rating: 4.8,
         price: 143900000,
@@ -96,6 +106,7 @@ class StoreRepository {
         categoryData: categories[1],
       ),
       Product(
+        id: 6,
         title: 'ایسوس Zenbook 14X',
         rating: 4.9,
         price: 75000000,
@@ -105,6 +116,7 @@ class StoreRepository {
         categoryData: categories[1],
       ),
       Product(
+        id: 7,
         title: 'سونی AirBuds WF-1000XM4',
         rating: 4.8,
         price: 13480000,
@@ -114,6 +126,7 @@ class StoreRepository {
         categoryData: categories[2],
       ),
       Product(
+        id: 8,
         title: 'اپل AirPods Pro 2',
         rating: 4.5,
         price: 10480000,
@@ -123,6 +136,7 @@ class StoreRepository {
         categoryData: categories[2],
       ),
       Product(
+        id: 9,
         title: 'هواوی FreeBuds 5i',
         rating: 4.6,
         price: 3600000,
@@ -132,6 +146,7 @@ class StoreRepository {
         categoryData: categories[2],
       ),
       Product(
+        id: 10,
         title: 'ایسوس RT-AX89X',
         rating: 4.6,
         price: 21500000,
@@ -141,6 +156,7 @@ class StoreRepository {
         categoryData: categories[3],
       ),
       Product(
+        id: 11,
         title: 'ایسوس DSL-AX82U',
         rating: 4.7,
         price: 16780000,
@@ -150,6 +166,7 @@ class StoreRepository {
         categoryData: categories[3],
       ),
       Product(
+        id: 12,
         title: 'دی‌لینک 4G N300 DWR-M921',
         rating: 4.7,
         price: 3500000,
@@ -159,6 +176,16 @@ class StoreRepository {
         categoryData: categories[3],
       ),
     ];
+
+    if (categoryId != null) {
+      return products
+          .where(
+            (e) => e.categoryData.id == categoryId,
+          )
+          .toList();
+    }
+
+    return products;
   }
 
   Future<List<Product>> getFavorites() async {
