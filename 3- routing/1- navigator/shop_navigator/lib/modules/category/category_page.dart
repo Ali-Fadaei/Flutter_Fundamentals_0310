@@ -39,7 +39,7 @@ class CategoryPage extends StatelessWidget {
         body: BlocBuilder<CategoryCubit, CategoryState>(
           builder: (context, state) {
             return Container(
-              color: state.category?.color.withValues(alpha: 0.5),
+              color: state.category?.color.withValues(alpha: 0.35),
               child: Column(
                 children: [
                   U.AppBar.secondary(
