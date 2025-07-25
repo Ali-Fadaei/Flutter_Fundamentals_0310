@@ -5,7 +5,6 @@ import '/domains/store/models/shop_item.dart';
 
 class StoreRepository {
   //
-
   final _delay = 1000;
 
   List<Product> _favorites = [];
