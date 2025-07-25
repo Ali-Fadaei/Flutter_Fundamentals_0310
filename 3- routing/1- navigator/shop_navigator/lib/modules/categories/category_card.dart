@@ -15,7 +15,7 @@ class CategoryCard extends StatelessWidget {
       onTap: () {
         Navigator.of(context).pushNamed(
           CategoryPage.route,
-          arguments: data,
+          arguments: data.id,
         );
       },
       child: SizedBox(

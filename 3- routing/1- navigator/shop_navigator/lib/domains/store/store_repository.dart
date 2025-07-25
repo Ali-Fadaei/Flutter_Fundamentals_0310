@@ -41,6 +41,11 @@ class StoreRepository {
     ];
   }
 
+  Future<CategoryData> getCategory({required int id}) async {
+    final res = await getCategories();
+    return res.firstWhere((e) => e.id == id);
+  }
+
   Future<List<Product>> getProducts({int? categoryId}) async {
     final categories = await getCategories();
     await Future.delayed(Duration(milliseconds: _delay));
@@ -186,6 +191,11 @@ class StoreRepository {
     }
 
     return products;
+  }
+
+  Future<Product> getProduct({required int id}) async {
+    final res = await getProducts();
+    return res.firstWhere((e) => e.id == id);
   }
 
   Future<List<Product>> getFavorites() async {

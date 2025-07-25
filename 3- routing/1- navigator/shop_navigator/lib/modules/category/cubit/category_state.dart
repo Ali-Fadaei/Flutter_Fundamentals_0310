@@ -5,7 +5,7 @@ class CategoryState {
   //
   final bool loading;
 
-  final CategoryData category;
+  final CategoryData? category;
 
   final List<Product> products;
 
@@ -15,9 +15,9 @@ class CategoryState {
     required this.products,
   });
 
-  const CategoryState.init({
-    required this.category,
-  })  : loading = false,
+  const CategoryState.init()
+      : loading = false,
+        category = null,
         products = const [];
 
   CategoryState copyWith({

@@ -57,36 +57,42 @@ class App extends StatelessWidget {
             switch (settings.name) {
               case '/':
                 route = MaterialPageRoute(
+                  settings: settings,
                   builder: (context) => HomePage(),
                 );
               case PageA.route:
                 route = MaterialPageRoute(
+                  settings: settings,
                   builder: (context) {
                     return PageA(content: settings.arguments as String);
                   },
                 );
               case PageB.route:
                 route = MaterialPageRoute(
+                  settings: settings,
                   builder: (context) {
                     return PageB(content: settings.arguments as String);
                   },
                 );
               case PageC.route:
                 route = MaterialPageRoute(
+                  settings: settings,
                   builder: (context) {
                     return PageC(content: settings.arguments as String);
                   },
                 );
               case CategoryPage.route:
                 route = MaterialPageRoute(
+                  settings: settings,
                   builder: (context) {
                     return CategoryPage(
-                      category: settings.arguments as CategoryData,
+                      categoryId: settings.arguments as int,
                     );
                   },
                 );
               default:
                 route = MaterialPageRoute(
+                  settings: settings,
                   builder: (context) {
                     return HomePage();
                   },

@@ -8,30 +8,38 @@ part 'category_state.dart';
 
 class CategoryCubit extends Cubit<CategoryState> {
   //
+  final int id;
+
   final StoreRepository _storeRepo;
 
   CategoryCubit({
     required StoreRepository storeRepo,
-    required CategoryData category,
+    required this.id,
   })  : _storeRepo = storeRepo,
         super(
-          CategoryState.init(
-            category: category,
-          ),
+          CategoryState.init(),
         ) {
     onInit();
   }
 
 //============================Functions=================================
+  Future<void> getCategory() async {
+    final res = await _storeRepo.getCategory(id: id);
+    emit(state.copyWith(category: res));
+  }
+
   Future<void> getProducts() async {
-    final res = await _storeRepo.getProducts(categoryId: state.category.id);
+    final res = await _storeRepo.getProducts(categoryId: id);
     emit(state.copyWith(products: res));
   }
 
 //==============================Events==================================
   void onInit() async {
     emit(state.copyWith(loading: true));
-    await getProducts();
+    await Future.wait([
+      getCategory(),
+      getProducts(),
+    ]);
     emit(state.copyWith(loading: false));
   }
 }
