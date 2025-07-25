@@ -2,13 +2,13 @@ import 'package:bloc/bloc.dart';
 import '/domains/store/models/category.dart';
 import '/domains/store/store_repository.dart';
 
-part 'category_state.dart';
+part 'categories_state.dart';
 
-class CategoryCubit extends Cubit<CategoryState> {
+class CategoriesCubit extends Cubit<CategoriesState> {
   //
   final StoreRepository storeRepo;
 
-  CategoryCubit({required this.storeRepo}) : super(CategoryState.init()) {
+  CategoriesCubit({required this.storeRepo}) : super(CategoriesState.init()) {
     onInit();
   }
 

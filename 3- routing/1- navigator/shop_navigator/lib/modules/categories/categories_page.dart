@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '/domains/store/store_repository.dart';
-import '/modules/category/cubit/category_cubit.dart';
+import 'cubit/categories_cubit.dart';
 import 'category_card.dart';
 
-class CategoryPage extends StatelessWidget {
+class CategoriesPage extends StatelessWidget {
   //
 
-  const CategoryPage({super.key});
+  const CategoriesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return BlocProvider(
-      create: (context) => CategoryCubit(
+      create: (context) => CategoriesCubit(
         storeRepo: RepositoryProvider.of<StoreRepository>(context),
       ),
-      child: BlocBuilder<CategoryCubit, CategoryState>(
+      child: BlocBuilder<CategoriesCubit, CategoriesState>(
         builder: (context, state) {
           return state.loading
               ? Center(

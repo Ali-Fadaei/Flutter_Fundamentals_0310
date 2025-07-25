@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_navigator/modules/app/cubit/app_cubit.dart';
-import 'package:shop_navigator/modules/category/category_page.dart';
+import 'package:shop_navigator/modules/categories/categories_page.dart';
 import 'package:shop_navigator/modules/favorites/favorites_page.dart';
 import 'package:shop_navigator/modules/profile/profile_page.dart';
 import 'package:shop_navigator/modules/shop_cart/shop_cart_page.dart';
@@ -68,7 +68,7 @@ class HomePage extends StatelessWidget {
                 child: IndexedStack(
                   index: appState.selectedIndex,
                   children: [
-                    CategoryPage(),
+                    CategoriesPage(),
                     ShopCartPage(),
                     StorePage(),
                     FavoritesPage(),

@@ -9,13 +9,6 @@ import 'package:shop_navigator/modules/page_b/page_b.dart';
 import 'package:shop_navigator/modules/page_c/page_c.dart';
 import '/domains/store/store_repository.dart';
 import '/modules/app/cubit/app_cubit.dart';
-import '/modules/shop_cart/cubit/shop_cart_cubit.dart';
-import '/modules/shop_cart/shop_cart_page.dart';
-import '../profile/profile_page.dart';
-import '../category/category_page.dart';
-import '../favorites/favorites_page.dart';
-import '../store/store_page.dart';
-import '/ui_kit/ui_kit.dart' as U;
 
 class App extends StatelessWidget {
   //
