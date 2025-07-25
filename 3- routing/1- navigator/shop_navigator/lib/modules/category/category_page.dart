@@ -38,8 +38,10 @@ class CategoryPage extends StatelessWidget {
         backgroundColor: U.Theme.background,
         body: BlocBuilder<CategoryCubit, CategoryState>(
           builder: (context, state) {
-            return Container(
-              color: state.category?.color.withValues(alpha: 0.35),
+            return AnimatedContainer(
+              duration: const Duration(milliseconds: 500),
+              color: state.category?.color.withValues(alpha: 0.5) ??
+                  U.Theme.background,
               child: Column(
                 children: [
                   U.AppBar.secondary(
