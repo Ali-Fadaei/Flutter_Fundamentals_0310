@@ -3,12 +3,21 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shop_navigator/domains/store/models/category.dart';
 import 'package:shop_navigator/modules/home/home_page.dart';
 import 'package:shop_navigator/modules/page_a/page_a.dart';
 import 'package:shop_navigator/modules/page_b/page_b.dart';
 import 'package:shop_navigator/modules/page_c/page_c.dart';
+import '../page_a/page_a.dart';
 import '/domains/store/store_repository.dart';
 import '/modules/app/cubit/app_cubit.dart';
+import '/modules/shop_cart/cubit/shop_cart_cubit.dart';
+import '/modules/shop_cart/shop_cart_page.dart';
+import '../profile/profile_page.dart';
+import '../category/category_page.dart';
+import '../favorites/favorites_page.dart';
+import '../store/store_page.dart';
+import '/ui_kit/ui_kit.dart' as U;
 
 class App extends StatelessWidget {
   //
@@ -61,6 +70,13 @@ class App extends StatelessWidget {
                 route = MaterialPageRoute(
                   builder: (context) {
                     return PageA(content: settings.arguments as String);
+                  },
+                );
+              case CategoryPage.path:
+                route = MaterialPageRoute(
+                  builder: (context) {
+                    return CategoryPage(
+                        category: settings.arguments as CategoryData);
                   },
                 );
               case PageB.route:

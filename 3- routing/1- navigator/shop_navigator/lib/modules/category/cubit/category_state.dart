@@ -3,11 +3,22 @@ part of 'category_cubit.dart';
 @immutable
 class CategoryState {
   //
-  const CategoryState();
+  final bool loading;
+  final List<Product> products;
+  final CategoryData? category;
+  const CategoryState(
+      {required this.loading, required this.category, required this.products});
 
-  const CategoryState.init();
+  CategoryState.init()
+      : category = null,
+        products = [],
+        loading = false;
 
-  CategoryState copyWith() {
-    return CategoryState();
+  CategoryState copyWith(
+      {CategoryData? category, bool? loading, List<Product>? products}) {
+    return CategoryState(
+        loading: loading ?? this.loading,
+        category: category ?? this.category,
+        products: products ?? this.products);
   }
 }
