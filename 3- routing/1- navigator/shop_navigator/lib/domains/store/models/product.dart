@@ -2,6 +2,8 @@ import 'category.dart';
 
 class Product {
   //
+  final int id;
+
   final String image;
 
   final String title;
@@ -15,6 +17,7 @@ class Product {
   final CategoryData categoryData;
 
   Product({
+    required this.id,
     required this.image,
     required this.title,
     required this.rating,

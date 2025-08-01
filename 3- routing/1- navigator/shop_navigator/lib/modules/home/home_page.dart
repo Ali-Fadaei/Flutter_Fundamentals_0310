@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_navigator/modules/app/cubit/app_cubit.dart';
+import 'package:shop_navigator/modules/categories/categories_page.dart';
 import 'package:shop_navigator/modules/category/category_page.dart';
 import 'package:shop_navigator/modules/favorites/favorites_page.dart';
 import 'package:shop_navigator/modules/profile/profile_page.dart';
@@ -68,7 +69,28 @@ class HomePage extends StatelessWidget {
                 child: IndexedStack(
                   index: appState.selectedIndex,
                   children: [
-                    CategoryPage(),
+                    Navigator(
+                      onGenerateRoute:(settings){
+                        switch (settings.name) {
+                          case CategoriesPage.route:
+                            return MaterialPageRoute(settings: settings,builder: (context){return CategoriesPage();});
+
+                            case CategoryPage.route:
+                            return MaterialPageRoute(
+                                settings: settings,
+                                builder: (context) {
+                                  return CategoryPage(categoryId:settings.arguments as int,);
+                                });
+                            
+                          default:
+                          return MaterialPageRoute(
+                                settings: settings,
+                                builder: (context) {
+                                  return CategoriesPage();
+                                });
+                        }
+                      } ,
+                    ),
                     ShopCartPage(),
                     StorePage(),
                     FavoritesPage(),

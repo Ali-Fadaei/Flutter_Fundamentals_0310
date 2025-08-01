@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shop_navigator/domains/store/models/category.dart';
+import 'package:shop_navigator/modules/category/category_page.dart';
 import 'package:shop_navigator/modules/home/home_page.dart';
 import 'package:shop_navigator/modules/page_a/page_a.dart';
 import 'package:shop_navigator/modules/page_b/page_b.dart';
@@ -12,7 +14,7 @@ import '/modules/app/cubit/app_cubit.dart';
 import '/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import '/modules/shop_cart/shop_cart_page.dart';
 import '../profile/profile_page.dart';
-import '../category/category_page.dart';
+import '../categories/categories_page.dart';
 import '../favorites/favorites_page.dart';
 import '../store/store_page.dart';
 import '/ui_kit/ui_kit.dart' as U;
@@ -62,28 +64,34 @@ class App extends StatelessWidget {
             switch (settings.name) {
               case '/':
                 route = MaterialPageRoute(
+                  settings: settings,
                   builder: (context) => HomePage(),
                 );
               case PageA.route:
                 route = MaterialPageRoute(
+                  settings: settings,
                   builder: (context) {
                     return PageA(content: settings.arguments as String);
                   },
                 );
               case PageB.route:
                 route = MaterialPageRoute(
+                  settings: settings,
                   builder: (context) {
                     return PageB(content: settings.arguments as String);
                   },
                 );
               case PageC.route:
                 route = MaterialPageRoute(
+                  settings: settings,
                   builder: (context) {
                     return PageC(content: settings.arguments as String);
                   },
                 );
+               
               default:
                 route = MaterialPageRoute(
+                  settings: settings,
                   builder: (context) {
                     return HomePage();
                   },

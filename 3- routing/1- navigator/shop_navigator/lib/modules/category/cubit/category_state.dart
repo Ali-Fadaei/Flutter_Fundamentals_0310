@@ -1,19 +1,30 @@
 part of 'category_cubit.dart';
 
-final class CategoryState {
+@immutable
+ class CategoryState {
   //
   final bool loading;
 
-  final List<CategoryData> categories;
 
-  const CategoryState({required this.loading, required this.categories});
+  final CategoryData? category;
 
-  const CategoryState.init() : loading = false, categories = const [];
+  final List<Product> Products;
 
-  CategoryState copyWith({bool? loading, List<CategoryData>? categories}) {
+  const CategoryState({
+    required this.Products,
+    required this.category,
+    required this.loading,
+  });
+
+  const CategoryState.init(
+    ): loading = false,Products = const [] ,category=null;
+  //چون کتگوری مجبوره باشه پس ریکووارد
+
+  CategoryState copywith({bool?loading,CategoryData? category, List<Product>? Products}){
     return CategoryState(
       loading: loading ?? this.loading,
-      categories: categories ?? this.categories,
+      category: category ?? this.category,
+      Products:  Products ?? this.Products,
     );
   }
-}
+ }
