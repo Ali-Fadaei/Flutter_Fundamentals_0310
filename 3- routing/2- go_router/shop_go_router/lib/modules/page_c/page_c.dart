@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:shop_go_router/modules/page_b/page_b.dart';
 import '/modules/page_d/page_d.dart';
 import '/modules/page_f/page_f.dart';
 import '/ui_kit/ui_kit.dart' as U;
 
 class PageC extends StatelessWidget {
   //
-  static const route = 'PageC';
+  static const route = '/PageC';
 
   final String content;
 
@@ -29,38 +31,27 @@ class PageC extends StatelessWidget {
             Expanded(
               child: Container(
                 color: Colors.blueGrey,
-                child: Navigator(
-                  initialRoute: PageD.route,
-                  onGenerateRoute: (settings) {
-                    final Route route;
-                    switch (settings.name) {
-                      case PageD.route:
-                        route = MaterialPageRoute(
-                          builder: (context) => PageD(content: ''),
-                        );
-                        break;
-                      case PageF.route:
-                        route = MaterialPageRoute(
-                          builder: (context) => PageF(
-                            content: '',
-                          ),
-                        );
-                        break;
-                      default:
-                        route = MaterialPageRoute(
-                          builder: (context) => PageD(content: ''),
-                        );
-                        break;
-                    }
-                    return route;
-                  },
-                ),
+                child: SizedBox.expand(),
               ),
+            ),
+            U.Button(
+              title: 'Go B',
+              onPressed: () {
+                GoRouter.of(context).goNamed(
+                  '${PageB.route}2',
+                );
+                // GoRouter.of(context).pushNamed(
+                //   PageB.route,
+                // );
+              },
+            ),
+            const SizedBox(
+              height: 30,
             ),
             U.Button(
               title: 'Go Back',
               onPressed: () {
-                Navigator.of(context).pop();
+                GoRouter.of(context).pop();
               },
             ),
           ],

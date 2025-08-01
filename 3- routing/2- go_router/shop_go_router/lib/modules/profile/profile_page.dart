@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:shop_go_router/modules/page_b/page_b.dart';
+import 'package:shop_go_router/modules/page_c/page_c.dart';
 import '/modules/page_a/page_a.dart';
 import '/ui_kit/ui_kit.dart' as U;
 
@@ -32,9 +35,27 @@ class _ProfilePageState extends State<ProfilePage> {
             U.Button(
               title: 'Go To Page A',
               onPressed: () {
-                Navigator.of(context).pushNamed(
+                GoRouter.of(context).goNamed(
                   PageA.route,
-                  arguments: 'PageA content',
+                );
+                // Navigator.of(context).push(
+                //   MaterialPageRoute(
+                //     builder: (context) => PageA(
+                //       content: 'Page A Content',
+                //     ),
+                //   ),
+                //   // CupertinoPageRoute(builder: builder)
+                // );
+              },
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            U.Button(
+              title: 'Go To Page C',
+              onPressed: () {
+                GoRouter.of(context).goNamed(
+                  PageC.route,
                 );
                 // Navigator.of(context).push(
                 //   MaterialPageRoute(
