@@ -6,6 +6,7 @@ import 'category_card.dart';
 
 class CategoriesPage extends StatelessWidget {
   //
+  static const route = '/categories';
 
   const CategoriesPage({super.key});
 

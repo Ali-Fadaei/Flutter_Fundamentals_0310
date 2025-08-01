@@ -12,11 +12,13 @@ class ProductBottomSheet extends StatelessWidget {
   static show(
     BuildContext context, {
     required Product product,
+    bool useRootNavigator = false,
     FavoritesCubit? favoritesCubit,
     ShopCartCubit? shopCartCubit,
   }) {
     U.BottomSheet.show(
       context,
+      useRootNavigator: useRootNavigator,
       builder: (context) {
         return MultiBlocProvider(
           providers: [

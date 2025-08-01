@@ -8,11 +8,13 @@ class BottomSheet extends StatelessWidget {
     BuildContext context, {
     double? maxWidth,
     double? maxHeight,
+    bool useRootNavigator = false,
     required Widget Function(BuildContext context) builder,
   }) {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      useRootNavigator: useRootNavigator,
       barrierColor: Colors.black54,
       constraints: BoxConstraints(
         maxWidth: maxWidth ?? 1024,

@@ -3,8 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:shop_navigator/domains/store/models/category.dart';
-import 'package:shop_navigator/modules/category/category_page.dart';
 import 'package:shop_navigator/modules/home/home_page.dart';
 import 'package:shop_navigator/modules/page_a/page_a.dart';
 import 'package:shop_navigator/modules/page_b/page_b.dart';
@@ -79,15 +77,6 @@ class App extends StatelessWidget {
                   settings: settings,
                   builder: (context) {
                     return PageC(content: settings.arguments as String);
-                  },
-                );
-              case CategoryPage.route:
-                route = MaterialPageRoute(
-                  settings: settings,
-                  builder: (context) {
-                    return CategoryPage(
-                      categoryId: settings.arguments as int,
-                    );
                   },
                 );
               default:
