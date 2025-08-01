@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shop_go_router/modules/page_b/page_b.dart';
 import 'package:shop_go_router/modules/page_c/page_c.dart';
+import 'package:shop_go_router/modules/page_d/page_d.dart';
 import '/modules/page_a/page_a.dart';
 import '/ui_kit/ui_kit.dart' as U;
 
@@ -37,6 +37,12 @@ class _ProfilePageState extends State<ProfilePage> {
               onPressed: () {
                 GoRouter.of(context).goNamed(
                   PageA.route,
+                  pathParameters: {
+                    'id': '128',
+                  },
+                  queryParameters: {
+                    'harnamana': 'megdar',
+                  },
                 );
                 // Navigator.of(context).push(
                 //   MaterialPageRoute(
@@ -65,6 +71,17 @@ class _ProfilePageState extends State<ProfilePage> {
                 //   ),
                 //   // CupertinoPageRoute(builder: builder)
                 // );
+              },
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            U.Button(
+              title: 'Go To Page D',
+              onPressed: () {
+                GoRouter.of(context).goNamed(
+                  PageD.route,
+                );
               },
             ),
             const SizedBox(

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_go_router/modules/page_b/page_b.dart';
-import '/modules/page_d/page_d.dart';
-import '/modules/page_f/page_f.dart';
 import '/ui_kit/ui_kit.dart' as U;
 
 class PageC extends StatelessWidget {
@@ -11,9 +9,12 @@ class PageC extends StatelessWidget {
 
   final String content;
 
+  final Widget childPage;
+
   const PageC({
     super.key,
     required this.content,
+    required this.childPage,
   });
 
   @override
@@ -31,7 +32,7 @@ class PageC extends StatelessWidget {
             Expanded(
               child: Container(
                 color: Colors.blueGrey,
-                child: SizedBox.expand(),
+                child: childPage,
               ),
             ),
             U.Button(
