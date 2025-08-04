@@ -10,7 +10,7 @@ import '/ui_kit/ui_kit.dart' as U;
 
 class StorePage extends StatelessWidget {
   //
-
+  static final route = '/StorePage';
   const StorePage({super.key});
 
   @override

@@ -10,7 +10,8 @@ import '/ui_kit/ui_kit.dart' as U;
 
 class HomePage extends StatelessWidget {
   //
-  const HomePage({super.key});
+  final Widget child;
+  const HomePage({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -64,18 +65,18 @@ class HomePage extends StatelessWidget {
                 onMenuPressed: () {},
                 onNotifPressed: () {},
               ),
-              Expanded(
-                child: IndexedStack(
-                  index: appState.selectedIndex,
-                  children: [
-                    CategoriesPage(),
-                    ShopCartPage(),
-                    StorePage(),
-                    FavoritesPage(),
-                    ProfilePage(),
-                  ],
-                ),
-              ),
+              Expanded(child: child
+                  //  IndexedStack(
+                  //   index: appState.selectedIndex,
+                  //   children: [
+                  //     CategoriesPage(),
+                  //     ShopCartPage(),
+                  //     StorePage(),
+                  //     FavoritesPage(),
+                  //     ProfilePage(),
+                  //   ],
+                  // ),
+                  ),
             ],
           ),
         );

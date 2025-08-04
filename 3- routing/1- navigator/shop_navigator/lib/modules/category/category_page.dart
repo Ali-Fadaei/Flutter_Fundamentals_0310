@@ -9,7 +9,7 @@ import '/ui_kit/ui_kit.dart' as U;
 
 class CategoryPage extends StatelessWidget {
   //
-  static const String path = 'CategoryPage';
+  static const String path = '/CategoryPage';
   final CategoryData category;
   const CategoryPage({super.key, required this.category});
 

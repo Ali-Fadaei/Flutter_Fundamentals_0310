@@ -7,6 +7,8 @@ import 'package:shop_navigator/modules/page_d/page_d.dart';
 import '/ui_kit/ui_kit.dart' as U;
 
 class ProfilePage extends StatefulWidget {
+  static final route = '/ProfilePage';
+
   const ProfilePage({super.key});
 
   @override

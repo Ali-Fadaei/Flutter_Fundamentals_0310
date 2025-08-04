@@ -8,6 +8,8 @@ import '/ui_kit/ui_kit.dart' as U;
 
 class ShopCartPage extends StatelessWidget {
   //
+  static final route = '/ShopCartPage';
+
   const ShopCartPage({super.key});
 
   @override

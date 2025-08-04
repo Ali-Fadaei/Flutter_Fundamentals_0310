@@ -8,6 +8,8 @@ import '/ui_kit/ui_kit.dart' as U;
 
 class FavoritesPage extends StatelessWidget {
   //
+  static final route = '/FavoritesPage';
+
   const FavoritesPage({super.key});
 
   @override
