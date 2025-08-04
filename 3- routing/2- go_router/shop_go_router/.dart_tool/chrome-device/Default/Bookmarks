@@ -1,0 +1,54 @@
+{
+   "checksum": "268afb35e18bb60b20489156d187ed8a",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13363650191215021",
+            "date_last_used": "0",
+            "guid": "fd3e54ac-bad6-403f-a9e3-42018848d0c4",
+            "id": "6",
+            "meta_info": {
+               "power_bookmark_meta": ""
+            },
+            "name": "Finding Basis for Column Space, Row Space, and Null Space - Linear Algebra - YouTube",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www.youtube.com/watch?v=AVWTlNkTNfw",
+            "visit_count": 0
+         } ],
+         "date_added": "13398512717840082",
+         "date_last_used": "0",
+         "date_modified": "13363650191215021",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "Favorites bar",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13398512717840082",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "Other favorites",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13398512717840082",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "Mobile favorites",
+         "source": "unknown",
+         "type": "folder"
+      }
+   },
+   "sync_metadata": "CkEKHgiIgQISCOZA3GSYAQAAKg4QABgBIAAoBjAAOABAABIAKhhjMkgrMitmcDRwcWpxZHBTRXoraTl3PT1IA6AGDBKsAQgGEqcBChxESDhSN0JobjNaR0YxdllFTFFndWp3NzlXWUU9EiRmZDNlNTRhYy1iYWQ2LTQwM2YtYTllMy00MjAxODg0OGQwYzQYACAAKAAwsoXej4QyOJWH3o+EMkCVh96PhDJKHHc0OFhwRjczS2kzckxrclgwNHkvSVloeGxEQT1aHiIcNWVJSWlGRE5nMmtJWkxBaURCSkRMaTJDM0RFPWU4+Tkzwj4CYAUSjgEIARKJAQoceXhKLzZmdmtlY3I3a3A1RVF6QjR0V0xwZGJFPRIkNTUxY2JmZGEtNjU5Yi01MjBhLWJjMGYtNzg3NTczMmU5OWFhGAAgACgAMJmzlMjrMTjuupTI6zFA7rqUyOsxShxhUkNXTGdoRjliNUlucUtJRHZ1Si9qdlFrRmM9WgBlAAAAAMI+AmAAEo4BCAISiQEKHFljU1RvbnZFU1B3cUNzNEwyY3JWaHY2OEw5OD0SJDMwZjZmOTYzLTA0MzktNTRmNS04NDVlLWY2YzM1YjU2MGVhNxgAIAAoADCas5TI6zE4iruUyOsxQIq7lMjrMUocb1BWa2h3QlJiVjY1S0NXUjIrSU9OSFdvT3U4PVoAZQAAAADCPgJgABKOAQgDEokBChxuamdEdTg4ZUNydlhwODZwRDdmSEdjcUZwODg9EiRiNDQ0NWM3Zi03YjcxLTUyNDctOGZjNi0wNjljYzNlZWMzYjcYACAAKAAwn7OUyOsxOMa7lMjrMUDGu5TI6zFKHHl6TkIwMWNuNTRBN2NSVTB1VCsvUGdtVHRVbz1aAGUAAAAAwj4CYAAwADgA",
+   "version": 1
+}

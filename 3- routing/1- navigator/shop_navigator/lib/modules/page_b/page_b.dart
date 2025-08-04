@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shop_navigator/modules/page_c/page_c.dart';
+import 'package:shop_navigator/modules/page_d/page_d.dart';
+import 'package:shop_navigator/modules/page_f/page_f.dart';
 import '/ui_kit/ui_kit.dart' as U;
 
 class PageB extends StatelessWidget {
   //
-  static const route = 'PageB';
+  static const route = '/PageB/:id';
+  // static const route = '/PageB/:id2';
 
   final String content;
 
@@ -27,11 +31,11 @@ class PageB extends StatelessWidget {
             height: 30,
           ),
           U.Button(
-            title: 'Go Page C',
+            title: 'Go Page D',
             onPressed: () {
-              Navigator.of(context).pushNamed(
-                PageC.route,
-                arguments: 'PageC content',
+              GoRouter.of(context).go(
+                // pathParameters: {'id': '233243'},
+                PageD.route,
               );
               // Navigator.of(context).push(
               //   MaterialPageRoute(
@@ -48,7 +52,7 @@ class PageB extends StatelessWidget {
           U.Button(
             title: 'Go Back',
             onPressed: () {
-              Navigator.of(context).pop();
+              GoRouter.of(context).pop();
             },
           ),
         ],

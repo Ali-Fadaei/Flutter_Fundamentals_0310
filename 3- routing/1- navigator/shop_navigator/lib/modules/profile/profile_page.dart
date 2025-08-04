@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shop_navigator/modules/page_a/page_a.dart';
+import 'package:shop_navigator/modules/page_c/page_c.dart';
+import 'package:shop_navigator/modules/page_d/page_d.dart';
 import '/ui_kit/ui_kit.dart' as U;
 
 class ProfilePage extends StatefulWidget {
@@ -33,10 +36,25 @@ class _ProfilePageState extends State<ProfilePage> {
             U.Button(
               title: 'Go To Page A',
               onPressed: () {
-                Navigator.of(context).pushNamed(
-                  PageA.route,
-                  arguments: 'PageA content',
-                );
+                GoRouter.of(context)
+                    .goNamed(pathParameters: {'id': '11'}, PageA.route);
+                // Navigator.of(context).push(
+                //   MaterialPageRoute(
+                //     builder: (context) => PageA(
+                //       content: 'Page A Content',
+                //     ),
+                //   ),
+                //   // CupertinoPageRoute(builder: builder)
+                // );
+              },
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            U.Button(
+              title: 'Go To Page C',
+              onPressed: () {
+                GoRouter.of(context).goNamed(PageD.route);
                 // Navigator.of(context).push(
                 //   MaterialPageRoute(
                 //     builder: (context) => PageA(

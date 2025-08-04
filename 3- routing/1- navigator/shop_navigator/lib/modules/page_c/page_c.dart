@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shop_navigator/modules/page_d/page_d.dart';
 import 'package:shop_navigator/modules/page_f/page_f.dart';
 import '/ui_kit/ui_kit.dart' as U;
 
 class PageC extends StatelessWidget {
   //
-  static const route = 'PageC';
+  static const route = '/PageC';
 
   final String content;
+
+  final Widget childPage;
 
   const PageC({
     super.key,
     required this.content,
+    required this.childPage,
   });
 
   @override
@@ -27,40 +31,39 @@ class PageC extends StatelessWidget {
               height: 30,
             ),
             Expanded(
-              child: Container(
-                color: Colors.blueGrey,
-                child: Navigator(
-                  initialRoute: PageD.route,
-                  onGenerateRoute: (settings) {
-                    final Route route;
-                    switch (settings.name) {
-                      case PageD.route:
-                        route = MaterialPageRoute(
-                          builder: (context) => PageD(content: ''),
-                        );
-                        break;
-                      case PageF.route:
-                        route = MaterialPageRoute(
-                          builder: (context) => PageF(
-                            content: '',
-                          ),
-                        );
-                        break;
-                      default:
-                        route = MaterialPageRoute(
-                          builder: (context) => PageD(content: ''),
-                        );
-                        break;
-                    }
-                    return route;
-                  },
-                ),
-              ),
+              child: Container(color: Colors.blueGrey, child: childPage
+                  //  Navigator(
+                  //   initialRoute: PageD.route,
+                  //   onGenerateRoute: (settings) {
+                  //     final Route route;
+                  //     switch (settings.name) {
+                  //       case PageD.route:
+                  //         route = MaterialPageRoute(
+                  //           builder: (context) => PageD(content: ''),
+                  //         );
+                  //         break;
+                  //       case PageF.route:
+                  //         route = MaterialPageRoute(
+                  //           builder: (context) => PageF(
+                  //             content: '',
+                  //           ),
+                  //         );
+                  //         break;
+                  //       default:
+                  //         route = MaterialPageRoute(
+                  //           builder: (context) => PageD(content: ''),
+                  //         );
+                  //         break;
+                  //     }
+                  //     return route;
+                  //   },
+                  // ),
+                  ),
             ),
             U.Button(
               title: 'Go Back',
               onPressed: () {
-                Navigator.of(context).pop();
+                GoRouter.of(context).pop();
               },
             ),
           ],

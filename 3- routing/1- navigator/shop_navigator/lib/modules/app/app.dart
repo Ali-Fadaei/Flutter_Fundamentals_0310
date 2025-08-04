@@ -8,6 +8,7 @@ import 'package:shop_navigator/modules/home/home_page.dart';
 import 'package:shop_navigator/modules/page_a/page_a.dart';
 import 'package:shop_navigator/modules/page_b/page_b.dart';
 import 'package:shop_navigator/modules/page_c/page_c.dart';
+import 'package:shop_navigator/modules/routers/routers.dart';
 import '../page_a/page_a.dart';
 import '/domains/store/store_repository.dart';
 import '/modules/app/cubit/app_cubit.dart';
@@ -30,7 +31,7 @@ class App extends StatelessWidget {
       create: (context) => StoreRepository(),
       child: BlocProvider(
         create: (context) => AppCubit(),
-        child: MaterialApp(
+        child: MaterialApp.router(
           debugShowCheckedModeBanner: false,
           theme: ThemeData.from(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
@@ -54,52 +55,53 @@ class App extends StatelessWidget {
               PointerDeviceKind.invertedStylus,
             },
           ),
+          routerConfig: routes,
           // routes: {
           //   'PageA': (context) => PageA(content: 'Page A Content'),
           //   'PageB': (context) => PageB(content: 'Page B Content'),
           //   'PageC': (context) => PageC(content: 'Page C Content'),
           // },
-          onGenerateRoute: (settings) {
-            final Route route;
-            switch (settings.name) {
-              case '/':
-                route = MaterialPageRoute(
-                  builder: (context) => HomePage(),
-                );
-              case PageA.route:
-                route = MaterialPageRoute(
-                  builder: (context) {
-                    return PageA(content: settings.arguments as String);
-                  },
-                );
-              case CategoryPage.path:
-                route = MaterialPageRoute(
-                  builder: (context) {
-                    return CategoryPage(
-                        category: settings.arguments as CategoryData);
-                  },
-                );
-              case PageB.route:
-                route = MaterialPageRoute(
-                  builder: (context) {
-                    return PageB(content: settings.arguments as String);
-                  },
-                );
-              case PageC.route:
-                route = MaterialPageRoute(
-                  builder: (context) {
-                    return PageC(content: settings.arguments as String);
-                  },
-                );
-              default:
-                route = MaterialPageRoute(
-                  builder: (context) {
-                    return HomePage();
-                  },
-                );
-            }
-            return route;
-          },
+          // onGenerateRoute: (settings) {
+          //   final Route route;
+          //   switch (settings.name) {
+          //     case '/':
+          //       route = MaterialPageRoute(
+          //         builder: (context) => HomePage(),
+          //       );
+          //     case PageA.route:
+          //       route = MaterialPageRoute(
+          //         builder: (context) {
+          //           return PageA(content: settings.arguments as String);
+          //         },
+          //       );
+          //     case CategoryPage.path:
+          //       route = MaterialPageRoute(
+          //         builder: (context) {
+          //           return CategoryPage(
+          //               category: settings.arguments as CategoryData);
+          //         },
+          //       );
+          //     case PageB.route:
+          //       route = MaterialPageRoute(
+          //         builder: (context) {
+          //           return PageB(content: settings.arguments as String);
+          //         },
+          //       );
+          //     case PageC.route:
+          //       route = MaterialPageRoute(
+          //         builder: (context) {
+          //           return PageC(content: settings.arguments as String);
+          //         },
+          //       );
+          //     default:
+          //       route = MaterialPageRoute(
+          //         builder: (context) {
+          //           return HomePage();
+          //         },
+          //       );
+          //   }
+          //   return route;
+          // },
         ),
       ),
     );
