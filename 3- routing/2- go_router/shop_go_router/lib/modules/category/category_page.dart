@@ -8,7 +8,7 @@ import '/ui_kit/ui_kit.dart' as U;
 
 class CategoryPage extends StatelessWidget {
   //
-  static const route = '/category';
+  static const route = '/category/:id';
 
   final int categoryId;
 

@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:shop_go_router/modules/app/transitions.dart';
 import 'package:shop_go_router/modules/categories/categories_page.dart';
+import 'package:shop_go_router/modules/category/category_page.dart';
 import 'package:shop_go_router/modules/favorites/favorites_page.dart';
 import 'package:shop_go_router/modules/home/home_shell.dart';
 import 'package:shop_go_router/modules/page_a/page_a.dart';
@@ -25,7 +26,6 @@ final router = GoRouter(
     print(state.uri.port);
     print('state.uri.path');
     print(state.uri.path);
-
     return null;
   },
   routes: [
@@ -42,6 +42,19 @@ final router = GoRouter(
               builder: (context, state) {
                 return CategoriesPage();
               },
+              routes: [
+                GoRoute(
+                  path: CategoryPage.route,
+                  name: CategoryPage.route,
+                  builder: (context, state) {
+                    return CategoryPage(
+                      categoryId: int.parse(
+                        state.pathParameters['id']!,
+                      ),
+                    );
+                  },
+                ),
+              ],
             )
           ],
         ),
