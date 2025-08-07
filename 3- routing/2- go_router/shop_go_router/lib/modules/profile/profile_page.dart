@@ -6,6 +6,9 @@ import '/modules/page_a/page_a.dart';
 import '/ui_kit/ui_kit.dart' as U;
 
 class ProfilePage extends StatefulWidget {
+  //
+  static const route = '/profile';
+
   const ProfilePage({super.key});
 
   @override

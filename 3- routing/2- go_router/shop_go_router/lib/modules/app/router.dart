@@ -1,16 +1,19 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_go_router/modules/app/transitions.dart';
-import 'package:shop_go_router/modules/home/home_page.dart';
+import 'package:shop_go_router/modules/categories/categories_page.dart';
+import 'package:shop_go_router/modules/favorites/favorites_page.dart';
+import 'package:shop_go_router/modules/home/home_shell.dart';
 import 'package:shop_go_router/modules/page_a/page_a.dart';
 import 'package:shop_go_router/modules/page_b/page_b.dart';
 import 'package:shop_go_router/modules/page_c/page_c.dart';
 import 'package:shop_go_router/modules/page_d/page_d.dart';
 import 'package:shop_go_router/modules/page_f/page_f.dart';
+import 'package:shop_go_router/modules/profile/profile_page.dart';
+import 'package:shop_go_router/modules/shop_cart/shop_cart_page.dart';
+import 'package:shop_go_router/modules/store/store_page.dart';
 
 final router = GoRouter(
-  initialLocation: '/',
+  initialLocation: StorePage.route,
   redirect: (context, state) {
     print('state.fullPath');
     print(state.fullPath);
@@ -26,13 +29,75 @@ final router = GoRouter(
     return null;
   },
   routes: [
-    GoRoute(
-      path: '/',
-      name: '/',
-      builder: (context, state) {
-        return HomePage();
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) {
+        return HomeShell(child: navigationShell);
       },
+      branches: [
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: CategoriesPage.route,
+              name: CategoriesPage.route,
+              builder: (context, state) {
+                return CategoriesPage();
+              },
+            )
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: ShopCartPage.route,
+              name: ShopCartPage.route,
+              builder: (context, state) {
+                return ShopCartPage();
+              },
+            )
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: StorePage.route,
+              name: StorePage.route,
+              builder: (context, state) {
+                return StorePage();
+              },
+            )
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: FavoritesPage.route,
+              name: FavoritesPage.route,
+              builder: (context, state) {
+                return FavoritesPage();
+              },
+            )
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: ProfilePage.route,
+              name: ProfilePage.route,
+              builder: (context, state) {
+                return ProfilePage();
+              },
+            )
+          ],
+        ),
+      ],
     ),
+    // GoRoute(
+    //   path: '/',
+    //   name: '/',
+    //   builder: (context, state) {
+    //     return HomeShell();
+    //   },
+    // ),
     GoRoute(
       path: PageA.route,
       name: PageA.route,

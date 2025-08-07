@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '/modules/app/cubit/app_cubit.dart';
-import '/modules/categories/categories_page.dart';
-import '/modules/favorites/favorites_page.dart';
-import '/modules/profile/profile_page.dart';
-import '/modules/shop_cart/shop_cart_page.dart';
-import '/modules/store/store_page.dart';
 import '/ui_kit/ui_kit.dart' as U;
 
-class HomePage extends StatelessWidget {
+class HomeShell extends StatelessWidget {
   //
-  const HomePage({super.key});
+  final StatefulNavigationShell child;
+
+  const HomeShell({
+    super.key,
+    required this.child,
+  });
 
   @override
   Widget build(BuildContext context) {
+    print('child.currentIndex');
+    print(child.currentIndex);
     return BlocBuilder<AppCubit, AppState>(
       buildWhen: (previous, current) =>
           previous.selectedIndex != current.selectedIndex,
@@ -29,7 +32,7 @@ class HomePage extends StatelessWidget {
           bottomNavigationBar: BlocBuilder<AppCubit, AppState>(
             builder: (context, state) {
               return U.NavigationBar(
-                selectedIndex: appState.selectedIndex,
+                selectedIndex: child.currentIndex,
                 destinations: [
                   U.NavigationDestination(
                     title: 'دسته‌بندی',
@@ -54,7 +57,7 @@ class HomePage extends StatelessWidget {
                     icon: U.Icons.profile,
                   ),
                 ],
-                onDestinationChanged: appCubit.onSelectedIndexChanged,
+                onDestinationChanged: child.goBranch,
               );
             },
           ),
@@ -65,16 +68,7 @@ class HomePage extends StatelessWidget {
                 onNotifPressed: () {},
               ),
               Expanded(
-                child: IndexedStack(
-                  index: appState.selectedIndex,
-                  children: [
-                    CategoriesPage(),
-                    ShopCartPage(),
-                    StorePage(),
-                    FavoritesPage(),
-                    ProfilePage(),
-                  ],
-                ),
+                child: child,
               ),
             ],
           ),

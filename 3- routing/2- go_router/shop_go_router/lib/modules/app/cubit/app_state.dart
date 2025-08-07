@@ -14,9 +14,16 @@ final class AppState {
     required this.shopItemsCount,
   });
 
-  const AppState.init() : selectedIndex = 2, shopItemsCount = 0, favsCount = 0;
+  const AppState.init()
+      : selectedIndex = 2,
+        shopItemsCount = 0,
+        favsCount = 0;
 
-  AppState copyWith({int? selectedIndex, int? favsCount, int? shopItemsCount}) {
+  AppState copyWith({
+    int? selectedIndex,
+    int? favsCount,
+    int? shopItemsCount,
+  }) {
     return AppState(
       selectedIndex: selectedIndex ?? this.selectedIndex,
       favsCount: favsCount ?? this.favsCount,
