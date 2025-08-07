@@ -91,13 +91,6 @@ final router = GoRouter(
         ),
       ],
     ),
-    // GoRoute(
-    //   path: '/',
-    //   name: '/',
-    //   builder: (context, state) {
-    //     return HomeShell();
-    //   },
-    // ),
     GoRoute(
       path: PageA.route,
       name: PageA.route,

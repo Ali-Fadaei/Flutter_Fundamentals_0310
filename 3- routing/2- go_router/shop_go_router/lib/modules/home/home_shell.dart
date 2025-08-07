@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '/modules/app/cubit/app_cubit.dart';
+import 'package:shop_go_router/modules/home/cubit/home_cubit.dart';
 import '/ui_kit/ui_kit.dart' as U;
 
 class HomeShell extends StatelessWidget {
@@ -15,13 +15,11 @@ class HomeShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('child.currentIndex');
-    print(child.currentIndex);
-    return BlocBuilder<AppCubit, AppState>(
-      buildWhen: (previous, current) =>
-          previous.selectedIndex != current.selectedIndex,
-      builder: (context, appState) {
-        final appCubit = BlocProvider.of<AppCubit>(context);
+    return BlocProvider(
+      create: (context) => HomeCubit(),
+      child: Builder(builder: (context) {
+        final homeCubit = BlocProvider.of<HomeCubit>(context);
+        homeCubit.onSelectedIndexChanged(child.currentIndex);
         return Scaffold(
           backgroundColor: U.Theme.background,
           drawer: Container(
@@ -29,7 +27,7 @@ class HomeShell extends StatelessWidget {
             height: double.infinity,
             width: 200,
           ),
-          bottomNavigationBar: BlocBuilder<AppCubit, AppState>(
+          bottomNavigationBar: BlocBuilder<HomeCubit, HomeState>(
             builder: (context, state) {
               return U.NavigationBar(
                 selectedIndex: child.currentIndex,
@@ -73,8 +71,8 @@ class HomeShell extends StatelessWidget {
             ],
           ),
         );
-        // );
-      },
+      }),
     );
+    // );
   }
 }

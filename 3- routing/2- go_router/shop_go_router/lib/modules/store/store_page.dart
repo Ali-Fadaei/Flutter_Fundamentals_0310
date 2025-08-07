@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_go_router/modules/home/cubit/home_cubit.dart';
 import '/domains/store/store_repository.dart';
-import '/modules/app/cubit/app_cubit.dart';
 import '../categories/category_card.dart';
 import '/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import '/modules/store/cubit/store_cubit.dart';
@@ -36,11 +36,11 @@ class StorePage extends StatelessWidget {
                 previous.shopItems.length != current.shopItems.length,
             listener: (context, state) {
               context
-                  .read<AppCubit>()
+                  .read<HomeCubit>()
                   .onShopItemsCountChanged(state.shopItems.length);
             },
           ),
-          BlocListener<AppCubit, AppState>(
+          BlocListener<HomeCubit, HomeState>(
             listenWhen: (previous, current) =>
                 previous.selectedIndex != current.selectedIndex,
             listener: (context, state) {
