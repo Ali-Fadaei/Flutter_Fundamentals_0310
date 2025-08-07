@@ -9,9 +9,12 @@ class PageB extends StatelessWidget {
 
   final String content;
 
+  final bool testbool;
+
   const PageB({
     super.key,
     required this.content,
+    this.testbool = false,
   });
 
   @override

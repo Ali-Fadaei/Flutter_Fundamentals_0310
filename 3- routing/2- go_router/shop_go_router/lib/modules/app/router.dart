@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shop_go_router/modules/app/transitions.dart';
 import 'package:shop_go_router/modules/home/home_page.dart';
 import 'package:shop_go_router/modules/page_a/page_a.dart';
 import 'package:shop_go_router/modules/page_b/page_b.dart';
@@ -33,19 +36,24 @@ final router = GoRouter(
     GoRoute(
       path: PageA.route,
       name: PageA.route,
-      builder: (context, state) {
-        print('state.pathParameters[id]');
-        print(state.pathParameters['id']);
-        print('state.uri.queryParameters');
-        print(state.uri.queryParameters);
-        return PageA(content: 'static content');
+      pageBuilder: (context, state) {
+        return GoSlideUpTransition(
+          key: state.pageKey,
+          child: PageA(content: ''),
+        );
       },
+      // builder: (context, state) {
+      //   return PageA(content: 'static content');
+      // },
       routes: [
         GoRoute(
           path: PageB.route,
           name: PageB.route,
-          builder: (context, state) {
-            return PageB(content: 'static content');
+          pageBuilder: (context, state) {
+            return GoSlideUpTransition(
+              key: state.pageKey,
+              child: PageB(content: ''),
+            );
           },
         ),
       ],

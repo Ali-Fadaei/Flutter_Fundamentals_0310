@@ -30,4 +30,9 @@ abstract class Theme {
   static const r15 = 15.0;
 
   static const r20 = 20.0;
+
+  //Ducations
+  static const primaryDuration = Duration(milliseconds: 300);
+
+  static const secondaryDuration = Duration(milliseconds: 500);
 }
