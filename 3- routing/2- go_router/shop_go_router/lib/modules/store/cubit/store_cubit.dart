@@ -9,7 +9,12 @@ class StoreCubit extends Cubit<StoreState> {
   //
   final StoreRepository storeRepo;
 
-  StoreCubit({required this.storeRepo}) : super(StoreState.init()) {
+  final int? initialProductId;
+
+  StoreCubit({
+    required this.storeRepo,
+    this.initialProductId,
+  }) : super(StoreState.init()) {
     onInit();
   }
 
@@ -17,11 +22,16 @@ class StoreCubit extends Cubit<StoreState> {
     emit(state.copyWith(loading: true));
     final productRes = await storeRepo.getProducts();
     final categoriesRes = await storeRepo.getCategories();
+    Product? initialProduct;
+    if (initialProductId != null) {
+      initialProduct = await storeRepo.getProduct(id: initialProductId!);
+    }
     emit(
       state.copyWith(
         loading: false,
         products: productRes,
         categories: categoriesRes,
+        initialProduct: initialProduct,
       ),
     );
   }

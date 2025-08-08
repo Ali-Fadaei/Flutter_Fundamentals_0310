@@ -97,7 +97,13 @@ final router = GoRouter(
               path: StorePage.route,
               name: StorePage.route,
               builder: (context, state) {
-                return StorePage();
+                print('state.uri.queryParameters[pid]');
+                print(state.uri.queryParameters['pid']);
+                return StorePage(
+                  initialProductId: int.tryParse(
+                    state.uri.queryParameters['pid'] ?? '',
+                  ),
+                );
               },
             )
           ],

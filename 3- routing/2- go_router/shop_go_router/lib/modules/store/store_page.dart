@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_go_router/modules/home/cubit/home_cubit.dart';
+import 'package:shop_go_router/modules/store/product_btms.dart';
 import '/domains/store/store_repository.dart';
 import '../categories/category_card.dart';
 import '/modules/shop_cart/cubit/shop_cart_cubit.dart';
@@ -12,14 +13,22 @@ class StorePage extends StatelessWidget {
   //
   static const route = '/store';
 
-  const StorePage({super.key});
+  final int? initialProductId;
+
+  const StorePage({
+    super.key,
+    this.initialProductId,
+  });
 
   @override
   Widget build(BuildContext context) {
+    print('initialProductId');
+    print(initialProductId);
     return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (context) => StoreCubit(
+            initialProductId: initialProductId,
             storeRepo: RepositoryProvider.of<StoreRepository>(context),
           ),
         ),
@@ -45,6 +54,17 @@ class StorePage extends StatelessWidget {
                 previous.selectedIndex != current.selectedIndex,
             listener: (context, state) {
               context.read<ShopCartCubit>().onRefresh();
+            },
+          ),
+          BlocListener<StoreCubit, StoreState>(
+            listenWhen: (previous, current) =>
+                previous.initialProduct != current.initialProduct &&
+                current.initialProduct != null,
+            listener: (context, state) {
+              ProductBottomSheet.show(
+                context,
+                product: state.initialProduct!,
+              );
             },
           ),
         ],
