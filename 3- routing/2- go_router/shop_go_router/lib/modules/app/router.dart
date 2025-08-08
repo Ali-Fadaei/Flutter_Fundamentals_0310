@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_go_router/modules/app/transitions.dart';
 import 'package:shop_go_router/modules/categories/categories_page.dart';
@@ -13,8 +14,11 @@ import 'package:shop_go_router/modules/profile/profile_page.dart';
 import 'package:shop_go_router/modules/shop_cart/shop_cart_page.dart';
 import 'package:shop_go_router/modules/store/store_page.dart';
 
+final rootNavKey = GlobalKey<NavigatorState>();
+
 final router = GoRouter(
   initialLocation: StorePage.route,
+  navigatorKey: rootNavKey,
   redirect: (context, state) {
     print('state.fullPath');
     print(state.fullPath);
@@ -31,7 +35,12 @@ final router = GoRouter(
   routes: [
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
-        return HomeShell(child: navigationShell);
+        return HomeShell(
+          hideNavBar: [
+            CategoryPage.route,
+          ].contains(state.topRoute?.name ?? ''),
+          child: navigationShell,
+        );
       },
       branches: [
         StatefulShellBranch(

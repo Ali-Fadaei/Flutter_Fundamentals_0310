@@ -8,8 +8,11 @@ class HomeShell extends StatelessWidget {
   //
   final StatefulNavigationShell child;
 
+  final bool hideNavBar;
+
   const HomeShell({
     super.key,
+    required this.hideNavBar,
     required this.child,
   });
 
@@ -27,46 +30,81 @@ class HomeShell extends StatelessWidget {
             height: double.infinity,
             width: 200,
           ),
-          bottomNavigationBar: BlocBuilder<HomeCubit, HomeState>(
-            builder: (context, state) {
-              return U.NavigationBar(
-                selectedIndex: child.currentIndex,
-                destinations: [
-                  U.NavigationDestination(
-                    title: 'دسته‌بندی',
-                    icon: U.Icons.category,
-                  ),
-                  U.NavigationDestination(
-                    title: 'سبدخرید',
-                    badgeCount: state.shopItemsCount,
-                    icon: U.Icons.shopCart,
-                  ),
-                  U.NavigationDestination(
-                    title: 'فروشگاه',
-                    icon: U.Icons.store,
-                  ),
-                  U.NavigationDestination(
-                    title: 'علاقه‌مندی‌ها',
-                    badgeCount: state.favsCount,
-                    icon: U.Icons.favorites,
-                  ),
-                  U.NavigationDestination(
-                    title: 'پروفایل',
-                    icon: U.Icons.profile,
-                  ),
-                ],
-                onDestinationChanged: child.goBranch,
-              );
-            },
-          ),
-          body: Column(
+          // bottomNavigationBar: hideNavBar
+          //     ? null
+          //     : BlocBuilder<HomeCubit, HomeState>(
+          //         builder: (context, state) {
+          //           return U.NavigationBar(
+          //             selectedIndex: child.currentIndex,
+          //             destinations: [
+          //               U.NavigationDestination(
+          //                 title: 'دسته‌بندی',
+          //                 icon: U.Icons.category,
+          //               ),
+          //               U.NavigationDestination(
+          //                 title: 'سبدخرید',
+          //                 badgeCount: state.shopItemsCount,
+          //                 icon: U.Icons.shopCart,
+          //               ),
+          //               U.NavigationDestination(
+          //                 title: 'فروشگاه',
+          //                 icon: U.Icons.store,
+          //               ),
+          //               U.NavigationDestination(
+          //                 title: 'علاقه‌مندی‌ها',
+          //                 badgeCount: state.favsCount,
+          //                 icon: U.Icons.favorites,
+          //               ),
+          //               U.NavigationDestination(
+          //                 title: 'پروفایل',
+          //                 icon: U.Icons.profile,
+          //               ),
+          //             ],
+          //             onDestinationChanged: child.goBranch,
+          //           );
+          //         },
+          //       ),
+          body: Stack(
+            clipBehavior: Clip.none,
             children: [
-              U.AppBar.primary(
-                onMenuPressed: () {},
-                onNotifPressed: () {},
-              ),
-              Expanded(
-                child: child,
+              Center(child: child),
+              AnimatedPositioned(
+                bottom: hideNavBar ? -70 : 0,
+                left: 0,
+                right: 0,
+                duration: U.Theme.secondaryDuration,
+                child: BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    return U.NavigationBar(
+                      selectedIndex: child.currentIndex,
+                      destinations: [
+                        U.NavigationDestination(
+                          title: 'دسته‌بندی',
+                          icon: U.Icons.category,
+                        ),
+                        U.NavigationDestination(
+                          title: 'سبدخرید',
+                          badgeCount: state.shopItemsCount,
+                          icon: U.Icons.shopCart,
+                        ),
+                        U.NavigationDestination(
+                          title: 'فروشگاه',
+                          icon: U.Icons.store,
+                        ),
+                        U.NavigationDestination(
+                          title: 'علاقه‌مندی‌ها',
+                          badgeCount: state.favsCount,
+                          icon: U.Icons.favorites,
+                        ),
+                        U.NavigationDestination(
+                          title: 'پروفایل',
+                          icon: U.Icons.profile,
+                        ),
+                      ],
+                      onDestinationChanged: child.goBranch,
+                    );
+                  },
+                ),
               ),
             ],
           ),

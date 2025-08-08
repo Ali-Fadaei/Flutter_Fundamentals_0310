@@ -38,46 +38,56 @@ class ShopCartPage extends StatelessWidget {
             },
           ),
         ],
-        child: BlocBuilder<ShopCartCubit, ShopCartState>(
-          builder: (context, state) {
-            return state.loading && state.shopItems.isEmpty
-                ? Center(
-                    child: SizedBox.square(
-                      dimension: 30,
-                      child: CircularProgressIndicator(),
-                    ),
-                  )
-                : state.shopItems.isEmpty
-                    ? Center(child: U.Text('لیست علاقه‌مندی خالیه!!!'))
-                    : ListView.separated(
-                        itemCount: state.shopItems.length,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 16,
-                          horizontal: 16,
-                        ),
-                        separatorBuilder: (context, index) {
-                          return const SizedBox(height: 16);
-                        },
-                        itemBuilder: (context, index) {
-                          final data = state.shopItems[index];
-                          return Column(
-                            children: [
-                              ShopCartCard(shopItem: data),
-                              if (state.loading &&
-                                  data == state.shopItems.last) ...[
-                                SizedBox(height: 20),
-                                Center(
-                                  child: SizedBox.square(
-                                    dimension: 30,
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                ),
-                              ],
-                            ],
-                          );
-                        },
-                      );
-          },
+        child: Column(
+          children: [
+            U.AppBar.primary(
+              onMenuPressed: () {},
+              onNotifPressed: () {},
+            ),
+            Expanded(
+              child: BlocBuilder<ShopCartCubit, ShopCartState>(
+                builder: (context, state) {
+                  return state.loading && state.shopItems.isEmpty
+                      ? Center(
+                          child: SizedBox.square(
+                            dimension: 30,
+                            child: CircularProgressIndicator(),
+                          ),
+                        )
+                      : state.shopItems.isEmpty
+                          ? Center(child: U.Text('لیست علاقه‌مندی خالیه!!!'))
+                          : ListView.separated(
+                              itemCount: state.shopItems.length,
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 16,
+                                horizontal: 16,
+                              ),
+                              separatorBuilder: (context, index) {
+                                return const SizedBox(height: 16);
+                              },
+                              itemBuilder: (context, index) {
+                                final data = state.shopItems[index];
+                                return Column(
+                                  children: [
+                                    ShopCartCard(shopItem: data),
+                                    if (state.loading &&
+                                        data == state.shopItems.last) ...[
+                                      SizedBox(height: 20),
+                                      Center(
+                                        child: SizedBox.square(
+                                          dimension: 30,
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      ),
+                                    ],
+                                  ],
+                                );
+                              },
+                            );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );

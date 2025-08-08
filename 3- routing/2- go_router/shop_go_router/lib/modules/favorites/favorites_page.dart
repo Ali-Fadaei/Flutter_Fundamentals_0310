@@ -39,46 +39,56 @@ class FavoritesPage extends StatelessWidget {
             },
           ),
         ],
-        child: BlocBuilder<FavoritesCubit, FavoritesState>(
-          builder: (context, state) {
-            return state.loading && state.favorites.isEmpty
-                ? Center(
-                    child: SizedBox.square(
-                      dimension: 30,
-                      child: CircularProgressIndicator(),
-                    ),
-                  )
-                : state.favorites.isEmpty
-                    ? Center(child: U.Text('لیست علاقه‌مندی خالیه!!!'))
-                    : ListView.separated(
-                        itemCount: state.favorites.length,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 20,
-                          horizontal: 16,
-                        ),
-                        separatorBuilder: (context, index) {
-                          return const SizedBox(height: 16);
-                        },
-                        itemBuilder: (context, index) {
-                          final data = state.favorites[index];
-                          return Column(
-                            children: [
-                              FavoritesCard(product: data),
-                              if (state.loading &&
-                                  data == state.favorites.last) ...[
-                                SizedBox(height: 20),
-                                Center(
-                                  child: SizedBox.square(
-                                    dimension: 30,
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                ),
-                              ],
-                            ],
-                          );
-                        },
-                      );
-          },
+        child: Column(
+          children: [
+            U.AppBar.primary(
+              onMenuPressed: () {},
+              onNotifPressed: () {},
+            ),
+            Expanded(
+              child: BlocBuilder<FavoritesCubit, FavoritesState>(
+                builder: (context, state) {
+                  return state.loading && state.favorites.isEmpty
+                      ? Center(
+                          child: SizedBox.square(
+                            dimension: 30,
+                            child: CircularProgressIndicator(),
+                          ),
+                        )
+                      : state.favorites.isEmpty
+                          ? Center(child: U.Text('لیست علاقه‌مندی خالیه!!!'))
+                          : ListView.separated(
+                              itemCount: state.favorites.length,
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 20,
+                                horizontal: 16,
+                              ),
+                              separatorBuilder: (context, index) {
+                                return const SizedBox(height: 16);
+                              },
+                              itemBuilder: (context, index) {
+                                final data = state.favorites[index];
+                                return Column(
+                                  children: [
+                                    FavoritesCard(product: data),
+                                    if (state.loading &&
+                                        data == state.favorites.last) ...[
+                                      SizedBox(height: 20),
+                                      Center(
+                                        child: SizedBox.square(
+                                          dimension: 30,
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      ),
+                                    ],
+                                  ],
+                                );
+                              },
+                            );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
