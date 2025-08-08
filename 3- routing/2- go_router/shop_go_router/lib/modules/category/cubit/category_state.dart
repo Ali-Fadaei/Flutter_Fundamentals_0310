@@ -15,9 +15,8 @@ class CategoryState {
     required this.products,
   });
 
-  const CategoryState.init()
+  const CategoryState.init({this.category})
       : loading = false,
-        category = null,
         products = const [];
 
   CategoryState copyWith({

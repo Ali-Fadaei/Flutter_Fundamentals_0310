@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shop_go_router/domains/store/models/category.dart';
 import 'package:shop_go_router/modules/app/transitions.dart';
 import 'package:shop_go_router/modules/categories/categories_page.dart';
 import 'package:shop_go_router/modules/category/category_page.dart';
@@ -55,13 +57,24 @@ final router = GoRouter(
                 GoRoute(
                   path: CategoryPage.route,
                   name: CategoryPage.route,
-                  builder: (context, state) {
-                    return CategoryPage(
-                      categoryId: int.parse(
-                        state.pathParameters['id']!,
+                  pageBuilder: (context, state) {
+                    return GoNoTransition(
+                      key: state.pageKey,
+                      child: CategoryPage(
+                        data: state.extra as CategoryData?,
+                        categoryId: int.parse(
+                          state.pathParameters['id']!,
+                        ),
                       ),
                     );
                   },
+                  // builder: (context, state) {
+                  //   return CategoryPage(
+                  //     categoryId: int.parse(
+                  //       state.pathParameters['id']!,
+                  //     ),
+                  //   );
+                  // },
                 ),
               ],
             )
