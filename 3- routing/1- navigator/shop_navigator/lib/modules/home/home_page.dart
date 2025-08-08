@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shop_navigator/modules/app/cubit/app_cubit.dart';
 import 'package:shop_navigator/modules/categories/categories_page.dart';
 import 'package:shop_navigator/modules/favorites/favorites_page.dart';
@@ -29,34 +30,81 @@ class HomePage extends StatelessWidget {
           ),
           bottomNavigationBar: BlocBuilder<AppCubit, AppState>(
             builder: (context, state) {
+              // int temp1 = state.selectedIndex;
+
+              // String get() {
+              //   String temp = '';
+              //   switch (temp1) {
+              //     case 0:
+              //       temp = CategoriesPage.route;
+
+              //     case 3:
+              //       temp = FavoritesPage.route;
+
+              //     case 1:
+              //       temp = ShopCartPage.route;
+
+              //     case 2:
+              //       temp = StorePage.route;
+              //     case 4:
+              //       temp = ProfilePage.route;
+              //   }
+              //   return temp;
+              // }
+
+              // GoRouter.of(context).goNamed(get());
               return U.NavigationBar(
-                selectedIndex: appState.selectedIndex,
-                destinations: [
-                  U.NavigationDestination(
-                    title: 'دسته‌بندی',
-                    icon: U.Icons.category,
-                  ),
-                  U.NavigationDestination(
-                    title: 'سبدخرید',
-                    badgeCount: state.shopItemsCount,
-                    icon: U.Icons.shopCart,
-                  ),
-                  U.NavigationDestination(
-                    title: 'فروشگاه',
-                    icon: U.Icons.store,
-                  ),
-                  U.NavigationDestination(
-                    title: 'علاقه‌مندی‌ها',
-                    badgeCount: state.favsCount,
-                    icon: U.Icons.favorites,
-                  ),
-                  U.NavigationDestination(
-                    title: 'پروفایل',
-                    icon: U.Icons.profile,
-                  ),
-                ],
-                onDestinationChanged: appCubit.onSelectedIndexChanged,
-              );
+                  selectedIndex: appState.selectedIndex,
+                  destinations: [
+                    U.NavigationDestination(
+                      title: 'دسته‌بندی',
+                      icon: U.Icons.category,
+                    ),
+                    U.NavigationDestination(
+                      title: 'سبدخرید',
+                      badgeCount: state.shopItemsCount,
+                      icon: U.Icons.shopCart,
+                    ),
+                    U.NavigationDestination(
+                      title: 'فروشگاه',
+                      icon: U.Icons.store,
+                    ),
+                    U.NavigationDestination(
+                      title: 'علاقه‌مندی‌ها',
+                      badgeCount: state.favsCount,
+                      icon: U.Icons.favorites,
+                    ),
+                    U.NavigationDestination(
+                      title: 'پروفایل',
+                      icon: U.Icons.profile,
+                    ),
+                  ],
+                  onDestinationChanged: (int i) {
+                    // int temp1 = state.selectedIndex;
+
+                    String get() {
+                      String temp = '';
+                      switch (i) {
+                        case 0:
+                          temp = CategoriesPage.route;
+
+                        case 3:
+                          temp = FavoritesPage.route;
+
+                        case 1:
+                          temp = ShopCartPage.route;
+
+                        case 2:
+                          temp = StorePage.route;
+                        case 4:
+                          temp = ProfilePage.route;
+                      }
+                      return temp;
+                    }
+
+                    GoRouter.of(context).goNamed(get());
+                    appCubit.onSelectedIndexChanged(i);
+                  });
             },
           ),
           body: Column(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_navigator/modules/category/category_btms.dart';
 import '/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import '../../domains/store/models/product.dart';
 import 'product_btms.dart';
@@ -16,10 +17,11 @@ class ProductCard extends StatelessWidget {
     final shopCartCubit = BlocProvider.of<ShopCartCubit>(context);
     return GestureDetector(
       onTap: () {
-        ProductBottomSheet.show(
-          context,
-          product: data,
-          shopCartCubit: shopCartCubit,
+        CategoryBottomShett.show(
+          context: context,
+          // builder: ,
+          // product: data,
+          // shopCartCubit: shopCartCubit,
         );
       },
       child: SizedBox(

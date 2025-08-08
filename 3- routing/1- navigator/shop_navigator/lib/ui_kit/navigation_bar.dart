@@ -103,25 +103,25 @@ class _NavigationDestination extends StatelessWidget {
     required this.onTap,
   });
 
-  String get() {
-    String temp = '';
-    switch (title) {
-      case 'دسته‌بندی':
-        temp = CategoriesPage.route;
+  // String get() {
+  //   String temp = '';
+  //   switch (title) {
+  //     case 'دسته‌بندی':
+  //       temp = CategoriesPage.route;
 
-      case 'علاقه‌مندی‌ها':
-        temp = FavoritesPage.route;
+  //     case 'علاقه‌مندی‌ها':
+  //       temp = FavoritesPage.route;
 
-      case 'سبدخرید':
-        temp = ShopCartPage.route;
+  //     case 'سبدخرید':
+  //       temp = ShopCartPage.route;
 
-      case 'فروشگاه':
-        temp = StorePage.route;
-      case 'پروفایل':
-        temp = ProfilePage.route;
-    }
-    return temp;
-  }
+  //     case 'فروشگاه':
+  //       temp = StorePage.route;
+  //     case 'پروفایل':
+  //       temp = ProfilePage.route;
+  //   }
+  //   return temp;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +134,7 @@ class _NavigationDestination extends StatelessWidget {
         ),
         child: InkWell(
           onTap: () {
-            GoRouter.of(context).goNamed(get());
+            //      GoRouter.of(context).goNamed(get());
             onTap();
           },
           // color

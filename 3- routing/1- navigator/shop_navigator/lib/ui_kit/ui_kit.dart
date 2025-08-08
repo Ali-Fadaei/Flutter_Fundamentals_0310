@@ -16,3 +16,4 @@ export './text_input.dart';
 export './text.dart';
 export './theme.dart';
 export './tool_tip.dart';
+export './slider.dart';
