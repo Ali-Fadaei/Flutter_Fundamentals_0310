@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_navigator/domains/store/models/category.dart';
 import 'package:shop_navigator/modules/categories/categories_page.dart';
 import 'package:shop_navigator/modules/category/category_page.dart';
 import 'package:shop_navigator/modules/favorites/favorites_page.dart';
-import 'package:shop_navigator/modules/home/home_page.dart';
+import 'package:shop_navigator/modules/home/home_shell.dart';
 import 'package:shop_navigator/modules/page_a/page_a.dart';
 import 'package:shop_navigator/modules/page_b/page_b.dart';
 import 'package:shop_navigator/modules/page_c/page_c.dart';
@@ -31,16 +33,17 @@ final routes = GoRouter(initialLocation: StorePage.route, routes: [
       builder: (context, state) => PageA(content: 'contentA'),
       routes: [
         GoRoute(
-          redirect: (context, state) {
-            print('state.pathB');
-            print(state.path);
-            print('state.pathParametersB');
-            print(state.pathParameters);
-          },
-          path: PageB.route,
-          name: PageB.route,
-          builder: (context, state) => PageB(content: 'contentA'),
-        )
+            redirect: (context, state) {
+              print('state.pathB');
+              print(state.path);
+              print('state.pathParametersB');
+              print(state.pathParameters);
+            },
+            path: PageB.route,
+            // name: PageB.route,
+            pageBuilder: (context, state) => MaterialPage(
+                  child: PageB(content: 'contentA'),
+                ))
       ]),
   ShellRoute(
       builder: (context, state, child) => PageC(
@@ -60,49 +63,109 @@ final routes = GoRouter(initialLocation: StorePage.route, routes: [
         )
       ]),
 
-  ShellRoute(
-      builder: (context, state, child) => HomePage(child: child),
-      routes: [
-        GoRoute(
-          path: ProfilePage.route,
-          name: ProfilePage.route,
-          builder: (context, state) => ProfilePage(),
-        ),
-        GoRoute(
-          path: StorePage.route,
-          name: StorePage.route,
-          builder: (context, state) => StorePage(),
-        ),
-        GoRoute(
-          path: FavoritesPage.route,
-          name: FavoritesPage.route,
-          builder: (context, state) => FavoritesPage(),
-        ),
-        GoRoute(
-          path: ShopCartPage.route,
-          name: ShopCartPage.route,
-          builder: (context, state) => ShopCartPage(),
-        ),
-        GoRoute(
-          // routes: [
-          //   GoRoute(
-          //     path: CategoryPage.path,
-          //     name: CategoryPage.path,
-          //     builder: (context, state) => CategoryPage(
-          //       category: state.extra as CategoryData,
-          //     ),
-          //   ),
-          // ],
-          path: CategoriesPage.route,
-          name: CategoriesPage.route,
-          builder: (context, state) => CategoriesPage(),
-        )
+  StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) {
+        print('state.topRoute!.name');
+        print(state.topRoute!.name);
+        print('state.fullPath');
+        print(state.fullPath);
+
+        return HomeShell(hidNav: [CategoryPage.path].any(
+            //  state.fullPath!.contains('${CategoriesPage.route}/'),
+            (e) => e == state.topRoute!.name), child: navigationShell);
+      },
+      branches: [
+        StatefulShellBranch(routes: [
+          GoRoute(
+            routes: [
+              GoRoute(
+                  path: PageB.route,
+                  name: PageB.route,
+                  pageBuilder: (context, state) => MaterialPage(
+                        child: PageB(content: 'contentA'),
+                      )),
+              GoRoute(
+                path: CategoryPage.path,
+                name: CategoryPage.path,
+                builder: (context, state) => CategoryPage(
+                  initialData: state.extra as CategoryData?,
+                  categoryId: int.parse(state.pathParameters['id']!),
+                ),
+              ),
+            ],
+            path: CategoriesPage.route,
+            name: CategoriesPage.route,
+            builder: (context, state) => CategoriesPage(),
+          ),
+        ]),
+        StatefulShellBranch(routes: [
+          GoRoute(
+            path: ShopCartPage.route,
+            name: ShopCartPage.route,
+            builder: (context, state) => ShopCartPage(),
+          ),
+        ]),
+        StatefulShellBranch(routes: [
+          GoRoute(
+            path: StorePage.route,
+            name: StorePage.route,
+            builder: (context, state) => StorePage(),
+          ),
+        ]),
+        StatefulShellBranch(routes: [
+          GoRoute(
+            path: FavoritesPage.route,
+            name: FavoritesPage.route,
+            builder: (context, state) => FavoritesPage(),
+          ),
+        ]),
+        StatefulShellBranch(routes: [
+          GoRoute(
+            pageBuilder: (context, state) => MaterialPage(
+              child: ProfilePage(),
+            ),
+            path: ProfilePage.route,
+            name: ProfilePage.route,
+          ),
+        ])
       ]),
-  GoRoute(
-    path: CategoryPage.path,
-    name: CategoryPage.path,
-    builder: (context, state) => CategoryPage(
-      category: state.extra as CategoryData,
-    ),
-  ),
+
+  // ShellRoute(
+  //     builder: (context, state, child) => HomePage(child: child),
+  //     routes: [
+  //       GoRoute(
+  //         path: ProfilePage.route,
+  //         name: ProfilePage.route,
+  //         builder: (context, state) => ProfilePage(),
+  //       ),
+  //       GoRoute(
+  //         path: StorePage.route,
+  //         name: StorePage.route,
+  //         builder: (context, state) => StorePage(),
+  //       ),
+  //       GoRoute(
+  //         path: FavoritesPage.route,
+  //         name: FavoritesPage.route,
+  //         builder: (context, state) => FavoritesPage(),
+  //       ),
+  //       GoRoute(
+  //         path: ShopCartPage.route,
+  //         name: ShopCartPage.route,
+  //         builder: (context, state) => ShopCartPage(),
+  //       ),
+  //       GoRoute(
+  //         // routes: [
+  //         //   GoRoute(
+  //         //     path: CategoryPage.path,
+  //         //     name: CategoryPage.path,
+  //         //     builder: (context, state) => CategoryPage(
+  //         //       category: state.extra as CategoryData,
+  //         //     ),
+  //         //   ),
+  //         // ],
+  //         path: CategoriesPage.route,
+  //         name: CategoriesPage.route,
+  //         builder: (context, state) => CategoriesPage(),
+  //       )
+  //     ]),
 ]);

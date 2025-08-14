@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shop_navigator/domains/store/models/category.dart';
-import 'package:shop_navigator/modules/home/home_page.dart';
+import 'package:shop_navigator/modules/home/home_shell.dart';
 import 'package:shop_navigator/modules/page_a/page_a.dart';
 import 'package:shop_navigator/modules/page_b/page_b.dart';
 import 'package:shop_navigator/modules/page_c/page_c.dart';

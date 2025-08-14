@@ -31,7 +31,7 @@ class PageA extends StatelessWidget {
             title: 'Go Page B',
             onPressed: () {
               GoRouter.of(context)
-                  .goNamed(pathParameters: {'id2': '123'}, PageB.route);
+                  .goNamed(pathParameters: {'id': '123'}, PageB.route);
               // Navigator.of(context).push(
               //   MaterialPageRoute(
               //     builder: (context) {

@@ -8,7 +8,7 @@ import '/ui_kit/ui_kit.dart' as U;
 class PageB extends StatelessWidget {
   //
   // static const route = '/PageB/:id';
-  static const route = '/PageB/:id2';
+  static const route = '/PageB';
 
   final String content;
 

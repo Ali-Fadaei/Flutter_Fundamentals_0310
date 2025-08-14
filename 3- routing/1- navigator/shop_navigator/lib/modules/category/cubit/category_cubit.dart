@@ -10,9 +10,11 @@ class CategoryCubit extends Cubit<CategoryState> {
   //
   final int id;
   final StoreRepository _storeRepo;
-  CategoryCubit({required this.id, required StoreRepository repo})
+  final CategoryData? initialData;
+  CategoryCubit(
+      {required this.id, this.initialData, required StoreRepository repo})
       : _storeRepo = repo,
-        super(CategoryState.init()) {
+        super(CategoryState.init(category: initialData)) {
     onInit();
   }
 

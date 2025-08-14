@@ -14,28 +14,36 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        GoRouter.of(context).pushNamed(CategoryPage.path, extra: data);
+        GoRouter.of(context).goNamed(
+          CategoryPage.path,
+          extra: data,
+          pathParameters: {'id': data.id.toString()},
+          //  extra: data.id.toString()
+        );
       },
-      child: SizedBox(
-        child: Container(
-          height: 320,
-          width: 200,
-          padding: const EdgeInsets.all(8.0),
-          decoration: BoxDecoration(
-            color: data.color,
-            borderRadius: BorderRadius.circular(U.Theme.r15),
-          ),
-          child: Column(
-            children: [
-              const Spacer(),
-              U.Image(path: data.image, height: 160, width: 160),
-              const Spacer(),
-              Text(
-                data.title,
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-              ),
-              const Spacer(),
-            ],
+      child: Hero(
+        tag: data.id,
+        child: SizedBox(
+          child: Container(
+            height: 320,
+            width: 200,
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: data.color,
+              borderRadius: BorderRadius.circular(U.Theme.r15),
+            ),
+            child: Column(
+              children: [
+                const Spacer(),
+                U.Image(path: data.image, height: 160, width: 160),
+                const Spacer(),
+                Text(
+                  data.title,
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                ),
+                const Spacer(),
+              ],
+            ),
           ),
         ),
       ),

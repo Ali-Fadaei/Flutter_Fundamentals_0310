@@ -10,11 +10,11 @@ class AppCubit extends Cubit<AppState> {
     emit(state.copyWith(selectedIndex: selectedIndex));
   }
 
-  void onFavsCountChanged(int count) {
-    emit(state.copyWith(favsCount: count));
-  }
+  // void onFavsCountChanged(int count) {
+  //   emit(state.copyWith(favsCount: count));
+  // }
 
-  void onShopItemsCountChanged(int count) {
-    emit(state.copyWith(shopItemsCount: count));
-  }
+  // void onShopItemsCountChanged(int count) {
+  //   emit(state.copyWith(shopItemsCount: count));
+  // }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_navigator/modules/home/cubit/home_cubit.dart';
 import '/domains/store/store_repository.dart';
 import '/modules/app/cubit/app_cubit.dart';
 import '/modules/favorites/cubit/favorites_cubit.dart';
@@ -46,7 +47,7 @@ class ProductBottomSheet extends StatelessWidget {
                     previous.favorites.length != current.favorites.length,
                 listener: (context, state) {
                   context
-                      .read<AppCubit>()
+                      .read<HomeCubit>()
                       .onFavsCountChanged(state.favorites.length);
                 },
               ),
@@ -55,7 +56,7 @@ class ProductBottomSheet extends StatelessWidget {
                     previous.shopItems.length != current.shopItems.length,
                 listener: (context, state) {
                   context
-                      .read<AppCubit>()
+                      .read<HomeCubit>()
                       .onShopItemsCountChanged(state.shopItems.length);
                 },
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_navigator/modules/home/cubit/home_cubit.dart';
 import '/domains/store/store_repository.dart';
 import '/modules/app/cubit/app_cubit.dart';
 import '/modules/shop_cart/cubit/shop_cart_cubit.dart';
@@ -20,7 +21,7 @@ class ShopCartPage extends StatelessWidget {
       ),
       child: MultiBlocListener(
         listeners: [
-          BlocListener<AppCubit, AppState>(
+          BlocListener<HomeCubit, HomeState>(
             listenWhen: (previous, current) =>
                 previous.selectedIndex != current.selectedIndex,
             listener: (context, state) {
@@ -34,7 +35,7 @@ class ShopCartPage extends StatelessWidget {
             listenWhen: (previous, current) =>
                 previous.shopItems.length != current.shopItems.length,
             listener: (context, state) {
-              final appCubit = context.read<AppCubit>();
+              final appCubit = context.read<HomeCubit>();
               appCubit.onShopItemsCountChanged(state.shopItems.length);
             },
           ),
