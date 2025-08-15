@@ -72,7 +72,7 @@ class HomeShell extends StatelessWidget {
                 bottom: hideNavBar ? -70 : 0,
                 left: 0,
                 right: 0,
-                duration: U.Theme.secondaryDuration,
+                duration: U.Theme.primaryDuration,
                 child: BlocBuilder<HomeCubit, HomeState>(
                   builder: (context, state) {
                     return U.NavigationBar(
