@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_go_router/domains/store/models/category.dart';
+import 'package:shop_go_router/modules/category/category_filter_btms.dart';
 import '/domains/store/store_repository.dart';
 import '/modules/category/cubit/category_cubit.dart';
 import '/modules/shop_cart/cubit/shop_cart_cubit.dart';
@@ -45,6 +46,7 @@ class CategoryPage extends StatelessWidget {
           backgroundColor: U.Theme.background,
           body: BlocBuilder<CategoryCubit, CategoryState>(
             builder: (context, state) {
+              final categoryCubit = context.read<CategoryCubit>();
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 500),
                 color: state.category?.color.withValues(alpha: 0.5) ??
@@ -53,6 +55,17 @@ class CategoryPage extends StatelessWidget {
                   children: [
                     U.AppBar.secondary(
                       title: state.category?.title ?? 'دسته بندی',
+                      action: U.IconButton(
+                        icon: U.Image(
+                          path: U.Icons.filter,
+                        ),
+                        onPressed: () {
+                          CategoryFilterBtms.show(
+                            context,
+                            categoryCubit: categoryCubit,
+                          );
+                        },
+                      ),
                       onBackPressed: () {
                         Navigator.of(context).pop();
                       },

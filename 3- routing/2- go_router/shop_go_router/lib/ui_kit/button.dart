@@ -16,6 +16,8 @@ class Button extends StatelessWidget {
   //
   final String title;
 
+  final bool loading;
+
   final bool disabled;
 
   final ButtonColor color;
@@ -30,6 +32,7 @@ class Button extends StatelessWidget {
     super.key,
     required this.title,
     this.disabled = false,
+    this.loading = false,
     this.color = ButtonColor.primary,
     this.size = ButtonSize.md,
     this.trailingText = '',
@@ -89,7 +92,7 @@ class Button extends StatelessWidget {
         U.Theme.r15,
       ),
       child: InkWell(
-        onTap: disabled ? null : onPressed,
+        onTap: (disabled || loading) ? null : onPressed,
         borderRadius: BorderRadius.circular(
           U.Theme.r15,
         ),
@@ -99,6 +102,18 @@ class Button extends StatelessWidget {
           child: Row(
             children: [
               if (trailingText.isEmpty) const Spacer(),
+              if (loading) ...[
+                SizedBox.square(
+                  dimension: 20,
+                  child: CircularProgressIndicator(
+                    color: _color.foreground,
+                    strokeWidth: 2,
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+              ],
               U.Text(
                 title,
                 size: _textStyle.size,

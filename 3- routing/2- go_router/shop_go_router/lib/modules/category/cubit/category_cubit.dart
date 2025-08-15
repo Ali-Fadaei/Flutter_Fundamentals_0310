@@ -32,7 +32,15 @@ class CategoryCubit extends Cubit<CategoryState> {
   }
 
   Future<void> getProducts() async {
-    final res = await _storeRepo.getProducts(categoryId: id);
+    final res = await _storeRepo.getProducts(
+      categoryId: id,
+      minRate: state.minRate,
+      maxRate: state.maxRate,
+      minPrice: state.minPrice,
+      maxPrice: state.maxPrice,
+      sort: state.sort,
+      order: state.order,
+    );
     emit(state.copyWith(products: res));
   }
 
@@ -44,5 +52,35 @@ class CategoryCubit extends Cubit<CategoryState> {
       getProducts(),
     ]);
     emit(state.copyWith(loading: false));
+  }
+
+  void onRatingRangeChanged(double min, double max) {
+    emit(state.copyWith(
+      minRate: min,
+      maxRate: max,
+    ));
+  }
+
+  void onPriceRangeChanged(double min, double max) {
+    emit(state.copyWith(
+      minPrice: min.round(),
+      maxPrice: max.round(),
+    ));
+  }
+
+  void onSortChanged(int value) {
+    emit(state.copyWith(sort: value));
+  }
+
+  void onOrderChanged(int value) {
+    emit(state.copyWith(order: value));
+  }
+
+  Future<bool> onFilterApplyTapped() async {
+    //
+    emit(state.copyWith(filterLoading: true));
+    await getProducts();
+    emit(state.copyWith(filterLoading: false));
+    return true;
   }
 }

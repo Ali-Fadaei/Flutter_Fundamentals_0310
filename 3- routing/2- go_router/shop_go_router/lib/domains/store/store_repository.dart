@@ -46,10 +46,18 @@ class StoreRepository {
     return res.firstWhere((e) => e.id == id);
   }
 
-  Future<List<Product>> getProducts({int? categoryId}) async {
+  Future<List<Product>> getProducts({
+    int? categoryId,
+    double? minRate,
+    double? maxRate,
+    int? minPrice,
+    int? maxPrice,
+    int? sort = 0,
+    int? order = 0,
+  }) async {
     final categories = await getCategories();
     await Future.delayed(Duration(milliseconds: _delay));
-    final products = [
+    List<Product> products = [
       Product(
         id: 0,
         title: 'گلکسی S23 Ultra',
@@ -183,11 +191,37 @@ class StoreRepository {
     ];
 
     if (categoryId != null) {
-      return products
+      products = products
           .where(
             (e) => e.categoryData.id == categoryId,
           )
           .toList();
+    }
+
+    if (minRate != null) {
+      products = products.where((e) => e.rating >= minRate).toList();
+    }
+
+    if (maxRate != null) {
+      products = products.where((e) => e.rating <= maxRate).toList();
+    }
+
+    if (minPrice != null) {
+      products = products.where((e) => e.price >= minPrice).toList();
+    }
+
+    if (maxPrice != null) {
+      products = products.where((e) => e.price <= maxPrice).toList();
+    }
+
+    if ((sort ?? 0) == 0) {
+      products.sort((a, b) => a.price.compareTo(b.price));
+    } else if (sort == 1) {
+      products.sort((a, b) => a.rating.compareTo(b.rating));
+    }
+
+    if ((order ?? 0) == 1) {
+      products = products.reversed.toList();
     }
 
     return products;
