@@ -192,7 +192,9 @@ class StoreRepository {
     ];
 
     if (title != null) {
-      products = products.where((e) => e.title.contains(title)).toList();
+      products = products
+          .where((e) => e.title.toLowerCase().contains(title.toLowerCase()))
+          .toList();
     }
 
     if (categoryId != null) {

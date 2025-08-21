@@ -54,8 +54,7 @@ class CheckoutState {
       discountPercent: discountPercent ?? this.discountPercent,
       totalAmount: totalAmount,
       discountAmount: discountAmount,
-      payableAmount: payableAmount,
-      // payableAmount: totalAmount - discountAmount,
+      payableAmount: totalAmount - discountAmount,
     );
   }
 }

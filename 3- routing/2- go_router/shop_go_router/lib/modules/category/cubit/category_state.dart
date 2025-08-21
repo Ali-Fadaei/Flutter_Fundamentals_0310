@@ -7,6 +7,8 @@ class CategoryState {
 
   final bool filterLoading;
 
+  final bool titleIsSearched;
+
   final CategoryData? category;
 
   final List<Product> products;
@@ -26,6 +28,7 @@ class CategoryState {
   const CategoryState({
     required this.loading,
     required this.filterLoading,
+    required this.titleIsSearched,
     required this.category,
     required this.products,
     required this.minRate,
@@ -39,6 +42,7 @@ class CategoryState {
   const CategoryState.init({this.category})
       : loading = false,
         filterLoading = false,
+        titleIsSearched = false,
         products = const [],
         minRate = 0,
         maxRate = 5,
@@ -50,6 +54,7 @@ class CategoryState {
   CategoryState copyWith({
     bool? loading,
     bool? filterLoading,
+    bool? titleIsSearched,
     CategoryData? category,
     List<Product>? products,
     double? minRate,
@@ -62,6 +67,7 @@ class CategoryState {
     return CategoryState(
       loading: loading ?? this.loading,
       filterLoading: filterLoading ?? this.filterLoading,
+      titleIsSearched: titleIsSearched ?? this.titleIsSearched,
       category: category ?? this.category,
       products: products ?? this.products,
       minRate: minRate ?? this.minRate,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shop_go_router/modules/home/cubit/home_cubit.dart';
+import 'package:shop_go_router/modules/search/search_page.dart';
 import 'package:shop_go_router/modules/store/product_btms.dart';
 import '/domains/store/store_repository.dart';
 import '../categories/category_card.dart';
@@ -85,7 +87,9 @@ class StorePage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: U.SearchInput(
                           controller: TextEditingController(),
-                          onSearched: () {},
+                          onSearched: () {
+                            GoRouter.of(context).goNamed(SearchPage.route);
+                          },
                         ),
                       ),
                       const SizedBox(height: 20),

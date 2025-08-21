@@ -22,13 +22,14 @@ class App extends StatelessWidget {
           theme: ThemeData.from(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
           ).copyWith(
-              // pageTransitionsTheme: const PageTransitionsTheme(
-              //   builders: {
-              //     TargetPlatform.windows: ZoomPageTransitionsBuilder(),
-              //     TargetPlatform.android: ZoomPageTransitionsBuilder(),
-              //   },
-              // ),
-              ),
+            pageTransitionsTheme: const PageTransitionsTheme(
+              builders: {
+                TargetPlatform.windows: ZoomPageTransitionsBuilder(),
+                TargetPlatform.android: ZoomPageTransitionsBuilder(),
+                TargetPlatform.iOS: ZoomPageTransitionsBuilder(),
+              },
+            ),
+          ),
           localizationsDelegates: {
             GlobalCupertinoLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,

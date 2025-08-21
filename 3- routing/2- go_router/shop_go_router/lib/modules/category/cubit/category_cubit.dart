@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import '/domains/store/models/category.dart';
 import '/domains/store/models/product.dart';
 import '/domains/store/store_repository.dart';
@@ -13,6 +14,8 @@ class CategoryCubit extends Cubit<CategoryState> {
   final CategoryData? initialData;
 
   final StoreRepository _storeRepo;
+
+  final titleSearchCtrl = TextEditingController();
 
   CategoryCubit({
     required StoreRepository storeRepo,
@@ -33,6 +36,7 @@ class CategoryCubit extends Cubit<CategoryState> {
 
   Future<void> getProducts() async {
     final res = await _storeRepo.getProducts(
+      title: titleSearchCtrl.text == '' ? null : titleSearchCtrl.text,
       categoryId: id,
       minRate: state.minRate,
       maxRate: state.maxRate,
@@ -41,7 +45,10 @@ class CategoryCubit extends Cubit<CategoryState> {
       sort: state.sort,
       order: state.order,
     );
-    emit(state.copyWith(products: res));
+    emit(state.copyWith(
+      products: res,
+      titleIsSearched: titleSearchCtrl.text.isNotEmpty,
+    ));
   }
 
 //==============================Events==================================
@@ -77,10 +84,15 @@ class CategoryCubit extends Cubit<CategoryState> {
   }
 
   Future<bool> onFilterApplyTapped() async {
-    //
     emit(state.copyWith(filterLoading: true));
     await getProducts();
     emit(state.copyWith(filterLoading: false));
     return true;
+  }
+
+  Future<void> onTitleSearchApplied() async {
+    emit(state.copyWith(loading: true));
+    await getProducts();
+    emit(state.copyWith(loading: false));
   }
 }

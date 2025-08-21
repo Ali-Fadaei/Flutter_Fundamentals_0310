@@ -73,9 +73,13 @@ class CategoryPage extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    U.SearchInput(
-                      controller: TextEditingController(),
-                      onSearched: () {},
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: U.SearchInput(
+                        controller: categoryCubit.titleSearchCtrl,
+                        isSearched: state.titleIsSearched,
+                        onSearched: categoryCubit.onTitleSearchApplied,
+                      ),
                     ),
                     Expanded(
                       child: state.loading
