@@ -48,7 +48,7 @@ class StoreRepository {
 
   Future<List<Product>> getProducts({
     String? title,
-    int? categoryId,
+    List<int>? categoryIds,
     double? minRate,
     double? maxRate,
     int? minPrice,
@@ -197,10 +197,10 @@ class StoreRepository {
           .toList();
     }
 
-    if (categoryId != null) {
+    if (categoryIds != null) {
       products = products
           .where(
-            (e) => e.categoryData.id == categoryId,
+            (e) => categoryIds.contains(e.categoryData.id),
           )
           .toList();
     }
