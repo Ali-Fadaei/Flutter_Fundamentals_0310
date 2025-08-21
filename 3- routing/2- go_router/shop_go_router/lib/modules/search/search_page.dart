@@ -1,0 +1,95 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:shop_go_router/domains/store/store_repository.dart';
+import 'package:shop_go_router/modules/search/cubit/search_cubit.dart';
+import 'package:shop_go_router/modules/shop_cart/cubit/shop_cart_cubit.dart';
+import 'package:shop_go_router/modules/store/product_card.dart';
+import '/ui_kit/ui_kit.dart' as U;
+
+class SearchPage extends StatelessWidget {
+//
+  static const route = '/search';
+
+  const SearchPage({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => SearchCubit(
+            storeRepo: context.read<StoreRepository>(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => ShopCartCubit(
+            storeRepo: context.read<StoreRepository>(),
+          ),
+        ),
+      ],
+      child: Builder(builder: (context) {
+        return Scaffold(
+          backgroundColor: U.Theme.background,
+          body: SizedBox.expand(
+            child: Column(
+              children: [
+                U.AppBar.secondary(
+                  title: 'جستجوی محصولات',
+                  onBackPressed: () => GoRouter.of(context).pop(),
+                  action: U.IconButton(
+                    icon: U.Image.icon(path: U.Icons.filter),
+                    //TODO: develop this 👇🏻
+                    onPressed: () {},
+                    // onPressed: () => SearchFilterBtms.show(
+                    //   context,
+                    //   searchCubit: searchCubit,
+                    // ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                  //TODO: develop this 👇🏻
+                  child: U.SearchInput(
+                    controller: TextEditingController(),
+                    onSearched: () {},
+                  ),
+                ),
+                Expanded(
+                  child: BlocBuilder<SearchCubit, SearchState>(
+                    builder: (context, state) {
+                      return state.loading
+                          ? Center(child: const CircularProgressIndicator())
+                          : GridView.builder(
+                              itemCount: state.products.length,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15),
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount:
+                                    (MediaQuery.of(context).size.width / 190)
+                                        .floor(),
+                                mainAxisSpacing: 20,
+                                crossAxisSpacing: 20,
+                                childAspectRatio: 2 / 3.5,
+                              ),
+                              itemBuilder: (context, index) {
+                                return ProductCard(
+                                  data: state.products[index],
+                                );
+                              },
+                            );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }),
+    );
+  }
+}

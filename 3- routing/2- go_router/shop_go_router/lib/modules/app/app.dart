@@ -21,7 +21,14 @@ class App extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData.from(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
-          ),
+          ).copyWith(
+              // pageTransitionsTheme: const PageTransitionsTheme(
+              //   builders: {
+              //     TargetPlatform.windows: ZoomPageTransitionsBuilder(),
+              //     TargetPlatform.android: ZoomPageTransitionsBuilder(),
+              //   },
+              // ),
+              ),
           localizationsDelegates: {
             GlobalCupertinoLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,

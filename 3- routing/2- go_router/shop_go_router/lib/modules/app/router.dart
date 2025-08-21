@@ -5,6 +5,7 @@ import 'package:shop_go_router/domains/store/models/category.dart';
 import 'package:shop_go_router/modules/app/transitions.dart';
 import 'package:shop_go_router/modules/categories/categories_page.dart';
 import 'package:shop_go_router/modules/category/category_page.dart';
+import 'package:shop_go_router/modules/checkout/checkout_page.dart';
 import 'package:shop_go_router/modules/favorites/favorites_page.dart';
 import 'package:shop_go_router/modules/home/home_shell.dart';
 import 'package:shop_go_router/modules/page_a/page_a.dart';
@@ -13,6 +14,7 @@ import 'package:shop_go_router/modules/page_c/page_c.dart';
 import 'package:shop_go_router/modules/page_d/page_d.dart';
 import 'package:shop_go_router/modules/page_f/page_f.dart';
 import 'package:shop_go_router/modules/profile/profile_page.dart';
+import 'package:shop_go_router/modules/search/search_page.dart';
 import 'package:shop_go_router/modules/shop_cart/shop_cart_page.dart';
 import 'package:shop_go_router/modules/store/store_page.dart';
 
@@ -88,7 +90,16 @@ final router = GoRouter(
               builder: (context, state) {
                 return ShopCartPage();
               },
-            )
+              routes: [
+                GoRoute(
+                  path: CheckoutPage.route,
+                  name: CheckoutPage.route,
+                  builder: (context, state) {
+                    return CheckoutPage();
+                  },
+                ),
+              ],
+            ),
           ],
         ),
         StatefulShellBranch(
@@ -105,7 +116,16 @@ final router = GoRouter(
                   ),
                 );
               },
-            )
+              routes: [
+                GoRoute(
+                  name: SearchPage.route,
+                  path: SearchPage.route,
+                  builder: (context, state) {
+                    return SearchPage();
+                  },
+                ),
+              ],
+            ),
           ],
         ),
         StatefulShellBranch(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:shop_go_router/modules/checkout/checkout_page.dart';
 import 'package:shop_go_router/modules/home/cubit/home_cubit.dart';
 import '/domains/store/store_repository.dart';
 import '/modules/shop_cart/cubit/shop_cart_cubit.dart';
@@ -56,33 +58,56 @@ class ShopCartPage extends StatelessWidget {
                         )
                       : state.shopItems.isEmpty
                           ? Center(child: U.Text('لیست علاقه‌مندی خالیه!!!'))
-                          : ListView.separated(
-                              itemCount: state.shopItems.length,
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 16,
-                                horizontal: 16,
-                              ),
-                              separatorBuilder: (context, index) {
-                                return const SizedBox(height: 16);
-                              },
-                              itemBuilder: (context, index) {
-                                final data = state.shopItems[index];
-                                return Column(
-                                  children: [
-                                    ShopCartCard(shopItem: data),
-                                    if (state.loading &&
-                                        data == state.shopItems.last) ...[
-                                      SizedBox(height: 20),
-                                      Center(
-                                        child: SizedBox.square(
-                                          dimension: 30,
-                                          child: CircularProgressIndicator(),
-                                        ),
-                                      ),
-                                    ],
-                                  ],
-                                );
-                              },
+                          : Stack(
+                              children: [
+                                ListView.separated(
+                                  itemCount: state.shopItems.length,
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 16,
+                                    horizontal: 16,
+                                  ),
+                                  separatorBuilder: (context, index) {
+                                    return const SizedBox(height: 16);
+                                  },
+                                  itemBuilder: (context, index) {
+                                    final data = state.shopItems[index];
+                                    return Column(
+                                      children: [
+                                        ShopCartCard(shopItem: data),
+                                        if (state.loading &&
+                                            data == state.shopItems.last) ...[
+                                          SizedBox(height: 20),
+                                          Center(
+                                            child: SizedBox.square(
+                                              dimension: 30,
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            ),
+                                          ),
+                                        ],
+                                      ],
+                                    );
+                                  },
+                                ),
+                                Positioned(
+                                  bottom: 85,
+                                  left: 16,
+                                  right: 16,
+                                  child: Hero(
+                                    tag: 'Btn-1',
+                                    child: U.Button(
+                                      title: 'تکمیل خرید',
+                                      trailingText: ' تومان',
+                                      size: U.ButtonSize.lg,
+                                      onPressed: () {
+                                        GoRouter.of(context).goNamed(
+                                          CheckoutPage.route,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ],
                             );
                 },
               ),

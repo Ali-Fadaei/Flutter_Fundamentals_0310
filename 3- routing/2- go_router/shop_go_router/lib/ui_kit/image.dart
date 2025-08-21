@@ -25,6 +25,11 @@ abstract class Icons {
   static const store = 'assets/icons/store.png';
   static const checkBoxEmpty = 'assets/icons/checkbox_empty.png';
   static const checkBoxFill = 'assets/icons/checkbox_fill.png';
+  //
+  static const paymentIcon = 'assets/icons/payment.png';
+  static const orderIcon = 'assets/icons/order.png';
+  static const discountIcon = 'assets/icons/discount.png';
+  //
   static const radioEmpty = 'assets/icons/radio_empty.png';
   static const radioFill = 'assets/icons/radio_fill.png';
   static const arrowLeft = 'assets/icons/arrow_left.png';
@@ -68,9 +73,9 @@ class Image extends M.StatelessWidget {
     required this.path,
     double size = 24.0,
     this.color,
-  }) : height = size,
-       width = size,
-       fit = BoxFit.contain;
+  })  : height = size,
+        width = size,
+        fit = BoxFit.contain;
 
   @override
   M.Widget build(M.BuildContext context) {
