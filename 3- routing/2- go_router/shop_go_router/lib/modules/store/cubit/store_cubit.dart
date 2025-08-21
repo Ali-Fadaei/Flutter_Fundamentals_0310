@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import '/domains/store/models/category.dart';
 import '/domains/store/models/product.dart';
 import '/domains/store/store_repository.dart';
@@ -10,6 +11,8 @@ class StoreCubit extends Cubit<StoreState> {
   final StoreRepository storeRepo;
 
   final int? initialProductId;
+
+  final searchCtrl = TextEditingController();
 
   StoreCubit({
     required this.storeRepo,

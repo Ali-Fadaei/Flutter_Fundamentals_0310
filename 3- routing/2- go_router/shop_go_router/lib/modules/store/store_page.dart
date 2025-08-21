@@ -79,6 +79,7 @@ class StorePage extends StatelessWidget {
             Expanded(
               child: BlocBuilder<StoreCubit, StoreState>(
                 builder: (context, state) {
+                  final storeCubit = context.read<StoreCubit>();
                   return ListView(
                     padding: const EdgeInsets.only(bottom: 85),
                     children: [
@@ -86,9 +87,14 @@ class StorePage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: U.SearchInput(
-                          controller: TextEditingController(),
+                          controller: storeCubit.searchCtrl,
                           onSearched: () {
-                            GoRouter.of(context).goNamed(SearchPage.route);
+                            GoRouter.of(context).goNamed(
+                              SearchPage.route,
+                              pathParameters: {
+                                'title': storeCubit.searchCtrl.text,
+                              },
+                            );
                           },
                         ),
                       ),

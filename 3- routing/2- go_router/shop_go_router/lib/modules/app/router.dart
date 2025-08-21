@@ -42,6 +42,8 @@ final router = GoRouter(
         return HomeShell(
           hideNavBar: [
             CategoryPage.route,
+            SearchPage.route,
+            CheckoutPage.route,
           ].contains(state.topRoute?.name ?? ''),
           child: navigationShell,
         );
@@ -121,7 +123,9 @@ final router = GoRouter(
                   name: SearchPage.route,
                   path: SearchPage.route,
                   builder: (context, state) {
-                    return SearchPage();
+                    return SearchPage(
+                      searchTitle: state.pathParameters['title'] as String,
+                    );
                   },
                 ),
               ],
