@@ -95,6 +95,7 @@ class StorePage extends StatelessWidget {
                                 'title': storeCubit.searchCtrl.text,
                               },
                             );
+                            storeCubit.searchCtrl.clear();
                           },
                         ),
                       ),

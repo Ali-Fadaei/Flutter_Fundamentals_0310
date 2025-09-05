@@ -3,11 +3,8 @@ part of 'store_cubit.dart';
 final class StoreState {
   //
   final bool loading;
-
   final List<Product> products;
-
   final List<CategoryData> categories;
-
   final Product? initialProduct;
 
   const StoreState({

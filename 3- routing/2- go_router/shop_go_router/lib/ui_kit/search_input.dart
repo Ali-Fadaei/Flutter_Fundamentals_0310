@@ -41,6 +41,7 @@ class _SearchInputState extends State<SearchInput> {
     if (widget.autoFocus) {
       focusNode.requestFocus();
     }
+    lastSearch = widget.controller.text;
     textIsEmpty = widget.controller.text.isEmpty;
     widget.controller.addListener(() {
       textIsEmpty = widget.controller.text.isEmpty;
@@ -57,7 +58,8 @@ class _SearchInputState extends State<SearchInput> {
   }
 
   void onSearch() {
-    if (lastSearch != widget.controller.text) {
+    if ((!widget.isSearched && !textIsEmpty) ||
+        lastSearch != widget.controller.text) {
       lastSearch = widget.controller.text;
       widget.onSearched();
     }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_go_router/domains/store/store_repository.dart';
 import 'package:shop_go_router/modules/search/cubit/search_cubit.dart';
+import 'package:shop_go_router/modules/search/search_filter_btms.dart';
 import 'package:shop_go_router/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_go_router/modules/store/product_card.dart';
 import '/ui_kit/ui_kit.dart' as U;
@@ -47,12 +48,10 @@ class SearchPage extends StatelessWidget {
                     onBackPressed: () => GoRouter.of(context).pop(),
                     action: U.IconButton(
                       icon: U.Image.icon(path: U.Icons.filter),
-                      //TODO: develop this 👇🏻
-                      onPressed: () {},
-                      // onPressed: () => SearchFilterBtms.show(
-                      //   context,
-                      //   searchCubit: searchCubit,
-                      // ),
+                      onPressed: () => SearchFilterBottomSheet.show(
+                        context,
+                        searchCubit: searchCubit,
+                      ),
                     ),
                   ),
                   Padding(

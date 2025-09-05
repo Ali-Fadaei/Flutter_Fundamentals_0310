@@ -3,12 +3,12 @@ import 'ui_kit.dart' as U;
 
 class BottomSheet extends StatelessWidget {
   //
-
   static show(
     BuildContext context, {
     double? maxWidth,
     double? maxHeight,
     bool useRootNavigator = false,
+    EdgeInsets padding = const EdgeInsets.all(12),
     required Widget Function(BuildContext context) builder,
   }) {
     return showModalBottomSheet(
@@ -22,6 +22,7 @@ class BottomSheet extends StatelessWidget {
       ),
       builder: (context) {
         return U.BottomSheet(
+          padding: padding,
           child: builder(context),
         );
       },
@@ -29,16 +30,17 @@ class BottomSheet extends StatelessWidget {
   }
 
   final Widget child;
-
+  final EdgeInsets padding;
   const BottomSheet({
     super.key,
     required this.child,
+    required this.padding,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(12),
+      padding: padding,
       decoration: BoxDecoration(
         color: U.Theme.background,
         borderRadius: BorderRadius.vertical(
