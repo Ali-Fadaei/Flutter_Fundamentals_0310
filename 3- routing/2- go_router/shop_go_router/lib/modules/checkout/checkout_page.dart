@@ -233,6 +233,8 @@ class CheckoutPage extends StatelessWidget {
                                                       icon: U.Image(
                                                         path: U
                                                             .Icons.discountIcon,
+                                                        color:
+                                                            U.Theme.onSecondary,
                                                       ),
                                                       color: U.Theme.secondary,
                                                       size: 45,

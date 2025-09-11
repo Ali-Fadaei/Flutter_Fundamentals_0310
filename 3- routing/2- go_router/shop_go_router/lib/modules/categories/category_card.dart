@@ -8,19 +8,35 @@ class CategoryCard extends StatelessWidget {
   //
   final CategoryData data;
 
-  const CategoryCard({super.key, required this.data});
+  final bool useGo;
+
+  const CategoryCard({
+    super.key,
+    required this.data,
+    this.useGo = true,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        GoRouter.of(context).goNamed(
-          CategoryPage.route,
-          pathParameters: {
-            'id': data.id.toString(),
-          },
-          extra: data,
-        );
+        if (useGo) {
+          GoRouter.of(context).goNamed(
+            CategoryPage.route,
+            pathParameters: {
+              'id': data.id.toString(),
+            },
+            extra: data,
+          );
+        } else {
+          GoRouter.of(context).pushNamed(
+            CategoryPage.route,
+            pathParameters: {
+              'id': data.id.toString(),
+            },
+            extra: data,
+          );
+        }
       },
       child: Hero(
         tag: 'category${data.id}',

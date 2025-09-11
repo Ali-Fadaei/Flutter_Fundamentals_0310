@@ -191,7 +191,9 @@ class StorePage extends StatelessWidget {
                                 },
                                 itemBuilder: (_, index) {
                                   return CategoryCard(
-                                      data: state.categories[index]);
+                                    useGo: false,
+                                    data: state.categories[index],
+                                  );
                                 },
                               ),
                       ),

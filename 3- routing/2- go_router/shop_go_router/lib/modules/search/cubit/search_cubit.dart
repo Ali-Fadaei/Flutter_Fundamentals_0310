@@ -29,7 +29,6 @@ class SearchCubit extends Cubit<SearchState> {
 
   Future<void> searchProducts() async {
     List<int> tempIds = state.selectedCategories.map((e) => e.id).toList();
-
     final res = await _storeRepo.getProducts(
       title: searchCtrl.text == '' ? null : searchCtrl.text,
       categoryIds: tempIds.isEmpty ? null : tempIds,
