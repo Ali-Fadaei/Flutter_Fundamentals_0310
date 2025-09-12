@@ -12,7 +12,7 @@ class ProductBottomSheet extends StatelessWidget {
   static show(
     BuildContext context, {
     required Product product,
-    bool useRootNavigator = false,
+    bool useRootNavigator = true,
     FavoritesCubit? favoritesCubit,
     ShopCartCubit? shopCartCubit,
   }) {

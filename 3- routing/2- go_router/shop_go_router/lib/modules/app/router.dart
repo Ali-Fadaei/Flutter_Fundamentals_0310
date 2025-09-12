@@ -120,28 +120,6 @@ final router = GoRouter(
               },
               routes: [
                 GoRoute(
-                  path: CategoryPage.routeFromStore,
-                  name: CategoryPage.routeFromStore,
-                  pageBuilder: (context, state) {
-                    return GoNoTransition(
-                      key: state.pageKey,
-                      child: CategoryPage(
-                        data: state.extra as CategoryData?,
-                        categoryId: int.parse(
-                          state.pathParameters['id']!,
-                        ),
-                      ),
-                    );
-                  },
-                  // builder: (context, state) {
-                  //   return CategoryPage(
-                  //     categoryId: int.parse(
-                  //       state.pathParameters['id']!,
-                  //     ),
-                  //   );
-                  // },
-                ),
-                GoRoute(
                   name: SearchPage.route,
                   path: SearchPage.route,
                   builder: (context, state) {

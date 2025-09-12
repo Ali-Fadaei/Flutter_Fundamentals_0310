@@ -97,7 +97,8 @@ class ShopCartPage extends StatelessWidget {
                                     tag: 'Btn-1',
                                     child: U.Button(
                                       title: 'تکمیل خرید',
-                                      trailingText: ' تومان',
+                                      trailingText:
+                                          '${state.totalAmount} تومان',
                                       size: U.ButtonSize.lg,
                                       onPressed: () {
                                         GoRouter.of(context).goNamed(

@@ -6,11 +6,28 @@ final class ShopCartState {
 
   final List<ShopItem> shopItems;
 
-  const ShopCartState({required this.loading, required this.shopItems});
+  const ShopCartState({
+    required this.loading,
+    required this.shopItems,
+  });
 
-  const ShopCartState.init() : loading = false, shopItems = const [];
+  const ShopCartState.init()
+      : loading = false,
+        shopItems = const [];
 
-  ShopCartState copyWith({bool? loading, List<ShopItem>? shopItems}) {
+  int get totalAmount {
+    return shopItems.fold(
+      0,
+      (preValue, shopItem) {
+        return preValue + (shopItem.product.price * shopItem.count);
+      },
+    );
+  }
+
+  ShopCartState copyWith({
+    bool? loading,
+    List<ShopItem>? shopItems,
+  }) {
     return ShopCartState(
       loading: loading ?? this.loading,
       shopItems: shopItems ?? this.shopItems,
