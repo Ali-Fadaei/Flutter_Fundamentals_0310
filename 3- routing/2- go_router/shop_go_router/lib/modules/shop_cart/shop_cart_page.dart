@@ -103,6 +103,7 @@ class ShopCartPage extends StatelessWidget {
                                       onPressed: () {
                                         GoRouter.of(context).goNamed(
                                           CheckoutPage.route,
+                                          extra: state.shopItems,
                                         );
                                       },
                                     ),

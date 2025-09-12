@@ -10,14 +10,18 @@ class CheckoutPage extends StatelessWidget {
 //
   static const route = '/checkout';
 
+  final List<ShopItem>? shopItmes;
+
   const CheckoutPage({
     super.key,
+    this.shopItmes,
   });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CheckoutCubit(
+        initialShopItems: shopItmes,
         storeRepo: context.read<StoreRepository>(),
       ),
       child: SafeArea(

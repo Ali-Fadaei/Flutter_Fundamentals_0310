@@ -20,11 +20,11 @@ class CheckoutState {
     required this.discountPercent,
   });
 
-  const CheckoutState.init()
-      : loading = false,
+  const CheckoutState.init({
+    required this.shopItems,
+  })  : loading = false,
         discountLoading = false,
         paymentLoading = false,
-        shopItems = const [],
         discountPercent = 0;
 
   int get totalAmount {

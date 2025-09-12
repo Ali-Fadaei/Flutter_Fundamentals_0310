@@ -15,8 +15,11 @@ class CheckoutCubit extends Cubit<CheckoutState> {
 
   CheckoutCubit({
     required StoreRepository storeRepo,
+    List<ShopItem>? initialShopItems,
   })  : _storeRepo = storeRepo,
-        super(CheckoutState.init()) {
+        super(CheckoutState.init(
+          shopItems: initialShopItems ?? [],
+        )) {
     onInit();
   }
 
@@ -28,9 +31,14 @@ class CheckoutCubit extends Cubit<CheckoutState> {
 
   //==============================Events=======================================
   void onInit() async {
-    emit(state.copyWith(loading: true));
+    if (state.shopItems.isEmpty) emit(state.copyWith(loading: true));
     await readShopItems();
-    emit(state.copyWith(loading: false));
+    if (state.shopItems.isEmpty) emit(state.copyWith(loading: false));
+    // if (state.shopItems.isEmpty) {
+    //   emit(state.copyWith(loading: true));
+    //   await readShopItems();
+    //   emit(state.copyWith(loading: false));
+    // }
   }
 
   void onDiscountCheckPressed() async {

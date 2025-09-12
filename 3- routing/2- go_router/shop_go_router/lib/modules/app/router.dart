@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shop_go_router/domains/store/models/category.dart';
+
 import 'package:shop_go_router/modules/app/transitions.dart';
 import 'package:shop_go_router/modules/categories/categories_page.dart';
 import 'package:shop_go_router/modules/category/category_page.dart';
@@ -65,7 +65,7 @@ final router = GoRouter(
                     return GoNoTransition(
                       key: state.pageKey,
                       child: CategoryPage(
-                        data: state.extra as CategoryData?,
+                        data: state.extra as dynamic,
                         categoryId: int.parse(
                           state.pathParameters['id']!,
                         ),
@@ -97,7 +97,9 @@ final router = GoRouter(
                   path: CheckoutPage.route,
                   name: CheckoutPage.route,
                   builder: (context, state) {
-                    return CheckoutPage();
+                    return CheckoutPage(
+                      shopItmes: state.extra as dynamic,
+                    );
                   },
                 ),
               ],
