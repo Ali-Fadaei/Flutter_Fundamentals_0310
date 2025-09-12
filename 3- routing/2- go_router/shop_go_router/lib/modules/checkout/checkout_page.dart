@@ -25,6 +25,7 @@ class CheckoutPage extends StatelessWidget {
             backgroundColor: U.Theme.background,
             body: BlocBuilder<CheckoutCubit, CheckoutState>(
               builder: (context, state) {
+                final checkoutCubit = context.read<CheckoutCubit>();
                 return state.loading
                     ? Center(
                         child: const CircularProgressIndicator(),
@@ -81,20 +82,18 @@ class CheckoutPage extends StatelessWidget {
                                                   horizontal: 15,
                                                 ),
                                                 children: [
-                                                  ...state.shopItems
-                                                      .expand(
-                                                        (element) => [
-                                                          _CheckoutItem(
-                                                            shopItem: element,
-                                                          ),
-                                                          if (state.shopItems
-                                                                  .last !=
-                                                              element)
-                                                            const U
-                                                                .Divider.horizontal(),
-                                                        ],
-                                                      )
-                                                      .toList(),
+                                                  ...state.shopItems.expand(
+                                                    (element) => [
+                                                      _CheckoutItem(
+                                                        shopItem: element,
+                                                      ),
+                                                      if (state
+                                                              .shopItems.last !=
+                                                          element)
+                                                        const U
+                                                            .Divider.horizontal(),
+                                                    ],
+                                                  ),
                                                 ],
                                               ),
                                             ),
@@ -212,9 +211,8 @@ class CheckoutPage extends StatelessWidget {
                                                   title: 'آدرس تحویل',
                                                   hint: 'استان، شهر، منطقه...',
                                                   isRequired: true,
-                                                  //TODO
                                                   controller:
-                                                      TextEditingController(),
+                                                      checkoutCubit.addressCtrl,
                                                 ),
                                                 const SizedBox(height: 20),
                                                 Row(
@@ -223,9 +221,9 @@ class CheckoutPage extends StatelessWidget {
                                                       child: U.TextInput(
                                                         title: 'کد تخفیف',
                                                         hint: 'ABCXyz10%',
-                                                        //TODO
                                                         controller:
-                                                            TextEditingController(),
+                                                            checkoutCubit
+                                                                .discountCtrl,
                                                       ),
                                                     ),
                                                     const SizedBox(width: 10),
@@ -240,11 +238,10 @@ class CheckoutPage extends StatelessWidget {
                                                       size: 45,
                                                       disabled:
                                                           state.paymentLoading,
-                                                      //TODO:
-                                                      // loading:
-                                                      //     state.discountLoading,
-                                                      // toolTip: 'اعمال کد تخفیف',
-                                                      onPressed: () {},
+                                                      loading:
+                                                          state.discountLoading,
+                                                      onPressed: checkoutCubit
+                                                          .onDiscountCheckPressed,
                                                     ),
                                                   ],
                                                 ),
@@ -258,10 +255,8 @@ class CheckoutPage extends StatelessWidget {
                                                         state.discountLoading,
                                                     loading:
                                                         state.paymentLoading,
-                                                    //TODO
-                                                    onPressed: () {},
-                                                    // onPressed: checkoutCubit
-                                                    //     .onPaymentPressed,
+                                                    onPressed: checkoutCubit
+                                                        .onOrderConfirmed,
                                                   ),
                                                 ),
                                               ],

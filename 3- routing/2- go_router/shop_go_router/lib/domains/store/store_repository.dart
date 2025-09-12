@@ -258,4 +258,14 @@ class StoreRepository {
     await Future.delayed(Duration(milliseconds: _delay));
     _shopItems = shopItems;
   }
+
+  Future<int> validateDiscountCode(String discountCode) async {
+    await Future.delayed(Duration(milliseconds: _delay));
+    return 15;
+  }
+
+  Future<bool> createOrder(String deliveryAddress) async {
+    await Future.delayed(Duration(milliseconds: _delay));
+    return true;
+  }
 }

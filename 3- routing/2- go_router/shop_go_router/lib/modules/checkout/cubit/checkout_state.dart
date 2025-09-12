@@ -10,23 +10,14 @@ class CheckoutState {
 
   final List<ShopItem> shopItems;
 
-  final int totalAmount;
-
   final int discountPercent;
-
-  final int discountAmount;
-
-  final int payableAmount;
 
   const CheckoutState({
     required this.loading,
     required this.discountLoading,
     required this.paymentLoading,
     required this.shopItems,
-    required this.totalAmount,
     required this.discountPercent,
-    required this.discountAmount,
-    required this.payableAmount,
   });
 
   const CheckoutState.init()
@@ -34,10 +25,24 @@ class CheckoutState {
         discountLoading = false,
         paymentLoading = false,
         shopItems = const [],
-        totalAmount = 0,
-        discountPercent = 0,
-        discountAmount = 0,
-        payableAmount = 0;
+        discountPercent = 0;
+
+  int get totalAmount {
+    return shopItems.fold(
+      0,
+      (preValue, shopItem) {
+        return preValue + (shopItem.product.price * shopItem.count);
+      },
+    );
+  }
+
+  int get discountAmount {
+    return totalAmount * discountPercent ~/ 100;
+  }
+
+  int get payableAmount {
+    return totalAmount - discountAmount;
+  }
 
   CheckoutState copyWith({
     bool? loading,
@@ -52,9 +57,6 @@ class CheckoutState {
       paymentLoading: paymentLoading ?? this.paymentLoading,
       shopItems: shopItems ?? this.shopItems,
       discountPercent: discountPercent ?? this.discountPercent,
-      totalAmount: totalAmount,
-      discountAmount: discountAmount,
-      payableAmount: totalAmount - discountAmount,
     );
   }
 }
