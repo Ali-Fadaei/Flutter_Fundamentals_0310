@@ -21,7 +21,7 @@ class CheckoutState {
   });
 
   const CheckoutState.init({
-    required this.shopItems,
+    required this.shopItems,//؟؟؟؟؟؟؟؟؟؟؟
   })  : loading = false,
         discountLoading = false,
         paymentLoading = false,

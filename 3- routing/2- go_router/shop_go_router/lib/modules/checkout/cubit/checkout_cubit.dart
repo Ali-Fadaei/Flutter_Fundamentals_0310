@@ -30,7 +30,7 @@ class CheckoutCubit extends Cubit<CheckoutState> {
   }
 
   //==============================Events=======================================
-  void onInit() async {
+  void onInit() async {//وقتی از اپ وارد میشه لودینگ دیگه نمیبینه
     if (state.shopItems.isEmpty) emit(state.copyWith(loading: true));
     await readShopItems();
     if (state.shopItems.isEmpty) emit(state.copyWith(loading: false));

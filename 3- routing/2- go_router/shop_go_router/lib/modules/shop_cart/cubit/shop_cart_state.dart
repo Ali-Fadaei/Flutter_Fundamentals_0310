@@ -23,6 +23,14 @@ final class ShopCartState {
       },
     );
   }
+//با بالایی برابره
+  // int get totalAmount {
+  //  var temp=0;
+  //  for (var element in shopItems){
+  //   temp+=( element.product.price * element.count);
+  //  }
+  //  return temp;
+  // }
 
   ShopCartState copyWith({
     bool? loading,

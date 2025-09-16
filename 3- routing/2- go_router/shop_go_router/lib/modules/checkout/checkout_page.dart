@@ -24,7 +24,7 @@ class CheckoutPage extends StatelessWidget {
         initialShopItems: shopItmes,
         storeRepo: context.read<StoreRepository>(),
       ),
-      child: SafeArea(
+      child: SafeArea(//؟؟؟؟؟؟؟؟؟؟؟
         child: Scaffold(
             backgroundColor: U.Theme.background,
             body: BlocBuilder<CheckoutCubit, CheckoutState>(
@@ -44,7 +44,7 @@ class CheckoutPage extends StatelessWidget {
                             child: Container(
                               alignment: Alignment.center,
                               padding: const EdgeInsets.all(12.0),
-                              child: ConstrainedBox(
+                              child: ConstrainedBox(//؟؟؟؟؟؟؟؟؟؟؟؟
                                 constraints:
                                     const BoxConstraints(maxWidth: 1000),
                                 child: Column(
@@ -57,7 +57,7 @@ class CheckoutPage extends StatelessWidget {
                                           children: [
                                             const Row(
                                               children: [
-                                                U.Image(
+                                                U.Image( 
                                                   height: 24,
                                                   width: 24,
                                                   //todo:
