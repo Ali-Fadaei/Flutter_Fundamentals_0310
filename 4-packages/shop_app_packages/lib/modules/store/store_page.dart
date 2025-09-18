@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shop_app_packages/modules/category/category_page.dart';
 import '/modules/home/cubit/home_cubit.dart';
 import '/modules/search/search_page.dart';
 import '/modules/store/product_btms.dart';
@@ -100,14 +101,58 @@ class StorePage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: U.Image(
-                          path: U.Images.banner1,
-                          height: 105,
-                          fit: BoxFit.cover,
-                        ),
+                      U.Banner(
+                        banners: [
+                          U.BannerItem(
+                            img: U.Images.banner1,
+                            onTap: () {
+                              GoRouter.of(context).pushNamed(
+                                CategoryPage.route,
+                                pathParameters: {
+                                  'id': '0',
+                                },
+                              );
+                            },
+                          ),
+                          U.BannerItem(
+                            img: U.Images.banner2,
+                            onTap: () {
+                              GoRouter.of(context).pushNamed(
+                                CategoryPage.route,
+                                pathParameters: {
+                                  'id': '1',
+                                },
+                              );
+                            },
+                          ),
+                          U.BannerItem(
+                            img: U.Images.banner3,
+                            onTap: () {
+                              print('3');
+                            },
+                          ),
+                          U.BannerItem(
+                            img: U.Images.banner4,
+                            onTap: () {
+                              print('4');
+                            },
+                          ),
+                          U.BannerItem(
+                            img: U.Images.banner5,
+                            onTap: () {
+                              print('5');
+                            },
+                          ),
+                        ],
                       ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 16),
+                      //   child: U.Image(
+                      //     path: U.Images.banner1,
+                      //     height: 105,
+                      //     fit: BoxFi  t.cover,
+                      //   ),
+                      // ),
                       const SizedBox(height: 20),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
