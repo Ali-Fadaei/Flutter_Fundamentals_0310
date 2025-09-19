@@ -40,25 +40,16 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 children: [
                   U.Button(
-                    title: 'Go To Page A',
+                    title: 'Open Scaffold Snack',
                     onPressed: () {
-                      // GoRouter.of(context).goNamed(
-                      //   PageA.route,
-                      //   pathParameters: {
-                      //     'id': '128',
-                      //   },
-                      //   queryParameters: {
-                      //     'harnamana': 'megdar',
-                      //   },
-                      // );
-                      // Navigator.of(context).push(
-                      //   MaterialPageRoute(
-                      //     builder: (context) => PageA(
-                      //       content: 'Page A Content',
-                      //     ),
-                      //   ),
-                      //   // CupertinoPageRoute(builder: builder)
-                      // );
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: U.Text(
+                            'test',
+                            color: U.Theme.surface,
+                          ),
+                        ),
+                      );
                     },
                   ),
                   const SizedBox(

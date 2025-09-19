@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-// import 'package:animations/animations.dart';
+import 'package:animations/animations.dart';
 import '/ui_kit/ui_kit.dart' as U;
 
 class GoNoTransition extends CustomTransitionPage {
@@ -36,46 +36,46 @@ class GoFadeTransition extends CustomTransitionPage {
         );
 }
 
-// class GoFadeTroughTransition extends CustomTransitionPage {
-//   //
-//   GoFadeTroughTransition({
-//     required super.key,
-//     required super.child,
-//     super.transitionDuration = U.Theme.primaryDuration,
-//     Color? fillColor,
-//   }) : super(
-//          transitionsBuilder: (context, anim1, anim2, child) {
-//            return FadeThroughTransition(
-//              animation: anim1,
-//              secondaryAnimation: anim2,
-//              fillColor: fillColor,
-//              child: child,
-//            );
-//          },
-//        );
-// }
+class GoFadeTroughTransition extends CustomTransitionPage {
+  //
+  GoFadeTroughTransition({
+    required super.key,
+    required super.child,
+    super.transitionDuration = U.Theme.primaryDuration,
+    Color? fillColor,
+  }) : super(
+          transitionsBuilder: (context, anim1, anim2, child) {
+            return FadeThroughTransition(
+              animation: anim1,
+              secondaryAnimation: anim2,
+              fillColor: fillColor,
+              child: child,
+            );
+          },
+        );
+}
 
-// class GoSharedAxisTransition extends CustomTransitionPage {
-//   //
+class GoSharedAxisTransition extends CustomTransitionPage {
+  //
 
-//   GoSharedAxisTransition({
-//     required super.key,
-//     required super.child,
-//     super.transitionDuration = U.Theme.primaryDuration,
-//     Color? fillColor,
-//     SharedAxisTransitionType type = SharedAxisTransitionType.horizontal,
-//   }) : super(
-//          transitionsBuilder: (context, anim1, anim2, child) {
-//            return SharedAxisTransition(
-//              animation: anim1,
-//              secondaryAnimation: anim2,
-//              fillColor: fillColor,
-//              transitionType: type,
-//              child: child,
-//            );
-//          },
-//        );
-// }
+  GoSharedAxisTransition({
+    required super.key,
+    required super.child,
+    super.transitionDuration = U.Theme.primaryDuration,
+    Color? fillColor,
+    SharedAxisTransitionType type = SharedAxisTransitionType.horizontal,
+  }) : super(
+          transitionsBuilder: (context, anim1, anim2, child) {
+            return SharedAxisTransition(
+              animation: anim1,
+              secondaryAnimation: anim2,
+              fillColor: fillColor,
+              transitionType: type,
+              child: child,
+            );
+          },
+        );
+}
 
 //============================Study Case Transitions============================
 

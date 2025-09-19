@@ -11,6 +11,7 @@ import '/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import '/modules/store/cubit/store_cubit.dart';
 import './product_card.dart';
 import '/ui_kit/ui_kit.dart' as U;
+import '/tool_kit/tool_kit.dart' as T;
 
 class StorePage extends StatelessWidget {
   //
@@ -101,50 +102,51 @@ class StorePage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      U.Banner(
-                        banners: [
-                          U.BannerItem(
-                            img: U.Images.banner1,
-                            onTap: () {
-                              GoRouter.of(context).pushNamed(
-                                CategoryPage.route,
-                                pathParameters: {
-                                  'id': '0',
-                                },
-                              );
-                            },
-                          ),
-                          U.BannerItem(
-                            img: U.Images.banner2,
-                            onTap: () {
-                              GoRouter.of(context).pushNamed(
-                                CategoryPage.route,
-                                pathParameters: {
-                                  'id': '1',
-                                },
-                              );
-                            },
-                          ),
-                          U.BannerItem(
-                            img: U.Images.banner3,
-                            onTap: () {
-                              print('3');
-                            },
-                          ),
-                          U.BannerItem(
-                            img: U.Images.banner4,
-                            onTap: () {
-                              print('4');
-                            },
-                          ),
-                          U.BannerItem(
-                            img: U.Images.banner5,
-                            onTap: () {
-                              print('5');
-                            },
-                          ),
-                        ],
-                      ),
+                      if (T.Utils.isWindows)
+                        U.Banner(
+                          banners: [
+                            U.BannerItem(
+                              img: U.Images.banner1,
+                              onTap: () {
+                                GoRouter.of(context).pushNamed(
+                                  CategoryPage.route,
+                                  pathParameters: {
+                                    'id': '0',
+                                  },
+                                );
+                              },
+                            ),
+                            U.BannerItem(
+                              img: U.Images.banner2,
+                              onTap: () {
+                                GoRouter.of(context).pushNamed(
+                                  CategoryPage.route,
+                                  pathParameters: {
+                                    'id': '1',
+                                  },
+                                );
+                              },
+                            ),
+                            U.BannerItem(
+                              img: U.Images.banner3,
+                              onTap: () {
+                                print('3');
+                              },
+                            ),
+                            U.BannerItem(
+                              img: U.Images.banner4,
+                              onTap: () {
+                                print('4');
+                              },
+                            ),
+                            U.BannerItem(
+                              img: U.Images.banner5,
+                              onTap: () {
+                                print('5');
+                              },
+                            ),
+                          ],
+                        ),
                       // Padding(
                       //   padding: const EdgeInsets.symmetric(horizontal: 16),
                       //   child: U.Image(

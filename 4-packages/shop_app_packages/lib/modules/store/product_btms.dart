@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:overlay_support/overlay_support.dart';
 import '/modules/home/cubit/home_cubit.dart';
 import '/domains/store/store_repository.dart';
 import '/modules/favorites/cubit/favorites_cubit.dart';
@@ -114,8 +115,9 @@ class ProductBottomSheet extends StatelessWidget {
                             ? Icons.favorite
                             : Icons.favorite_border,
                       ),
-                      onPressed: () =>
-                          favoritesCubit.onFavoriteButtonTapped(product),
+                      onPressed: () {
+                        favoritesCubit.onFavoriteButtonTapped(product);
+                      },
                     );
                   },
                 ),

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:overlay_support/overlay_support.dart';
 import '/domains/store/models/product.dart';
 import '/domains/store/store_repository.dart';
 
@@ -31,9 +32,12 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     final dataIndex = favTemp.indexOf(data);
     if (dataIndex == -1) {
       favTemp.add(data);
+      toast('به لیست علاقه مندی اضافه شد!');
     } else {
       favTemp.remove(data);
+      toast('از لیست علاقه مندی حذف شد!');
     }
+
     emit(state.copyWith(favorites: favTemp));
     storeRepo.updateFavorites(state.favorites);
     final res = await storeRepo.getFavorites();

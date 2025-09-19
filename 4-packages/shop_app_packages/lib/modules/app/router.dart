@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
@@ -119,11 +120,20 @@ final router = GoRouter(
                 GoRoute(
                   name: SearchPage.route,
                   path: SearchPage.route,
-                  builder: (context, state) {
-                    return SearchPage(
-                      searchTitle: state.pathParameters['title'] as String,
+                  pageBuilder: (context, state) {
+                    return GoSharedAxisTransition(
+                      key: state.pageKey,
+                      type: SharedAxisTransitionType.vertical,
+                      child: SearchPage(
+                        searchTitle: state.pathParameters['title'] as String,
+                      ),
                     );
                   },
+                  // builder: (context, state) {
+                  //   return SearchPage(
+                  //     searchTitle: state.pathParameters['title'] as String,
+                  //   );
+                  // },
                 ),
               ],
             ),

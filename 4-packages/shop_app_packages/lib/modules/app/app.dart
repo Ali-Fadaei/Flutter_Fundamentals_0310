@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:overlay_support/overlay_support.dart';
 import '/modules/app/router.dart';
 import '/domains/store/store_repository.dart';
 import '/modules/app/cubit/app_cubit.dart';
@@ -17,39 +18,41 @@ class App extends StatelessWidget {
       create: (context) => StoreRepository(),
       child: BlocProvider(
         create: (context) => AppCubit(),
-        child: MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData.from(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
-          ).copyWith(
-            pageTransitionsTheme: const PageTransitionsTheme(
-              builders: {
-                TargetPlatform.windows: ZoomPageTransitionsBuilder(),
-                TargetPlatform.android: ZoomPageTransitionsBuilder(),
-                TargetPlatform.iOS: ZoomPageTransitionsBuilder(),
+        child: OverlaySupport.global(
+          child: MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData.from(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
+            ).copyWith(
+              pageTransitionsTheme: const PageTransitionsTheme(
+                builders: {
+                  TargetPlatform.windows: ZoomPageTransitionsBuilder(),
+                  TargetPlatform.android: ZoomPageTransitionsBuilder(),
+                  TargetPlatform.iOS: ZoomPageTransitionsBuilder(),
+                },
+              ),
+            ),
+            localizationsDelegates: {
+              GlobalCupertinoLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+            },
+            supportedLocales: [Locale('en', 'UK'), Locale('fa', 'IR')],
+            builder: (context, child) {
+              return MediaQuery.withNoTextScaling(child: child!);
+            },
+            locale: Locale('fa', 'IR'),
+            scrollBehavior: const MaterialScrollBehavior().copyWith(
+              dragDevices: {
+                PointerDeviceKind.mouse,
+                PointerDeviceKind.stylus,
+                PointerDeviceKind.touch,
+                PointerDeviceKind.trackpad,
+                PointerDeviceKind.invertedStylus,
               },
             ),
+            routerConfig: router,
           ),
-          localizationsDelegates: {
-            GlobalCupertinoLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-          },
-          supportedLocales: [Locale('en', 'UK'), Locale('fa', 'IR')],
-          builder: (context, child) {
-            return MediaQuery.withNoTextScaling(child: child!);
-          },
-          locale: Locale('fa', 'IR'),
-          scrollBehavior: const MaterialScrollBehavior().copyWith(
-            dragDevices: {
-              PointerDeviceKind.mouse,
-              PointerDeviceKind.stylus,
-              PointerDeviceKind.touch,
-              PointerDeviceKind.trackpad,
-              PointerDeviceKind.invertedStylus,
-            },
-          ),
-          routerConfig: router,
         ),
       ),
     );

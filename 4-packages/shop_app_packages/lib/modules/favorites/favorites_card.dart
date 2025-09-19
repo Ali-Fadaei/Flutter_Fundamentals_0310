@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:overlay_support/overlay_support.dart';
 import '/modules/favorites/cubit/favorites_cubit.dart';
 import '../../domains/store/models/product.dart';
 import '/modules/store/product_btms.dart';
@@ -59,7 +60,9 @@ class FavoritesCard extends StatelessWidget {
             const SizedBox(width: 5),
             U.IconButton(
               icon: const Icon(Icons.favorite, color: U.Theme.primary),
-              onPressed: () => favCubit.onFavoriteButtonTapped(product),
+              onPressed: () {
+                favCubit.onFavoriteButtonTapped(product);
+              },
             ),
           ],
         ),
