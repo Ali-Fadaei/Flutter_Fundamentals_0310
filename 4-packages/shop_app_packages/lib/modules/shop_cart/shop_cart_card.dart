@@ -4,6 +4,7 @@ import '/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import '../../domains/store/models/shop_item.dart';
 import '/modules/store/product_btms.dart';
 import '/ui_kit/ui_kit.dart' as U;
+import '/tool_kit/tool_kit.dart' as T;
 
 class ShopCartCard extends StatelessWidget {
   //
@@ -68,7 +69,7 @@ class ShopCartCard extends StatelessWidget {
                 const SizedBox(height: 6),
 
                 U.Text(
-                  '${(shopItem.count * shopItem.product.price)} تومان',
+                  '${T.Convertors.priceToText(shopItem.count * shopItem.product.price)} تومان',
                   size: U.TextSize.s14,
                   weight: U.TextWeight.medium,
                 ),

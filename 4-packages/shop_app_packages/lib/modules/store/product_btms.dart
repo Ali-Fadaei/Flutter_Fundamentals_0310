@@ -7,6 +7,7 @@ import '/modules/favorites/cubit/favorites_cubit.dart';
 import '/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import '../../domains/store/models/product.dart';
 import '/ui_kit/ui_kit.dart' as U;
+import '/tool_kit/tool_kit.dart' as T;
 
 class ProductBottomSheet extends StatelessWidget {
   //
@@ -152,7 +153,7 @@ class ProductBottomSheet extends StatelessWidget {
                 ),
                 const Spacer(),
                 U.Text(
-                  'تومان ${product.price}',
+                  'تومان ${T.Convertors.priceToText(product.price)}',
                   size: U.TextSize.s14,
                   weight: U.TextWeight.medium,
                 ),

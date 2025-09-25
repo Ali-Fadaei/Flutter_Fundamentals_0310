@@ -83,7 +83,7 @@ class CategoryFilterBtms extends StatelessWidget {
               divisions: 5000,
               minRangeValue: state.minPrice.toDouble(),
               maxRangeValue: state.maxPrice.toDouble(),
-              showType: U.RangeSliderShowType.int,
+              showType: U.RangeSliderShowType.price,
               sign: U.Text(
                 'تومان',
               ),

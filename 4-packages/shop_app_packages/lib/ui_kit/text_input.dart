@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'ui_kit.dart' as U;
 
 class TextInput extends StatefulWidget {
@@ -17,6 +18,10 @@ class TextInput extends StatefulWidget {
 
   final void Function()? onEditingComplete;
 
+  final List<TextInputFormatter> formatters;
+
+  final TextInputType? keyboardType;
+
   final TextEditingController controller;
 
   const TextInput({
@@ -27,6 +32,8 @@ class TextInput extends StatefulWidget {
     this.readOnly = false,
     this.autoFocus = false,
     this.onEditingComplete,
+    this.keyboardType,
+    this.formatters = const [],
     required this.title,
     required this.controller,
   });
@@ -108,6 +115,10 @@ class _TextInputState extends State<TextInput> {
                   controller: widget.controller,
                   onEditingComplete: widget.onEditingComplete,
                   enabled: !widget.readOnly && !widget.disabled,
+                  inputFormatters: [
+                    ...widget.formatters,
+                  ],
+                  keyboardType: widget.keyboardType,
                   style: TextStyle(
                     fontSize: 14,
                     fontFamily: 'IranSans',

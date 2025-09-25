@@ -4,6 +4,7 @@ import '/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import '../../domains/store/models/product.dart';
 import 'product_btms.dart';
 import '/ui_kit/ui_kit.dart' as U;
+import '/tool_kit/tool_kit.dart' as T;
 
 class ProductCard extends StatelessWidget {
   //
@@ -85,7 +86,7 @@ class ProductCard extends StatelessWidget {
                   const Spacer(),
                   //set the direction
                   U.Text(
-                    '${data.price} تومان',
+                    '${T.Convertors.priceToText(data.price)} تومان',
                     size: U.TextSize.s12,
                     weight: U.TextWeight.medium,
                   ),

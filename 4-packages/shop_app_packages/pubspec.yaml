@@ -19,6 +19,10 @@ dependencies:
   animations: 2.0.11
   overlay_support: 2.1.0
   universal_io: 2.2.2
+  persian_number_utility: 1.1.6
+  flutter_multi_formatter: 2.13.10
+  package_info_plus: 9.0.0
+  device_info_plus: 12.1.0
 
 
 dev_dependencies:

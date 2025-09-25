@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '/ui_kit/ui_kit.dart' as U;
+import '/tool_kit/tool_kit.dart' as T;
 
 class ProfilePage extends StatefulWidget {
   //
@@ -97,8 +98,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     height: 30,
                   ),
                   U.TextInput(
-                    title: 'آدرس',
+                    title: 'کد ملی',
                     autoFocus: true,
+                    formatters: [T.Formatters.nationalCode],
+                    keyboardType: TextInputType.number,
                     onEditingComplete: () {
                       FocusScope.of(context).nextFocus();
                     },
@@ -110,6 +113,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   U.TextInput(
                     title: 'شماره تلفن',
                     isRequired: true,
+                    formatters: [
+                      T.Formatters.mobileFormatter,
+                    ],
+                    keyboardType: TextInputType.phone,
                     onEditingComplete: () {
                       FocusScope.of(context).nextFocus();
                     },
@@ -119,9 +126,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     height: 30,
                   ),
                   U.TextInput(
-                    title: 'شماره تلفن',
+                    title: 'تاریخ',
                     isRequired: true,
-                    disabled: true,
+                    disabled: false,
+                    keyboardType: TextInputType.phone,
+                    formatters: [T.Formatters.dateFormat],
                     onEditingComplete: () {
                       FocusScope.of(context).nextFocus();
                     },
@@ -131,9 +140,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     height: 30,
                   ),
                   U.TextInput(
-                    title: 'شماره تلفن',
+                    title: 'متن تست',
                     isRequired: true,
                     hint: '09144154202',
+                    keyboardType: TextInputType.number,
                     onEditingComplete: () {},
                     controller: TextEditingController(),
                   ),

@@ -5,6 +5,7 @@ import '/domains/store/models/shop_item.dart';
 import '/domains/store/store_repository.dart';
 import '/modules/checkout/cubit/checkout_cubit.dart';
 import '/ui_kit/ui_kit.dart' as U;
+import '/tool_kit/tool_kit.dart' as T;
 
 class CheckoutPage extends StatelessWidget {
 //
@@ -317,7 +318,7 @@ class _CheckoutItem extends StatelessWidget {
                 Row(
                   children: [
                     U.Text(
-                      shopItem.product.price.toString(),
+                      T.Convertors.priceToText(shopItem.product.price),
                       size: U.TextSize.s12,
                     ),
                     const SizedBox(width: 8),
@@ -339,7 +340,7 @@ class _CheckoutItem extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           U.Text(
-            (shopItem.product.price * shopItem.count).toString(),
+            T.Convertors.priceToText(shopItem.product.price * shopItem.count),
             size: U.TextSize.s12,
           ),
         ],

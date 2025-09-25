@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart' as M;
 import 'ui_kit.dart' as U;
+import '/tool_kit/tool_kit.dart' as T;
 
-enum RangeSliderShowType { int, double }
+enum RangeSliderShowType { int, double, price }
 
 class RangeSlider extends M.StatelessWidget {
   //
@@ -39,6 +40,8 @@ class RangeSlider extends M.StatelessWidget {
         return minRangeValue.toString();
       case RangeSliderShowType.int:
         return minRangeValue.round().toString();
+      case RangeSliderShowType.price:
+        return T.Convertors.priceToText(minRangeValue.round());
     }
   }
 
@@ -48,6 +51,8 @@ class RangeSlider extends M.StatelessWidget {
         return maxRangeValue.toString();
       case RangeSliderShowType.int:
         return maxRangeValue.toInt().toString();
+      case RangeSliderShowType.price:
+        return T.Convertors.priceToText(maxRangeValue.round());
     }
   }
 
