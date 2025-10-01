@@ -93,7 +93,7 @@ abstract class Utils {
 
         case 'android':
           final androidInfo = await deviceInfo.androidInfo;
-          return '${androidInfo.bootloader}-${androidInfo.serialNumber}';
+          return androidInfo.bootloader;
         case 'ios':
           final iosInfo = await deviceInfo.iosInfo;
           return '${iosInfo.identifierForVendor}';
