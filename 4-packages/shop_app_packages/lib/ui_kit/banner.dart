@@ -28,7 +28,7 @@ class _BannerState extends State<Banner> {
           items: widget.banners.map(
             (e) {
               return ClipRRect(
-                borderRadius: BorderRadiusGeometry.circular(U.Theme.r20),
+                borderRadius: BorderRadius.circular(U.Theme.r20),
                 child: InkWell(
                   onTap: e.onTap,
                   child: U.Image(
