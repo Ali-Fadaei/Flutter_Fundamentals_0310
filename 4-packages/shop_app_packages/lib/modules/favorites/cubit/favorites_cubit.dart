@@ -13,16 +13,34 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     onInit();
   }
 
+  //===========================Functions========================================
+  Future<void> getFavorites() async {
+    final res = await storeRepo.getFavorites();
+    emit(state.copyWith(
+      favorites: res,
+      contentStatus: res.isEmpty
+          ? FavoriteContentStatus.empty
+          : FavoriteContentStatus.filled,
+    ));
+  }
+
+  //=============================Events=========================================
   Future<void> onInit() async {
     emit(state.copyWith(loading: true));
-    final res = await storeRepo.getFavorites();
-    emit(state.copyWith(loading: false, favorites: res));
+    await getFavorites();
+    emit(state.copyWith(loading: false));
   }
 
   Future<void> onRefresh() async {
+    // emit(state.copyWith(loading: true));
+    await getFavorites();
+    // emit(state.copyWith(loading: false));
+  }
+
+  Future<void> onRetry() async {
     emit(state.copyWith(loading: true));
-    final res = await storeRepo.getFavorites();
-    emit(state.copyWith(loading: false, favorites: res));
+    await getFavorites();
+    emit(state.copyWith(loading: false));
   }
 
   void onFavoriteButtonTapped(Product data) async {
@@ -40,12 +58,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
     emit(state.copyWith(favorites: favTemp));
     storeRepo.updateFavorites(state.favorites);
-    final res = await storeRepo.getFavorites();
-    emit(state.copyWith(loading: false, favorites: res));
-  }
-
-  @override
-  void onChange(Change<FavoritesState> change) {
-    super.onChange(change);
+    await getFavorites();
+    emit(state.copyWith(loading: false));
   }
 }

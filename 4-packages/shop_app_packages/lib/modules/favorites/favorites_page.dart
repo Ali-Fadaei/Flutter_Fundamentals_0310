@@ -48,43 +48,84 @@ class FavoritesPage extends StatelessWidget {
             Expanded(
               child: BlocBuilder<FavoritesCubit, FavoritesState>(
                 builder: (context, state) {
-                  return state.loading && state.favorites.isEmpty
-                      ? Center(
-                          child: SizedBox.square(
-                            dimension: 30,
-                            child: CircularProgressIndicator(),
+                  final favCubit = context.read<FavoritesCubit>();
+                  return state.loading
+                      ? ListView.separated(
+                          itemCount: 20,
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 20,
+                            horizontal: 16,
                           ),
-                        )
-                      : state.favorites.isEmpty
-                          ? Center(child: U.Text('لیست علاقه‌مندی خالیه!!!'))
-                          : ListView.separated(
-                              itemCount: state.favorites.length,
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 20,
-                                horizontal: 16,
-                              ),
-                              separatorBuilder: (context, index) {
-                                return const SizedBox(height: 16);
-                              },
-                              itemBuilder: (context, index) {
-                                final data = state.favorites[index];
-                                return Column(
-                                  children: [
-                                    FavoritesCard(product: data),
-                                    if (state.loading &&
-                                        data == state.favorites.last) ...[
-                                      SizedBox(height: 20),
-                                      Center(
-                                        child: SizedBox.square(
-                                          dimension: 30,
-                                          child: CircularProgressIndicator(),
-                                        ),
-                                      ),
-                                    ],
-                                  ],
-                                );
-                              },
+                          itemBuilder: (context, index) {
+                            return U.Shimmer.contain(
+                              enable: true,
+                              containHeight: 140,
                             );
+                          },
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(height: 16);
+                          },
+                        )
+                      : switch (state.contentStatus) {
+                          FavoriteContentStatus.empty => Column(
+                              children: [
+                                const Spacer(),
+                                U.Image(
+                                  height: 360,
+                                  width: 360,
+                                  path: U.Images.emptyFav,
+                                ),
+                                const Spacer(),
+                              ],
+                            ),
+                          FavoriteContentStatus.error => Column(
+                              children: [
+                                const Spacer(),
+                                U.Image(
+                                  height: 360,
+                                  width: 360,
+                                  path: U.Images.emptyFav,
+                                ),
+                                U.Text(
+                                  'خطایی در بارگیری اطلاعات رخ داده.',
+                                  size: U.TextSize.s16,
+                                  weight: U.TextWeight.medium,
+                                ),
+                                const SizedBox(height: 8),
+                                SizedBox(
+                                  width: 140,
+                                  child: U.Button(
+                                    title: 'تلاش مجدد',
+                                    onPressed: () {
+                                      favCubit.onRetry();
+                                    },
+                                  ),
+                                ),
+                                const Spacer(),
+                              ],
+                            ),
+                          FavoriteContentStatus.filled => U.RefreshIndicator(
+                              onRefresh: favCubit.onRefresh,
+                              child: ListView.separated(
+                                itemCount: state.favorites.length,
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 20,
+                                  horizontal: 16,
+                                ),
+                                separatorBuilder: (context, index) {
+                                  return const SizedBox(height: 16);
+                                },
+                                itemBuilder: (context, index) {
+                                  final data = state.favorites[index];
+                                  return Column(
+                                    children: [
+                                      FavoritesCard(product: data),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+                        };
                 },
               ),
             ),
