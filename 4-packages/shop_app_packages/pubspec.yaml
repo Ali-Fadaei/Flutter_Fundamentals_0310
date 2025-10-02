@@ -24,6 +24,8 @@ dependencies:
   package_info_plus: 9.0.0
   device_info_plus: 12.1.0
   shimmer: ^3.0.0
+  unique_device_identifier: ^2.0.4
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   flutter_test:

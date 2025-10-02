@@ -43,29 +43,31 @@ class ProductBottomSheet extends StatelessWidget {
                   )
                 : BlocProvider.value(value: shopCartCubit),
           ],
-          child: MultiBlocListener(
-            listeners: [
-              BlocListener<FavoritesCubit, FavoritesState>(
-                listenWhen: (previous, current) =>
-                    previous.favorites.length != current.favorites.length,
-                listener: (context, state) {
-                  context
-                      .read<HomeCubit>()
-                      .onFavsCountChanged(state.favorites.length);
-                },
-              ),
-              BlocListener<ShopCartCubit, ShopCartState>(
-                listenWhen: (previous, current) =>
-                    previous.shopItems.length != current.shopItems.length,
-                listener: (context, state) {
-                  context
-                      .read<HomeCubit>()
-                      .onShopItemsCountChanged(state.shopItems.length);
-                },
-              ),
-            ],
-            child: ProductBottomSheet(product: product),
-          ),
+          child:
+              // MultiBlocListener(
+              //   listeners: [
+              //     BlocListener<FavoritesCubit, FavoritesState>(
+              //       listenWhen: (previous, current) =>
+              //           previous.favorites.length != current.favorites.length,
+              //       listener: (context, state) {
+              //         context
+              //             .read<HomeCubit>()
+              //             .onFavsCountChanged(state.favorites.length);
+              //       },
+              //     ),
+              //     BlocListener<ShopCartCubit, ShopCartState>(
+              //       listenWhen: (previous, current) =>
+              //           previous.shopItems.length != current.shopItems.length,
+              //       listener: (context, state) {
+              //         context
+              //             .read<HomeCubit>()
+              //             .onShopItemsCountChanged(state.shopItems.length);
+              //       },
+              //     ),
+              //   ],
+              //   child:
+              ProductBottomSheet(product: product),
+          // ),
         );
       },
     );

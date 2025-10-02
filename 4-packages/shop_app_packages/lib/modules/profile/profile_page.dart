@@ -57,8 +57,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     height: 30,
                   ),
                   U.Button(
-                    title: 'Go To Page C',
+                    title: 'Go To Flutter Home Page!',
                     onPressed: () {
+                      T.Launcher.launchWeb('https://flutter.dev');
                       // GoRouter.of(context).goNamed(
                       //   PageC.route,
                       // );

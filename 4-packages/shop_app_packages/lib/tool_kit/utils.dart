@@ -1,3 +1,4 @@
+import 'package:unique_device_identifier/unique_device_identifier.dart';
 import 'package:universal_io/io.dart';
 import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -44,7 +45,7 @@ abstract class Utils {
 
   static bool isWebIos = isIos && isWeb;
 
-  //compare = '2.0.10' current = '2.2.0'
+  //compare = '2.0.0' current = '2.2.0'
   static Future<bool> needToUpdate(String compareVersion) async {
     //
     final packageInfo = await PackageInfo.fromPlatform();
@@ -75,31 +76,6 @@ abstract class Utils {
   }
 
   static Future<String> getDeviceUid() async {
-    final deviceInfo = DeviceInfoPlugin();
-    if (isWeb) {
-      final webInfo = await deviceInfo.webBrowserInfo;
-      return '${webInfo.deviceMemory}-${webInfo.hardwareConcurrency}-${webInfo.vendor}-${webInfo.browserName.toString()}';
-    } else {
-      switch (platform) {
-        case 'windows':
-          final winInfo = await deviceInfo.windowsInfo;
-          return '${winInfo.deviceId}-${winInfo.userName}';
-        case 'linux':
-          final linuxInfo = await deviceInfo.linuxInfo;
-          return '${linuxInfo.machineId}';
-        case 'macos':
-          final macInfo = await deviceInfo.macOsInfo;
-          return '${macInfo.computerName}-${macInfo.memorySize}';
-
-        case 'android':
-          final androidInfo = await deviceInfo.androidInfo;
-          return androidInfo.bootloader;
-        case 'ios':
-          final iosInfo = await deviceInfo.iosInfo;
-          return '${iosInfo.identifierForVendor}';
-        default:
-          return 'A86242fs81d2g1483l17220gd3238i18245fc3hb2m1gfd41h2424787';
-      }
-    }
+    return (await UniqueDeviceIdentifier.getUniqueIdentifier())!;
   }
 }
