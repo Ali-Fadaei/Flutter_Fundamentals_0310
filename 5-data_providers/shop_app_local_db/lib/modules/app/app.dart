@@ -10,6 +10,8 @@ import '/modules/app/cubit/app_cubit.dart';
 
 class App extends StatelessWidget {
   //
+  static const name = 'Shop App';
+
   const App({super.key});
 
   @override
