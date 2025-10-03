@@ -42,13 +42,13 @@ class StoreRepository {
     ];
   }
 
-  Future<CategoryData> getCategory({required int id}) async {
+  Future<CategoryData> readCategory({required int id}) async {
     //Read
     final res = await readCategories();
     return res.firstWhere((e) => e.id == id);
   }
 
-  Future<List<Product>> getProducts({
+  Future<List<Product>> readProducts({
     String? title,
     List<int>? categoryIds,
     double? minRate,
@@ -236,13 +236,13 @@ class StoreRepository {
     return products;
   }
 
-  Future<Product> getProduct({required int id}) async {
+  Future<Product> readProduct({required int id}) async {
     //Read
-    final res = await getProducts();
+    final res = await readProducts();
     return res.firstWhere((e) => e.id == id);
   }
 
-  Future<List<Product>> getFavorites() async {
+  Future<List<Product>> readFavorites() async {
     //Read
     await Future.delayed(Duration(milliseconds: _delay));
     return _favorites;
@@ -254,7 +254,7 @@ class StoreRepository {
     _favorites = favs;
   }
 
-  Future<List<ShopItem>> getShopItems() async {
+  Future<List<ShopItem>> readShopItems() async {
     //Read
     await Future.delayed(Duration(milliseconds: _delay));
     return _shopItems;

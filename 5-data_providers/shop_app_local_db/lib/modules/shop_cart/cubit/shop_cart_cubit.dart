@@ -20,7 +20,7 @@ class ShopCartCubit extends Cubit<ShopCartState> {
   //===============================Functions====================================
   Future<void> getShopItems() async {
     //
-    final res = await storeRepo.getShopItems();
+    final res = await storeRepo.readShopItems();
     emit(state.copyWith(
       shopItems: res,
       contentStatus: res.isEmpty

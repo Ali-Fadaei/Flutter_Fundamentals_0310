@@ -29,7 +29,7 @@ class SearchCubit extends Cubit<SearchState> {
 
   Future<void> searchProducts() async {
     List<int> tempIds = state.selectedCategories.map((e) => e.id).toList();
-    final res = await _storeRepo.getProducts(
+    final res = await _storeRepo.readProducts(
       title: searchCtrl.text == '' ? null : searchCtrl.text,
       categoryIds: tempIds.isEmpty ? null : tempIds,
     );
@@ -81,7 +81,7 @@ class SearchCubit extends Cubit<SearchState> {
   void onFiltersApplied() async {
     emit(state.copyWith(filterLoading: true));
     List<int> tempIds = state.selectedCategories.map((e) => e.id).toList();
-    final res = await _storeRepo.getProducts(categoryIds: tempIds);
+    final res = await _storeRepo.readProducts(categoryIds: tempIds);
     emit(state.copyWith(products: res, filterLoading: false));
   }
 

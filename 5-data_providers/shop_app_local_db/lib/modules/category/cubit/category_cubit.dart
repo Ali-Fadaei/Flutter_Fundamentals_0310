@@ -30,12 +30,12 @@ class CategoryCubit extends Cubit<CategoryState> {
 
 //============================Functions=================================
   Future<void> getCategory() async {
-    final res = await _storeRepo.getCategory(id: id);
+    final res = await _storeRepo.readCategory(id: id);
     emit(state.copyWith(category: res));
   }
 
   Future<void> getProducts() async {
-    final res = await _storeRepo.getProducts(
+    final res = await _storeRepo.readProducts(
       title: titleSearchCtrl.text == '' ? null : titleSearchCtrl.text,
       categoryIds: [id],
       minRate: state.minRate,

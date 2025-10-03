@@ -15,7 +15,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
   //===========================Functions========================================
   Future<void> getFavorites() async {
-    final res = await storeRepo.getFavorites();
+    final res = await storeRepo.readFavorites();
     emit(state.copyWith(
       favorites: res,
       contentStatus: res.isEmpty

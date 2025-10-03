@@ -25,7 +25,7 @@ class CheckoutCubit extends Cubit<CheckoutState> {
 
   //=============================Functions=====================================
   Future<void> readShopItems() async {
-    final res = await _storeRepo.getShopItems();
+    final res = await _storeRepo.readShopItems();
     emit(state.copyWith(shopItems: res));
   }
 
