@@ -49,45 +49,84 @@ class ShopCartPage extends StatelessWidget {
             Expanded(
               child: BlocBuilder<ShopCartCubit, ShopCartState>(
                 builder: (context, state) {
-                  return state.loading && state.shopItems.isEmpty
-                      ? Center(
-                          child: SizedBox.square(
-                            dimension: 30,
-                            child: CircularProgressIndicator(),
+                  final shopCartCubit = context.read<ShopCartCubit>();
+                  return state.loading
+                      ? ListView.separated(
+                          itemCount: 20,
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 16,
+                            horizontal: 16,
                           ),
+                          itemBuilder: (context, index) {
+                            return U.Shimmer.contain(
+                              enable: true,
+                              containHeight: 140,
+                            );
+                          },
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(height: 16);
+                          },
                         )
-                      : state.shopItems.isEmpty
-                          ? Center(child: U.Text('لیست علاقه‌مندی خالیه!!!'))
-                          : Stack(
+                      : switch (state.contentStatus) {
+                          ShopCartContentStatus.empty => Column(
                               children: [
-                                ListView.separated(
-                                  itemCount: state.shopItems.length,
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 16,
-                                    horizontal: 16,
+                                const Spacer(),
+                                U.Image(
+                                  height: 360,
+                                  width: 360,
+                                  path: U.Images.emptyCart,
+                                ),
+                                const Spacer(),
+                              ],
+                            ),
+                          ShopCartContentStatus.error => Column(
+                              children: [
+                                const Spacer(),
+                                U.Image(
+                                  height: 360,
+                                  width: 360,
+                                  path: U.Images.emptyCart,
+                                ),
+                                U.Text(
+                                  'خطایی در بارگیری اطلاعات رخ داده.',
+                                  size: U.TextSize.s16,
+                                  weight: U.TextWeight.medium,
+                                ),
+                                const SizedBox(height: 8),
+                                SizedBox(
+                                  width: 140,
+                                  child: U.Button(
+                                    title: 'تلاش مجدد',
+                                    onPressed: () {
+                                      // favCubit.onRetry();
+                                    },
                                   ),
-                                  separatorBuilder: (context, index) {
-                                    return const SizedBox(height: 16);
-                                  },
-                                  itemBuilder: (context, index) {
-                                    final data = state.shopItems[index];
-                                    return Column(
-                                      children: [
-                                        ShopCartCard(shopItem: data),
-                                        if (state.loading &&
-                                            data == state.shopItems.last) ...[
-                                          SizedBox(height: 20),
-                                          Center(
-                                            child: SizedBox.square(
-                                              dimension: 30,
-                                              child:
-                                                  CircularProgressIndicator(),
-                                            ),
-                                          ),
+                                ),
+                                const Spacer(),
+                              ],
+                            ),
+                          ShopCartContentStatus.fill => Stack(
+                              children: [
+                                U.RefreshIndicator(
+                                  onRefresh: shopCartCubit.onRefresh,
+                                  child: ListView.separated(
+                                    itemCount: state.shopItems.length,
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 16,
+                                      horizontal: 16,
+                                    ),
+                                    separatorBuilder: (context, index) {
+                                      return const SizedBox(height: 16);
+                                    },
+                                    itemBuilder: (context, index) {
+                                      final data = state.shopItems[index];
+                                      return Column(
+                                        children: [
+                                          ShopCartCard(shopItem: data),
                                         ],
-                                      ],
-                                    );
-                                  },
+                                      );
+                                    },
+                                  ),
                                 ),
                                 Positioned(
                                   bottom: 85,
@@ -110,7 +149,8 @@ class ShopCartPage extends StatelessWidget {
                                   ),
                                 ),
                               ],
-                            );
+                            )
+                        };
                 },
               ),
             ),

@@ -17,16 +17,35 @@ class ShopCartCubit extends Cubit<ShopCartState> {
     onInit();
   }
 
-  Future<void> onInit() async {
-    emit(state.copyWith(loading: true));
+  //===============================Functions====================================
+  Future<void> getShopItems() async {
+    //
     final res = await storeRepo.getShopItems();
-    emit(state.copyWith(loading: false, shopItems: res));
+    emit(state.copyWith(
+      shopItems: res,
+      contentStatus: res.isEmpty
+          ? ShopCartContentStatus.empty
+          : ShopCartContentStatus.fill,
+    ));
   }
 
-  Future<void> onRefresh() async {
+  //=================================Events=====================================
+  Future<void> onInit() async {
     emit(state.copyWith(loading: true));
-    final res = await storeRepo.getShopItems();
-    emit(state.copyWith(loading: false, shopItems: res));
+    await getShopItems();
+    emit(state.copyWith(loading: false));
+  }
+
+  Future<void> onRefresh({bool loading = false}) async {
+    if (loading) emit(state.copyWith(loading: true));
+    await getShopItems();
+    if (loading) emit(state.copyWith(loading: false));
+  }
+
+  Future<void> onRetry() async {
+    emit(state.copyWith(loading: true));
+    await getShopItems();
+    emit(state.copyWith(loading: false));
   }
 
   void onAddToShopCartPressed(Product data) async {
@@ -48,8 +67,7 @@ class ShopCartCubit extends Cubit<ShopCartState> {
     updateTimer?.cancel();
     updateTimer = Timer(const Duration(seconds: 1), () async {
       await storeRepo.updateShopItems(state.shopItems);
-      final res = await storeRepo.getShopItems();
-      emit(state.copyWith(shopItems: res));
+      await getShopItems();
     });
   }
 
@@ -69,8 +87,7 @@ class ShopCartCubit extends Cubit<ShopCartState> {
     updateTimer?.cancel();
     updateTimer = Timer(const Duration(seconds: 1), () async {
       await storeRepo.updateShopItems(state.shopItems);
-      final res = await storeRepo.getShopItems();
-      emit(state.copyWith(shopItems: res));
+      await getShopItems();
     });
   }
 

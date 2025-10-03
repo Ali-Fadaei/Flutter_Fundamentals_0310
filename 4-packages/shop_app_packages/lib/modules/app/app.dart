@@ -43,6 +43,7 @@ class App extends StatelessWidget {
             },
             locale: Locale('fa', 'IR'),
             scrollBehavior: const MaterialScrollBehavior().copyWith(
+              physics: BouncingScrollPhysics(),
               dragDevices: {
                 PointerDeviceKind.mouse,
                 PointerDeviceKind.stylus,

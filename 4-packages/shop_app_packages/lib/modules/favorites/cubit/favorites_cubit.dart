@@ -31,10 +31,10 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     emit(state.copyWith(loading: false));
   }
 
-  Future<void> onRefresh() async {
-    // emit(state.copyWith(loading: true));
+  Future<void> onRefresh({bool loading = false}) async {
+    if (loading) emit(state.copyWith(loading: true));
     await getFavorites();
-    // emit(state.copyWith(loading: false));
+    if (loading) emit(state.copyWith(loading: false));
   }
 
   Future<void> onRetry() async {
