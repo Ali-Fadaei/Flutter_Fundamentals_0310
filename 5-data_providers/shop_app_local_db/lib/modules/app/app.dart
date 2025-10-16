@@ -12,12 +12,17 @@ class App extends StatelessWidget {
   //
   static const name = 'Shop App';
 
-  const App({super.key});
+  final StoreRepository storeRepo;
+
+  const App({
+    super.key,
+    required this.storeRepo,
+  });
 
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
-      create: (context) => StoreRepository(),
+      create: (context) => storeRepo,
       child: BlocProvider(
         create: (context) => AppCubit(),
         child: OverlaySupport.global(

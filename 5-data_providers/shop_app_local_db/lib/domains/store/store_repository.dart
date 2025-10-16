@@ -1,4 +1,6 @@
 import 'dart:ui';
+import 'package:shop_app_local_db/domains/store/store_box.dart';
+
 import '/domains/store/models/category.dart';
 import '/domains/store/models/product.dart';
 import '/domains/store/models/shop_item.dart';
@@ -6,6 +8,16 @@ import '/domains/store/models/shop_item.dart';
 class StoreRepository {
   //
   final _delay = 1000;
+
+  static Future<StoreRepository> init() async {
+    await StoreBox.open();
+    await StoreBox.setFavs([1, 2, 3, 4]);
+    return StoreRepository();
+  }
+
+  StoreRepository() {
+    print(StoreBox.isOpen);
+  }
 
   List<Product> _favorites = [];
 
@@ -244,12 +256,14 @@ class StoreRepository {
 
   Future<List<Product>> readFavorites() async {
     //Read
+    print(StoreBox.getFavs());
     await Future.delayed(Duration(milliseconds: _delay));
     return _favorites;
   }
 
   Future<void> updateFavorites(List<Product> favs) async {
     //Update
+    await StoreBox.setFavs([1, 2, 3, 4]);
     await Future.delayed(Duration(milliseconds: _delay));
     _favorites = favs;
   }
