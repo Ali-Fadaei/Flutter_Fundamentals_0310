@@ -16,4 +16,22 @@ class CategoryData {
     required this.image,
     required this.color,
   });
+
+  factory CategoryData.fromMap(Map map) {
+    return CategoryData(
+      id: map['id'],
+      title: map['title'],
+      image: map['image'],
+      color: Color(map['color']),
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'image': image,
+      'color': color.toARGB32(),
+    };
+  }
 }

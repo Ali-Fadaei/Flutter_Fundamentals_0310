@@ -1,3 +1,5 @@
+import 'package:shop_app_ws/domains/store/models/product.dart';
+
 import '/data_providers/hive_db/hive_db.dart';
 
 enum StoreKeys {
@@ -17,18 +19,21 @@ abstract class StoreBox {
     }
   }
 
-  static Future setFavs(List<int> value) async {
+  static Future<void> setFavs(List<Product> value) async {
     await HiveDB.setValue(
       box: name,
       key: StoreKeys.favs.index.toString(),
-      value: value,
+      value: value.map((e) => e.toMap()),
     );
   }
 
-  static List<int> getFavs() {
-    return HiveDB.getValue(
+  static List<Product> getFavs() {
+    final res = HiveDB.getValue(
       box: name,
       key: StoreKeys.favs.index.toString(),
     );
+    print(res.runtimeType);
+    print(res);
+    return [];
   }
 }

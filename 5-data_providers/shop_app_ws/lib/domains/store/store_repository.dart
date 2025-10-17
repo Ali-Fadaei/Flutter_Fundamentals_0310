@@ -11,15 +11,10 @@ class StoreRepository {
 
   static Future<StoreRepository> init() async {
     await StoreBox.open();
-    await StoreBox.setFavs([1, 2, 3, 4]);
     return StoreRepository();
   }
 
-  StoreRepository() {
-    print(StoreBox.isOpen);
-  }
-
-  List<Product> _favorites = [];
+  // List<Product> _favorites = [];
 
   List<ShopItem> _shopItems = [];
 
@@ -256,16 +251,15 @@ class StoreRepository {
 
   Future<List<Product>> readFavorites() async {
     //Read
-    print(StoreBox.getFavs());
-    await Future.delayed(Duration(milliseconds: _delay));
-    return _favorites;
+    // print(StoreBox.getFavs());
+    // await Future.delayed(Duration(milliseconds: _delay));
+    // StoreBox.getFavs();
+    return [];
   }
 
   Future<void> updateFavorites(List<Product> favs) async {
     //Update
-    await StoreBox.setFavs([1, 2, 3, 4]);
-    await Future.delayed(Duration(milliseconds: _delay));
-    _favorites = favs;
+    await StoreBox.setFavs(favs);
   }
 
   Future<List<ShopItem>> readShopItems() async {
