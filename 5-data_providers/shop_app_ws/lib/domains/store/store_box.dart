@@ -23,17 +23,17 @@ abstract class StoreBox {
     await HiveDB.setValue(
       box: name,
       key: StoreKeys.favs.index.toString(),
-      value: value.map((e) => e.toMap()),
+      value: value.map((e) => e.toMap()).toList(),
     );
   }
 
   static List<Product> getFavs() {
     final res = HiveDB.getValue(
-      box: name,
-      key: StoreKeys.favs.index.toString(),
-    );
-    print(res.runtimeType);
-    print(res);
-    return [];
+          box: name,
+          key: StoreKeys.favs.index.toString(),
+        ) ??
+        [];
+    final list = List.from(res);
+    return List.from(res).map((e) => Product.fromMap(e)).toList();
   }
 }

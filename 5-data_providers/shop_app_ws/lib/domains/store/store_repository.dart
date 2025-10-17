@@ -244,21 +244,15 @@ class StoreRepository {
   }
 
   Future<Product> readProduct({required int id}) async {
-    //Read
     final res = await readProducts();
     return res.firstWhere((e) => e.id == id);
   }
 
   Future<List<Product>> readFavorites() async {
-    //Read
-    // print(StoreBox.getFavs());
-    // await Future.delayed(Duration(milliseconds: _delay));
-    // StoreBox.getFavs();
-    return [];
+    return StoreBox.getFavs();
   }
 
   Future<void> updateFavorites(List<Product> favs) async {
-    //Update
     await StoreBox.setFavs(favs);
   }
 

@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-class CategoryData {
+class CategoryData extends Equatable {
   //
   final int id;
 
@@ -10,7 +11,7 @@ class CategoryData {
 
   final Color color;
 
-  CategoryData({
+  const CategoryData({
     required this.id,
     required this.title,
     required this.image,
@@ -34,4 +35,12 @@ class CategoryData {
       'color': color.toARGB32(),
     };
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        title,
+        image,
+        color,
+      ];
 }

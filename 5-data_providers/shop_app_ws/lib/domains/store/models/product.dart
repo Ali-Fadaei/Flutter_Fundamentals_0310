@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 import 'category.dart';
 
-class Product {
+class Product extends Equatable {
   //
   final int id;
 
@@ -16,7 +18,7 @@ class Product {
 
   final CategoryData categoryData;
 
-  Product({
+  const Product({
     required this.id,
     required this.image,
     required this.title,
@@ -25,6 +27,20 @@ class Product {
     required this.price,
     required this.categoryData,
   });
+
+  factory Product.fromMap(Map map) {
+    return Product(
+      id: map['id'],
+      image: map['image'],
+      title: map['title'],
+      rating: map['rating'],
+      description: map['description'],
+      price: map['price'],
+      categoryData: CategoryData.fromMap(
+        map['categoryData'],
+      ),
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -38,19 +54,14 @@ class Product {
     };
   }
 
-  
-
-  Product fromMap(Map map) {
-    return Product(
-      id: map['id'],
-      image: map['image'],
-      title: map['title'],
-      rating: map['rating'],
-      description: map['description'],
-      price: map['price'],
-      categoryData: CategoryData.fromMap(
-        map['categoryData'],
-      ),
-    );
-  }
+  @override
+  List<Object?> get props => [
+        id,
+        image,
+        title,
+        rating,
+        description,
+        price,
+        categoryData,
+      ];
 }
