@@ -30,7 +30,7 @@ class ProductCard extends StatelessWidget {
           padding: const EdgeInsets.all(18),
           child: Column(
             children: [
-              U.Image(path: data.image),
+              U.NetworkImage(url: data.image),
               const SizedBox(height: 15),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

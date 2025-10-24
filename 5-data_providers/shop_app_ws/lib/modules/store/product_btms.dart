@@ -86,7 +86,7 @@ class ProductBottomSheet extends StatelessWidget {
       children: [
         ListView(
           children: [
-            U.Image(path: product.image, height: 300, width: 300),
+            U.NetworkImage(url: product.image),
             const SizedBox(height: 25),
             Row(
               children: [

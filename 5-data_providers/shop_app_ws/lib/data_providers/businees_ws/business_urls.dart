@@ -14,4 +14,6 @@ class BusinessUrls {
   final productCategory = '/product-category';
 
   final product = '/product';
+
+  final favorite = '/client/favorite';
 }

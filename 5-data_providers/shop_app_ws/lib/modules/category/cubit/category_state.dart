@@ -48,8 +48,8 @@ class CategoryState {
         maxRate = 5,
         minPrice = 0,
         maxPrice = 500000000,
-        sort = 0,
-        order = 0;
+        sort = 1,
+        order = 1;
 
   CategoryState copyWith({
     bool? loading,

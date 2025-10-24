@@ -31,13 +31,13 @@ class Product extends Equatable {
   factory Product.fromMap(Map map) {
     return Product(
       id: map['id'],
-      image: map['image'],
+      image: map['Image'],
       title: map['title'],
       rating: map['rating'],
       description: map['description'],
       price: map['price'],
       categoryData: CategoryData.fromMap(
-        map['categoryData'],
+        map['category'],
       ),
     );
   }
@@ -45,12 +45,12 @@ class Product extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'image': image,
+      'Image': image,
       'title': title,
       'rating': rating,
       'description': description,
       'price': price,
-      'categoryData': categoryData.toMap(),
+      'category': categoryData.toMap(),
     };
   }
 

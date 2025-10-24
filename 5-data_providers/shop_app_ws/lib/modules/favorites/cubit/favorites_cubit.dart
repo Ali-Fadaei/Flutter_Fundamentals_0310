@@ -50,14 +50,16 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     final dataIndex = favTemp.indexOf(data);
     if (dataIndex == -1) {
       favTemp.add(data);
+      await storeRepo.addFavorite(data);
       toast('به لیست علاقه مندی اضافه شد!');
     } else {
       favTemp.remove(data);
+      await storeRepo.removeFavorite(data);
       toast('از لیست علاقه مندی حذف شد!');
     }
 
     emit(state.copyWith(favorites: favTemp));
-    storeRepo.updateFavorites(state.favorites);
+    // storeRepo.updateFavorites(state.favorites);
     await getFavorites();
     emit(state.copyWith(loading: false));
   }

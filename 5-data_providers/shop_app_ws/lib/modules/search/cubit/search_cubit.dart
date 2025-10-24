@@ -31,7 +31,7 @@ class SearchCubit extends Cubit<SearchState> {
     List<int> tempIds = state.selectedCategories.map((e) => e.id).toList();
     final res = await _storeRepo.readProducts(
       title: searchCtrl.text == '' ? null : searchCtrl.text,
-      categoryIds: tempIds.isEmpty ? null : tempIds,
+      categoryIds: tempIds,
     );
     emit(state.copyWith(
       products: res,

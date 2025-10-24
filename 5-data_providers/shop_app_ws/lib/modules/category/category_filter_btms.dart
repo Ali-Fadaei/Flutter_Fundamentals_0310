@@ -101,14 +101,14 @@ class CategoryFilterBtms extends StatelessWidget {
                 const Spacer(),
                 U.RadioButton(
                   title: 'قیمت',
-                  value: 0,
+                  value: 1,
                   groupValue: state.sort,
                   onPressed: categoryCubit.onSortChanged,
                 ),
                 const Spacer(),
                 U.RadioButton(
                   title: 'امتیاز',
-                  value: 1,
+                  value: 2,
                   groupValue: state.sort,
                   onPressed: categoryCubit.onSortChanged,
                 ),
@@ -123,14 +123,14 @@ class CategoryFilterBtms extends StatelessWidget {
                 const Spacer(),
                 U.RadioButton(
                   title: 'صعودی',
-                  value: 0,
+                  value: 1,
                   groupValue: state.order,
                   onPressed: categoryCubit.onOrderChanged,
                 ),
                 const Spacer(),
                 U.RadioButton(
                   title: 'نزولی',
-                  value: 1,
+                  value: 2,
                   groupValue: state.order,
                   onPressed: categoryCubit.onOrderChanged,
                 ),
