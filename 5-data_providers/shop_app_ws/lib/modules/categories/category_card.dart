@@ -52,7 +52,7 @@ class CategoryCard extends StatelessWidget {
             child: Column(
               children: [
                 const Spacer(),
-                U.Image(path: data.image, height: 160, width: 160),
+                U.NetworkImage(url: data.image),
                 const Spacer(),
                 Text(
                   data.title,

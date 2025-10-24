@@ -1,7 +1,7 @@
 import 'package:shop_app_ws/data_providers/businees_ws/business_client.dart';
 import 'package:shop_app_ws/data_providers/businees_ws/business_urls.dart';
 
-abstract class BusinessWs {
+abstract class BusinessWS {
   //
   static late final BusinessServers servers;
 

@@ -1,4 +1,6 @@
 import 'dart:ui';
+import 'package:shop_app_ws/data_providers/businees_ws/business_ws.dart';
+
 import '/domains/store/store_box.dart';
 
 import '/domains/store/models/category.dart';
@@ -20,33 +22,39 @@ class StoreRepository {
 
   Future<List<CategoryData>> readCategories() async {
     //Read
-    await Future.delayed(Duration(milliseconds: _delay));
-    return [
-      CategoryData(
-        id: 0,
-        title: 'Mobile Phone',
-        image: 'assets/imgs/products/Z_Fold_4.png',
-        color: const Color.fromARGB(255, 161, 207, 178),
-      ),
-      CategoryData(
-        id: 1,
-        title: 'Laptop',
-        image: 'assets/imgs/products/zenbook_14x.png',
-        color: const Color.fromARGB(255, 255, 210, 161),
-      ),
-      CategoryData(
-        id: 2,
-        title: 'AirBuds',
-        image: 'assets/imgs/products/sony_airbuds.png',
-        color: const Color.fromARGB(255, 217, 197, 224),
-      ),
-      CategoryData(
-        id: 3,
-        title: 'Network Devices',
-        image: 'assets/imgs/products/asus_rt.png',
-        color: const Color.fromARGB(255, 218, 241, 254),
-      ),
-    ];
+    // await Future.delayed(Duration(milliseconds: _delay));
+    // return [
+    //   CategoryData(
+    //     id: 0,
+    //     title: 'Mobile Phone',
+    //     image: 'assets/imgs/products/Z_Fold_4.png',
+    //     color: const Color.fromARGB(255, 161, 207, 178),
+    //   ),
+    //   CategoryData(
+    //     id: 1,
+    //     title: 'Laptop',
+    //     image: 'assets/imgs/products/zenbook_14x.png',
+    //     color: const Color.fromARGB(255, 255, 210, 161),
+    //   ),
+    //   CategoryData(
+    //     id: 2,
+    //     title: 'AirBuds',
+    //     image: 'assets/imgs/products/sony_airbuds.png',
+    //     color: const Color.fromARGB(255, 217, 197, 224),
+    //   ),
+    //   CategoryData(
+    //     id: 3,
+    //     title: 'Network Devices',
+    //     image: 'assets/imgs/products/asus_rt.png',
+    //     color: const Color.fromARGB(255, 218, 241, 254),
+    //   ),
+    // ];
+    final res = await BusinessWS.client.get(
+      BusinessWS.urls.productCategory,
+    );
+    return List<CategoryData>.from(
+      res['data'].map((e) => CategoryData.fromMap(e)),
+    ).toList();
   }
 
   Future<CategoryData> readCategory({required int id}) async {

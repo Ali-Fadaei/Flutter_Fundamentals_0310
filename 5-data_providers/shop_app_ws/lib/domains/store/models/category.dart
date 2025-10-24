@@ -22,8 +22,8 @@ class CategoryData extends Equatable {
     return CategoryData(
       id: map['id'],
       title: map['title'],
-      image: map['image'],
-      color: Color(map['color']),
+      image: map['Image'],
+      color: Color(int.parse(map['color'])),
     );
   }
 
@@ -31,8 +31,8 @@ class CategoryData extends Equatable {
     return {
       'id': id,
       'title': title,
-      'image': image,
-      'color': color.toARGB32(),
+      'Image': image,
+      'color': color.toARGB32().toString(),
     };
   }
 
