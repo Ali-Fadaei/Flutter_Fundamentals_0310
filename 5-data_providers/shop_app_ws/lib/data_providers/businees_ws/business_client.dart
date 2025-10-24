@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:shop_app_ws/data_providers/businees_ws/business_urls.dart';
 
 class BusinessClient {
   //
@@ -12,12 +11,12 @@ class BusinessClient {
   }
 
   Future<dynamic> get(
-    String endPoint, {
+    String url, {
     String? param,
     Map<String, dynamic>? queryParams,
-  }) {
-    final res = _dio.get(
-      param == null ? endPoint : '$endPoint/$param',
+  }) async {
+    final res = await _dio.get(
+      param == null ? url : '$url/$param',
       queryParameters: queryParams,
     );
     return res;
