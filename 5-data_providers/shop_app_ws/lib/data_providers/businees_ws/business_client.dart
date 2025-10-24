@@ -11,12 +11,12 @@ class BusinessClient {
   }
 
   Future<dynamic> get(
-    String url, {
+    String path, {
     String? param,
     Map<String, dynamic>? queryParams,
   }) async {
     final res = await _dio.get(
-      param == null ? url : '$url/$param',
+      param == null ? path : '$path/$param',
       queryParameters: queryParams,
     );
     return res;
