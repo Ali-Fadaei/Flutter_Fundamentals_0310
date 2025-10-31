@@ -95,10 +95,25 @@ class NetworkImage extends M.StatelessWidget {
 
   final BoxFit? fit;
 
-  const NetworkImage({super.key, required this.url, this.fit});
+  final double? height;
+
+  final double? width;
+
+  const NetworkImage({
+    super.key,
+    required this.url,
+    this.height,
+    this.width,
+    this.fit,
+  });
 
   @override
   M.Widget build(M.BuildContext context) {
-    return M.Image.network(url, fit: fit);
+    return M.Image.network(
+      url,
+      height: height,
+      width: width,
+      fit: fit,
+    );
   }
 }

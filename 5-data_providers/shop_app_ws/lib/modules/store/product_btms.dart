@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:overlay_support/overlay_support.dart';
-import '/modules/home/cubit/home_cubit.dart';
 import '/domains/store/store_repository.dart';
 import '/modules/favorites/cubit/favorites_cubit.dart';
 import '/modules/shop_cart/cubit/shop_cart_cubit.dart';
@@ -86,7 +84,10 @@ class ProductBottomSheet extends StatelessWidget {
       children: [
         ListView(
           children: [
-            U.NetworkImage(url: product.image),
+            U.NetworkImage(
+              url: product.image,
+              height: 320,
+            ),
             const SizedBox(height: 25),
             Row(
               children: [

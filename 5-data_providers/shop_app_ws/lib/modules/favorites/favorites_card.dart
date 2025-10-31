@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:overlay_support/overlay_support.dart';
 import '/modules/favorites/cubit/favorites_cubit.dart';
 import '../../domains/store/models/product.dart';
 import '/modules/store/product_btms.dart';
@@ -28,9 +27,10 @@ class FavoritesCard extends StatelessWidget {
         padding: const EdgeInsets.all(12.0),
         child: Row(
           children: [
-            SizedBox(
+            Image.network(
+              product.image,
               width: 120,
-              child: Image.asset(product.image, fit: BoxFit.contain),
+              fit: BoxFit.contain,
             ),
             const SizedBox(width: 5),
             Expanded(
