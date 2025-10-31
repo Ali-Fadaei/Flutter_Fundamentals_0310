@@ -92,7 +92,7 @@ class StoreRepository {
       BusinessWS.urls.favorite,
       accessToken: accessToken,
       data: {
-        "productId": product.id,
+        "productId": 300,
       },
     );
   }

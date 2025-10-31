@@ -2,9 +2,9 @@ import '/tool_kit/tool_kit.dart' as T;
 
 class BusinessServers {
   //
-  final develop = 'https://alifadaei.ir';
+  final develop = 'https://alifadaei.com';
 
-  final stable = 'https://alifadaei.ir';
+  final stable = 'https://alifadaei.com';
 
   String get current => T.Utils.isDebug ? develop : stable;
 }

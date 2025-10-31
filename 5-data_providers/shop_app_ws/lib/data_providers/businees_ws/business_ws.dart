@@ -11,9 +11,15 @@ abstract class BusinessWS {
 
   static void init({
     String? customBaseUrl,
+    Function(String message)? onError,
+    Function()? onUnauthorized,
   }) {
     servers = BusinessServers();
     urls = BusinessUrls();
-    client = BusinessClient(baseUrl: customBaseUrl ?? servers.current);
+    client = BusinessClient(
+      baseUrl: customBaseUrl ?? servers.current,
+      onError: onError ?? (_) {},
+      onUnauthorized: onUnauthorized ?? () {},
+    );
   }
 }

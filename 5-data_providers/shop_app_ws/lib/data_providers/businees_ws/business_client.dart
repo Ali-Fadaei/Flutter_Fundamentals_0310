@@ -5,8 +5,14 @@ class BusinessClient {
   //
   final _dio = Dio();
 
+  final Function(String message) onError;
+
+  final Function() onUnauthorized;
+
   BusinessClient({
     required String baseUrl,
+    required this.onError,
+    required this.onUnauthorized,
   }) {
     _dio.options.baseUrl = baseUrl;
     _addReqInterceptor();
@@ -49,7 +55,20 @@ class BusinessClient {
     );
   }
 
-  void _addErrorInterceptor() {}
+  void _addErrorInterceptor() {
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onError: (error, handler) {
+          try {
+            error.response?.data =
+                BusinessResponse.fromMap(error.response?.data);
+          } catch (_) {}
+          exceptionHandler(error);
+          handler.next(error);
+        },
+      ),
+    );
+  }
 
 //null -> remove
 //'' -> null
@@ -86,6 +105,58 @@ class BusinessClient {
       }
     });
     return temp;
+  }
+
+  void exceptionHandler(DioException error) async {
+    //
+    final int? statusCode = error.response?.statusCode;
+    if (error.type == DioExceptionType.connectionError) {
+      onError('عدم اتصال به شبکه');
+      throw Exception('network Error! can\'t connect to network.');
+    } else if (error.type == DioExceptionType.badCertificate) {
+      onError('عدم امکان اتصال امن');
+      throw Exception('https certificate error!');
+    } else if (error.type == DioExceptionType.connectionTimeout ||
+        error.type == DioExceptionType.receiveTimeout ||
+        error.type == DioExceptionType.sendTimeout) {
+      onError('سرویس پاسخگو نبود');
+      throw Exception(
+        'connection timeout! (${error.requestOptions.connectTimeout})ms',
+      );
+    } else if (error.type == DioExceptionType.unknown) {
+      onError(
+        'مشکل ناشناس در برقراری ارتباط با سرویس رخ داد',
+      );
+      throw Exception(error.message);
+    } else if (statusCode == 401) {
+      onUnauthorized();
+      await Future.delayed(const Duration(milliseconds: 50));
+      onError('کلید دسترسی شما منقضی شده است');
+      throw Exception('access token expired! (401)');
+    } else if (statusCode == 403) {
+      onError('دسترسی مجاز نمی باشد');
+      throw Exception('access denied! (403)');
+    } else if (statusCode == 404) {
+      onError('یافت نشد!');
+      throw Exception('Not Found! (404)');
+    } else if (statusCode == 500) {
+      onError(
+        'مشکل داخلی در سرویس رخ داده',
+      );
+      throw Exception('internal server error! (500)');
+    } else if (statusCode == 502) {
+      onError('502: سرویس در دسترس نمی باشد');
+      throw Exception(error);
+    } else if (statusCode == 503) {
+      onError('503: سرور در دسترس نمی باشد');
+      throw Exception(error);
+    } else if (error.response?.data.message?.general != null &&
+        error.response?.data?.message.general != '') {
+      onError(error.response?.data.message?.general);
+      throw Exception(
+        'Web-Service Error! Status: ${error.response?.statusCode} - Msg:${error.response?.data.message}',
+      );
+    }
   }
 
   Future<BusinessResponse> get(
