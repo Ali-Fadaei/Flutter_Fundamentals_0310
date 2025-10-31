@@ -9,6 +9,9 @@ class BusinessClient {
     required String baseUrl,
   }) {
     _dio.options.baseUrl = baseUrl;
+    _addReqInterceptor();
+    _addResInterceptor();
+    _addErrorInterceptor();
   }
 
   Options _buildReqOptions(String? accessToken) {
@@ -23,6 +26,68 @@ class BusinessClient {
     );
   }
 
+  void _addReqInterceptor() {
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (req, handler) {
+          req.data = nullKiller(req.data);
+          req.queryParameters = qpNullKiller(req.queryParameters);
+          handler.next(req);
+        },
+      ),
+    );
+  }
+
+  void _addResInterceptor() {
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onResponse: (response, handler) {
+          response.data = BusinessResponse.fromMap(response.data);
+          handler.next(response);
+        },
+      ),
+    );
+  }
+
+  void _addErrorInterceptor() {}
+
+//null -> remove
+//'' -> null
+  Map<String, dynamic>? nullKiller(Map<String, dynamic>? map) {
+    if (map == null) return null;
+    Map<String, dynamic> temp = {};
+    map.forEach((key, value) {
+      if (value is String) value = value.trim();
+      if (value != null) {
+        if (value == '') {
+          temp[key] = null;
+        } else if (value.runtimeType == Map) {
+          temp[key] = nullKiller(value);
+        } else {
+          temp[key] = value;
+        }
+      }
+    });
+    return temp;
+  }
+
+//null -> remove
+//'' -> remove
+  Map<String, dynamic> qpNullKiller(Map<String, dynamic>? map) {
+    Map<String, dynamic> temp = {};
+    map?.forEach((key, value) {
+      if (value is String) value = value.trim();
+      if (value != null && value != '') {
+        if (value.runtimeType == Map) {
+          temp[key] = qpNullKiller(value);
+        } else {
+          temp[key] = value;
+        }
+      }
+    });
+    return temp;
+  }
+
   Future<BusinessResponse> get(
     String path, {
     String? param,
@@ -34,7 +99,7 @@ class BusinessClient {
       queryParameters: queryParams,
       options: _buildReqOptions(accessToken),
     );
-    return BusinessResponse.fromMap(res.data);
+    return res.data;
   }
 
   Future<BusinessResponse> post(
@@ -47,7 +112,7 @@ class BusinessClient {
       data: data,
       options: _buildReqOptions(accessToken),
     );
-    return BusinessResponse.fromMap(res.data);
+    return res.data;
   }
 
   Future<BusinessResponse> put(
@@ -61,7 +126,7 @@ class BusinessClient {
       data: data,
       options: _buildReqOptions(accessToken),
     );
-    return BusinessResponse.fromMap(res.data);
+    return res.data;
   }
 
   Future<BusinessResponse> delete(
@@ -76,6 +141,6 @@ class BusinessClient {
       },
       options: _buildReqOptions(accessToken),
     );
-    return BusinessResponse.fromMap(res.data);
+    return res.data;
   }
 }

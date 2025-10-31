@@ -54,14 +54,14 @@ class StoreRepository {
     final res = await BusinessWS.client.get(
       BusinessWS.urls.product,
       queryParams: {
-        if (title != null) 'title': title,
-        if (categoryIds.isNotEmpty) 'categoryIds': categoryIds,
-        if (minRate != null) 'minRate': minRate,
-        if (maxRate != null) 'maxRate': maxRate,
-        if (minPrice != null) 'minPrice': minPrice,
-        if (maxPrice != null) 'maxPrice': maxPrice,
-        if (sort != null) 'sort': sort,
-        if (order != null) 'order': order,
+        'title': title,
+        'categoryIds': categoryIds,
+        'minRate': minRate,
+        'maxRate': maxRate,
+        'minPrice': minPrice,
+        'maxPrice': maxPrice,
+        'sort': sort,
+        'order': order,
         'isActive': true,
       },
     );
