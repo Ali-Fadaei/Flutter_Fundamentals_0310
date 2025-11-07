@@ -26,7 +26,10 @@ class FavoritesPage extends StatelessWidget {
             listener: (context, state) {
               if (state.selectedIndex == 3) {
                 final favoritesCubit = BlocProvider.of<FavoritesCubit>(context);
-                favoritesCubit.onRefresh();
+                favoritesCubit.onRefresh(
+                  loading: favoritesCubit.state.contentStatus !=
+                      FavoriteContentStatus.filled,
+                );
               }
             },
           ),

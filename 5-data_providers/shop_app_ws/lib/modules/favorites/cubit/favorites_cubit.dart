@@ -15,37 +15,49 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
   //===========================Functions========================================
   Future<void> getFavorites() async {
-    final res = await storeRepo.readFavorites();
-    emit(state.copyWith(
-      favorites: res,
-      contentStatus: res.isEmpty
-          ? FavoriteContentStatus.empty
-          : FavoriteContentStatus.filled,
-    ));
+    try {
+      final res = await storeRepo.readFavorites();
+      emit(state.copyWith(
+        favorites: res,
+        contentStatus: res.isEmpty
+            ? FavoriteContentStatus.empty
+            : FavoriteContentStatus.filled,
+      ));
+    } catch (e) {
+      emit(state.copyWith(contentStatus: FavoriteContentStatus.error));
+    }
   }
 
   //=============================Events=========================================
   Future<void> onInit() async {
-    emit(state.copyWith(loading: true));
-    await getFavorites();
-    emit(state.copyWith(loading: false));
+    try {
+      emit(state.copyWith(loading: true));
+      await getFavorites();
+    } finally {
+      emit(state.copyWith(loading: false));
+    }
   }
 
   Future<void> onRefresh({bool loading = false}) async {
-    if (loading) emit(state.copyWith(loading: true));
-    await getFavorites();
-    if (loading) emit(state.copyWith(loading: false));
+    try {
+      if (loading) emit(state.copyWith(loading: true));
+      await getFavorites();
+    } finally {
+      if (loading) emit(state.copyWith(loading: false));
+    }
   }
 
   Future<void> onRetry() async {
-    emit(state.copyWith(loading: true));
-    await getFavorites();
-    emit(state.copyWith(loading: false));
+    try {
+      emit(state.copyWith(loading: true));
+      await getFavorites();
+    } finally {
+      emit(state.copyWith(loading: false));
+    }
   }
 
-  void onFavoriteButtonTapped(Product data) async {
+  Future<void> onFavoriteButtonTapped(Product data) async {
     //
-    emit(state.copyWith(loading: true));
     final favTemp = [...state.favorites];
     final dataIndex = favTemp.indexOf(data);
     if (dataIndex == -1) {
@@ -61,6 +73,5 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     emit(state.copyWith(favorites: favTemp));
     // storeRepo.updateFavorites(state.favorites);
     await getFavorites();
-    emit(state.copyWith(loading: false));
   }
 }

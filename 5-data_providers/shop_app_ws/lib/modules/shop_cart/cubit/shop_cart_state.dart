@@ -33,6 +33,7 @@ final class ShopCartState {
       },
     );
   }
+
 //با بالایی برابره
   // int get totalAmount {
   //  var temp=0;

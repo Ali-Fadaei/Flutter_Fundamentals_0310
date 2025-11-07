@@ -1,11 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'ui_kit.dart' as U;
 
-class IconButton extends StatelessWidget {
+class IconButton extends StatefulWidget {
   //
   final double size;
 
-  final bool loading;
+  final bool? loading;
 
   final bool disabled;
 
@@ -13,12 +15,12 @@ class IconButton extends StatelessWidget {
 
   final Widget icon;
 
-  final void Function() onPressed;
+  final FutureOr<void> Function() onPressed;
 
   const IconButton({
     super.key,
+    this.loading,
     this.disabled = false,
-    this.loading = false,
     this.color = Colors.transparent,
     this.size = 50,
     required this.icon,
@@ -26,19 +28,74 @@ class IconButton extends StatelessWidget {
   });
 
   @override
+  State<IconButton> createState() => _IconButtonState();
+}
+
+class _IconButtonState extends State<IconButton> {
+  //
+  var autoLoading = true;
+
+  var loading = false;
+
+  @override
+  void initState() {
+    if (widget.loading != null) {
+      autoLoading = false;
+      loading = widget.loading!;
+    }
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant IconButton oldWidget) {
+    if (oldWidget.loading != widget.loading) {
+      if (widget.loading != null) {
+        setState(() {
+          loading = widget.loading!;
+        });
+      } else {
+        setState(() {
+          autoLoading = true;
+          loading = false;
+        });
+      }
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  void _onPressed() async {
+    try {
+      if (autoLoading) {
+        setState(() {
+          loading = true;
+        });
+      }
+      await widget.onPressed();
+    } finally {
+      if (autoLoading) {
+        try {
+          setState(() {
+            loading = false;
+          });
+        } catch (e) {}
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Opacity(
-      opacity: disabled ? 0.65 : 1.0,
+      opacity: widget.disabled ? 0.65 : 1.0,
       child: Center(
         child: SizedBox.square(
-          dimension: size,
+          dimension: widget.size,
           child: Material(
-            color: color,
+            color: widget.color,
             borderRadius: BorderRadius.circular(
               U.Theme.r15,
             ),
             child: InkWell(
-              onTap: disabled ? null : onPressed,
+              onTap: widget.disabled ? null : _onPressed,
               borderRadius: BorderRadius.circular(
                 U.Theme.r15,
               ),
@@ -49,11 +106,11 @@ class IconButton extends StatelessWidget {
                     ? SizedBox.square(
                         dimension: 24,
                         child: CircularProgressIndicator(
-                          color: U.Theme.surface,
+                          color: U.Theme.primary,
                           strokeWidth: 1.2,
                         ),
                       )
-                    : icon,
+                    : widget.icon,
               ),
             ),
           ),

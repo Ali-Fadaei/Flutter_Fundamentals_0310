@@ -20,32 +20,46 @@ class ShopCartCubit extends Cubit<ShopCartState> {
   //===============================Functions====================================
   Future<void> getShopItems() async {
     //
-    final res = await storeRepo.readShopItems();
-    emit(state.copyWith(
-      shopItems: res,
-      contentStatus: res.isEmpty
-          ? ShopCartContentStatus.empty
-          : ShopCartContentStatus.fill,
-    ));
+    try {
+      final res = await storeRepo.readShopItems();
+      emit(state.copyWith(
+        shopItems: res,
+        contentStatus: res.isEmpty
+            ? ShopCartContentStatus.empty
+            : ShopCartContentStatus.fill,
+      ));
+    } catch (e) {
+      emit(state.copyWith(contentStatus: ShopCartContentStatus.error));
+      rethrow;
+    }
   }
 
   //=================================Events=====================================
   Future<void> onInit() async {
-    emit(state.copyWith(loading: true));
-    await getShopItems();
-    emit(state.copyWith(loading: false));
+    try {
+      emit(state.copyWith(loading: true));
+      await getShopItems();
+    } finally {
+      emit(state.copyWith(loading: false));
+    }
   }
 
   Future<void> onRefresh({bool loading = false}) async {
-    if (loading) emit(state.copyWith(loading: true));
-    await getShopItems();
-    if (loading) emit(state.copyWith(loading: false));
+    try {
+      if (loading) emit(state.copyWith(loading: true));
+      await getShopItems();
+    } finally {
+      if (loading) emit(state.copyWith(loading: false));
+    }
   }
 
   Future<void> onRetry() async {
-    emit(state.copyWith(loading: true));
-    await getShopItems();
-    emit(state.copyWith(loading: false));
+    try {
+      emit(state.copyWith(loading: true));
+      await getShopItems();
+    } finally {
+      emit(state.copyWith(loading: false));
+    }
   }
 
   void onAddToShopCartPressed(Product data) async {

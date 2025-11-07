@@ -60,8 +60,8 @@ class FavoritesCard extends StatelessWidget {
             const SizedBox(width: 5),
             U.IconButton(
               icon: const Icon(Icons.favorite, color: U.Theme.primary),
-              onPressed: () {
-                favCubit.onFavoriteButtonTapped(product);
+              onPressed: () async {
+                await favCubit.onFavoriteButtonTapped(product);
               },
             ),
           ],

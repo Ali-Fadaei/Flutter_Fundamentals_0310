@@ -178,12 +178,20 @@ class BusinessClient {
     required Map<String, dynamic> data,
     String? accessToken,
   }) async {
-    final res = await _dio.post(
-      path,
-      data: data,
-      options: _buildReqOptions(accessToken),
-    );
-    return res.data;
+    try {
+      final res = await _dio.post(
+        path,
+        data: data,
+        options: _buildReqOptions(accessToken),
+      );
+      return res.data;
+    } on DioException catch (e) {
+      if (e.response?.data != null) {
+        return e.response!.data;
+      } else {
+        rethrow;
+      }
+    }
   }
 
   Future<BusinessResponse> put(
@@ -192,12 +200,20 @@ class BusinessClient {
     required Map<String, dynamic> data,
     String? accessToken,
   }) async {
-    final res = await _dio.put(
-      param == null ? path : '$path/$param',
-      data: data,
-      options: _buildReqOptions(accessToken),
-    );
-    return res.data;
+    try {
+      final res = await _dio.put(
+        param == null ? path : '$path/$param',
+        data: data,
+        options: _buildReqOptions(accessToken),
+      );
+      return res.data;
+    } on DioException catch (e) {
+      if (e.response?.data != null) {
+        return e.response!.data;
+      } else {
+        rethrow;
+      }
+    }
   }
 
   Future<BusinessResponse> delete(

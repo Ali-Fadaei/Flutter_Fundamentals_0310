@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:shop_app_ws/data_providers/businees_ws/business_ws.dart';
 
 import '/domains/store/store_box.dart';
@@ -76,6 +75,7 @@ class StoreRepository {
   //===============================================
 
   Future<List<Product>> readFavorites() async {
+    await Future.delayed(const Duration(seconds: 1));
     final res = await BusinessWS.client.get(
       BusinessWS.urls.favorite,
       accessToken: accessToken,
@@ -92,7 +92,7 @@ class StoreRepository {
       BusinessWS.urls.favorite,
       accessToken: accessToken,
       data: {
-        "productId": 300,
+        "productId": product.id,
       },
     );
   }
