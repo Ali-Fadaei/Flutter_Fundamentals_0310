@@ -11,6 +11,7 @@ export './icon_button.dart';
 export './image.dart';
 export './navigation_bar.dart';
 export './outline_button.dart';
+export './pin_input.dart';
 export './radio_button.dart';
 export './range_slider.dart';
 export './refresh_indicator.dart';

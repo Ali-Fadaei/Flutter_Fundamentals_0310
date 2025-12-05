@@ -7,4 +7,6 @@ abstract class Formatters {
   static final dateFormat = MaskedInputFormatter('0000/00/00');
 
   static final nationalCode = MaskedInputFormatter('00000000000');
+
+  static final pinCode = MaskedInputFormatter('00000');
 }

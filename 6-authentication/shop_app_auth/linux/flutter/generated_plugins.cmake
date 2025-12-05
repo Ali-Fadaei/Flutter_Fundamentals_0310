@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  smart_auth
   unique_device_identifier
   url_launcher_linux
 )

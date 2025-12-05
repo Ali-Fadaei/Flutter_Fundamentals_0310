@@ -11,6 +11,16 @@ class BusinessServers {
 
 class BusinessUrls {
   //
+  final otpGenerate = '/client/otp/generate';
+
+  final otpConfirm = '/client/otp/confirm';
+
+  final otpRegister = '/client/otp/register';
+
+  final resfreshToken = '/client/auth/refresh';
+
+  final logout = '/client/auth/logout';
+
   final productCategory = '/product-category';
 
   final product = '/product';

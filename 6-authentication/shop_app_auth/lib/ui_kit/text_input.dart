@@ -50,9 +50,6 @@ class _TextInputState extends State<TextInput> {
 
   @override
   void initState() {
-    if (widget.autoFocus) {
-      focusNode.requestFocus();
-    }
     focusNode.addListener(() {
       isFocused = focusNode.hasFocus;
       setState(() {});
@@ -75,7 +72,7 @@ class _TextInputState extends State<TextInput> {
             borderRadius: BorderRadius.circular(U.Theme.r15),
             border: Border.all(
               width: 1,
-              color: isFocused ? U.Theme.primary : Colors.transparent,
+              color: isFocused ? U.Theme.primary : U.Theme.outline,
             ),
           ),
           padding: const EdgeInsets.only(
@@ -111,6 +108,7 @@ class _TextInputState extends State<TextInput> {
               Expanded(
                 child: TextField(
                   focusNode: focusNode,
+                  autofocus: widget.autoFocus,
                   canRequestFocus: !widget.readOnly && !widget.disabled,
                   controller: widget.controller,
                   onEditingComplete: widget.onEditingComplete,

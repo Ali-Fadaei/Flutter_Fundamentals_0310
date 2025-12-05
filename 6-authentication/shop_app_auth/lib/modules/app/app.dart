@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:shop_app_auth/domains/user/user_repository.dart';
 import '/modules/app/router.dart';
 import '/domains/store/store_repository.dart';
 import '/modules/app/cubit/app_cubit.dart';
@@ -12,17 +13,27 @@ class App extends StatelessWidget {
   //
   static const name = 'Shop App';
 
+  final UserRepository userRepo;
+
   final StoreRepository storeRepo;
 
   const App({
     super.key,
+    required this.userRepo,
     required this.storeRepo,
   });
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => storeRepo,
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(
+          create: (context) => userRepo,
+        ),
+        RepositoryProvider(
+          create: (context) => storeRepo,
+        ),
+      ],
       child: BlocProvider(
         create: (context) => AppCubit(),
         child: OverlaySupport.global(
