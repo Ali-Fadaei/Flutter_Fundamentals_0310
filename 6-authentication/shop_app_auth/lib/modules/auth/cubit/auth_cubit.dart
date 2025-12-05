@@ -29,6 +29,7 @@ class AuthCubit extends Cubit<AuthState> {
         super(AuthState.init());
 
   Future<void> onOtpRequested() async {
+    //add validation
     try {
       emit(state.copyWith(otpRequestLoading: true));
       final res = await _userRepo.otpGenerate(
@@ -49,7 +50,19 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> onOtpConfirmed() async {}
+  Future<bool> onOtpConfirmed() async {
+    //add validation
+    try {
+      emit(state.copyWith(otpConfirmLoading: true));
+      final res = _userRepo.otpConfirm(
+        id: hashId,
+        code: otpCtrl.text,
+      );
+      return res;
+    } finally {
+      emit(state.copyWith(otpConfirmLoading: false));
+    }
+  }
 
   Future<void> onRegisterRequested() async {}
 }

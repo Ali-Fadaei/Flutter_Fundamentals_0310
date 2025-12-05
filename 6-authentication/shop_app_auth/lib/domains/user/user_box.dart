@@ -1,4 +1,5 @@
-import '/domains/store/models/product.dart';
+import 'package:shop_app_auth/domains/user/models/access_token.dart';
+import 'package:shop_app_auth/domains/user/models/user.dart';
 
 import '/data_providers/hive_db/hive_db.dart';
 
@@ -20,22 +21,35 @@ abstract class UserBox {
     }
   }
 
-  static Future<void> setFavs(List<Product> value) async {
-    // await HiveDB.setValue(
-    //   box: name,
-    //   key: UserBoxKeys.favs.index.toString(),
-    //   value: value.map((e) => e.toMap()).toList(),
-    // );
+  static Future<void> setUser(User value) async {
+    await HiveDB.setValue(
+      box: name,
+      key: UserBoxKeys.user.index.toString(),
+      value: value.toMap(),
+    );
   }
 
-  static List<Product> getFavs() {
-    // final res = HiveDB.getValue(
-    //       box: name,
-    //       key: UserBoxKeys.favs.index.toString(),
-    //     ) ??
-    //     [];
-    // final list = List.from(res);
-    // return List.from(res).map((e) => Product.fromMap(e)).toList();
-    return [];
+  static User? getUser() {
+    final res = HiveDB.getValue(
+      box: name,
+      key: UserBoxKeys.user.index.toString(),
+    );
+    return res == null ? null : User.fromMap(res);
+  }
+
+  static Future<void> setToken(AccessToken value) async {
+    await HiveDB.setValue(
+      box: name,
+      key: UserBoxKeys.accessToken.index.toString(),
+      value: value.toMap(),
+    );
+  }
+
+  static AccessToken? getToken() {
+    final res = HiveDB.getValue(
+      box: name,
+      key: UserBoxKeys.accessToken.index.toString(),
+    );
+    return res == null ? null : AccessToken.fromMap(res);
   }
 }

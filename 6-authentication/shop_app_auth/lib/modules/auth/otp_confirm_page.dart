@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_app_auth/modules/auth/cubit/auth_cubit.dart';
 import 'package:shop_app_auth/modules/auth/otp_register_page.dart';
+import 'package:shop_app_auth/modules/store/store_page.dart';
 import 'package:shop_app_auth/ui_kit/ui_kit.dart' as U;
 
 class OtpConfirmPage extends StatelessWidget {
@@ -67,7 +68,14 @@ class OtpConfirmPage extends StatelessWidget {
               const Spacer(flex: 2),
               U.PinInput(
                 controller: authCubit.otpCtrl,
-                onCompleted: authCubit.onOtpConfirmed,
+                onCompleted: () async {
+                  final res = await authCubit.onOtpConfirmed();
+                  if (res) {
+                    GoRouter.of(context).goNamed(StorePage.route);
+                  } else {
+                    GoRouter.of(context).goNamed(OtpRegisterPage.route);
+                  }
+                },
                 loading: state.otpConfirmLoading,
               ),
               const Spacer(),
@@ -101,8 +109,12 @@ class OtpConfirmPage extends StatelessWidget {
                 color: U.ButtonColor.primary,
                 size: U.ButtonSize.lg,
                 onPressed: () async {
-                  await authCubit.onOtpConfirmed();
-                  GoRouter.of(context).goNamed(OtpRegisterPage.route);
+                  final res = await authCubit.onOtpConfirmed();
+                  if (res) {
+                    GoRouter.of(context).goNamed(StorePage.route);
+                  } else {
+                    GoRouter.of(context).goNamed(OtpRegisterPage.route);
+                  }
                 },
               ),
               const Spacer(),
