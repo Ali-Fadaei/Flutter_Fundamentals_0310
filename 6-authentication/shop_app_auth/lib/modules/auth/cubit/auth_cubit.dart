@@ -64,5 +64,18 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> onRegisterRequested() async {}
+  Future<void> onRegisterRequested() async {
+    try {
+      emit(state.copyWith(otpRegisterLoading: true));
+      await _userRepo.otpRegister(
+        hashId: hashId,
+        firstName: nameCtrl.text,
+        lastName: lastNameCtrl.text,
+        email: emailCtrl.text,
+        address: addressCtrl.text,
+      );
+    } finally {
+      emit(state.copyWith(otpRegisterLoading: false));
+    }
+  }
 }

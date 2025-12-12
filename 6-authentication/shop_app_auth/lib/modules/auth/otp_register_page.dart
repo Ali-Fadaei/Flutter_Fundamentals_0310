@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_app_auth/modules/auth/cubit/auth_cubit.dart';
+import 'package:shop_app_auth/modules/store/store_page.dart';
 import 'package:shop_app_auth/ui_kit/ui_kit.dart' as U;
 
 class OtpRegisterPage extends StatelessWidget {
@@ -100,6 +101,7 @@ class OtpRegisterPage extends StatelessWidget {
                     size: U.ButtonSize.lg,
                     onPressed: () async {
                       await authCubit.onRegisterRequested();
+                      GoRouter.of(context).goNamed(StorePage.route);
                     },
                   );
                 },

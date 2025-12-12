@@ -1,7 +1,9 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shop_app_auth/domains/user/user_repository.dart';
 import 'package:shop_app_auth/modules/auth/auth_shell.dart';
 import 'package:shop_app_auth/modules/auth/otp_confirm_page.dart';
 import 'package:shop_app_auth/modules/auth/otp_page.dart';
@@ -21,13 +23,25 @@ import '/modules/store/store_page.dart';
 final rootNavKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
-  initialLocation: OtpPage.route,
-  // initialLocation: StorePage.route,
+  initialLocation: StorePage.route,
   navigatorKey: rootNavKey,
   redirect: (context, state) {
-    print('state.fullPath');
-    print(state.fullPath);
-    return null;
+    final fullPath = state.uri.toString();
+    print('fullPath');
+    print(fullPath);
+    final userRepo = context.read<UserRepository>();
+    final isAuth = userRepo.checkJwtAuth();
+    print('isAuth');
+    print(isAuth);
+    if (isAuth) {
+      return (fullPath.contains('auth') || fullPath == '/')
+          ? StorePage.route
+          : null;
+    } else {
+      return (!fullPath.contains('auth') || fullPath == '/')
+          ? OtpPage.route
+          : null;
+    }
   },
   //auth/otp
   //auth/otp/confirm
@@ -51,11 +65,17 @@ final router = GoRouter(
             GoRoute(
               path: OtpConfirmPage.route,
               name: OtpConfirmPage.route,
+              redirect: (context, state) {
+                return state.extra == null ? OtpPage.route : null;
+              },
               builder: (context, state) => OtpConfirmPage(),
             ),
             GoRoute(
               path: OtpRegisterPage.route,
               name: OtpRegisterPage.route,
+              redirect: (context, state) {
+                return state.extra == null ? OtpPage.route : null;
+              },
               builder: (context, state) => OtpRegisterPage(),
             ),
           ],

@@ -10,6 +10,11 @@ class UserRepository {
     return UserRepository();
   }
 
+  bool checkJwtAuth() {
+    final accesstoken = UserBox.getToken();
+    return accesstoken?.token.isNotEmpty ?? false;
+  }
+
   Future<({String id, int expireTime})> otpGenerate({
     required String mobileNumber,
   }) async {
@@ -45,5 +50,27 @@ class UserRepository {
     } else {
       return false;
     }
+  }
+
+  Future<void> otpRegister({
+    required String hashId,
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String address,
+  }) async {
+    final res = await BusinessWS.client.put(
+      BusinessWS.urls.otpRegister,
+      data: {
+        'id': hashId,
+        'firstName': firstName,
+        'lastName': lastName,
+        'email': email,
+        'address': address,
+      },
+    );
+    final user = User.fromMap(res.data);
+    UserBox.setUser(user);
+    UserBox.setToken(AccessToken(token: user.token!));
   }
 }

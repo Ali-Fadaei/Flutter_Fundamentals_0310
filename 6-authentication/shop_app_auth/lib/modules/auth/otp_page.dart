@@ -64,7 +64,10 @@ class OtpPage extends StatelessWidget {
                 size: U.ButtonSize.lg,
                 onPressed: () async {
                   await authCubit.onOtpRequested();
-                  GoRouter.of(context).goNamed(OtpConfirmPage.route);
+                  GoRouter.of(context).goNamed(
+                    OtpConfirmPage.route,
+                    extra: state.hashCode,
+                  );
                 },
               ),
               const SizedBox(height: 10),

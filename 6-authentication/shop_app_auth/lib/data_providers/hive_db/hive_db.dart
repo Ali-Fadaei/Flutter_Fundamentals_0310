@@ -37,10 +37,11 @@ abstract class HiveDB {
   static Future<void> init({required String appName}) async {
     if (T.Utils.isWeb) {
       Hive.init('');
+    } else {
+      final docDir = await P.getApplicationDocumentsDirectory();
+      final appDir = await Directory('${docDir.path}/$appName').create();
+      Hive.init(appDir.path);
     }
-    final docDir = await P.getApplicationDocumentsDirectory();
-    final appDir = await Directory('${docDir.path}/$appName').create();
-    Hive.init(appDir.path);
   }
 
   static Future<void> openBox({required String name}) async {

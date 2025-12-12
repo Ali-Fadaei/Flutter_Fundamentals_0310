@@ -113,7 +113,10 @@ class OtpConfirmPage extends StatelessWidget {
                   if (res) {
                     GoRouter.of(context).goNamed(StorePage.route);
                   } else {
-                    GoRouter.of(context).goNamed(OtpRegisterPage.route);
+                    GoRouter.of(context).goNamed(
+                      OtpRegisterPage.route,
+                      extra: authCubit.hashId,
+                    );
                   }
                 },
               ),
