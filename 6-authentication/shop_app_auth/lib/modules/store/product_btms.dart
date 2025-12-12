@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app_auth/domains/user/user_repository.dart';
 import '/domains/store/store_repository.dart';
 import '/modules/favorites/cubit/favorites_cubit.dart';
 import '/modules/shop_cart/cubit/shop_cart_cubit.dart';
@@ -25,6 +26,7 @@ class ProductBottomSheet extends StatelessWidget {
             favoritesCubit == null
                 ? BlocProvider(
                     create: (context) => FavoritesCubit(
+                      userRepo: RepositoryProvider.of<UserRepository>(context),
                       storeRepo: RepositoryProvider.of<StoreRepository>(
                         context,
                       ),

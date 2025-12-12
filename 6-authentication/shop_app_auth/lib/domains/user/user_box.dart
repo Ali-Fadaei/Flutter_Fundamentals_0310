@@ -21,11 +21,11 @@ abstract class UserBox {
     }
   }
 
-  static Future<void> setUser(User value) async {
+  static Future<void> setUser(User? value) async {
     await HiveDB.setValue(
       box: name,
       key: UserBoxKeys.user.index.toString(),
-      value: value.toMap(),
+      value: value?.toMap(),
     );
   }
 
@@ -37,11 +37,11 @@ abstract class UserBox {
     return res == null ? null : User.fromMap(res);
   }
 
-  static Future<void> setToken(AccessToken value) async {
+  static Future<void> setToken(AccessToken? value) async {
     await HiveDB.setValue(
       box: name,
       key: UserBoxKeys.accessToken.index.toString(),
-      value: value.toMap(),
+      value: value?.toMap(),
     );
   }
 

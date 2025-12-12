@@ -15,6 +15,16 @@ class UserRepository {
     return accesstoken?.token.isNotEmpty ?? false;
   }
 
+  Future<String> readAccessToken() async {
+    final accessToken = UserBox.getToken();
+    final token = accessToken?.token;
+    if (token != null) {
+      return token;
+    } else {
+      throw Exception('Token Not Found!');
+    }
+  }
+
   Future<({String id, int expireTime})> otpGenerate({
     required String mobileNumber,
   }) async {
@@ -72,5 +82,17 @@ class UserRepository {
     final user = User.fromMap(res.data);
     UserBox.setUser(user);
     UserBox.setToken(AccessToken(token: user.token!));
+  }
+
+  Future<void> logout() async {
+    UserBox.setToken(null);
+    UserBox.setUser(null);
+    try {
+      await BusinessWS.client.post(
+        BusinessWS.urls.logout,
+        accessToken: await readAccessToken(),
+        data: {},
+      );
+    } catch (_) {}
   }
 }

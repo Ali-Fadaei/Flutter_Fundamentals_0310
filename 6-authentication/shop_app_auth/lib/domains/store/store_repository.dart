@@ -10,8 +10,8 @@ class StoreRepository {
   //
   final _delay = 1000;
 
-  final accessToken =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiY2xpZW50LWp3dCIsImlkIjoxLCJyb2xlIjoxLCJpYXQiOjE3NjEyOTY1OTYsImV4cCI6MTc2Mzg4ODU5Nn0.xSJS9bZlX88ossBMUwl8CUQxNQckfWHx7fNa-Kog61o';
+  // final accessToken =
+  //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiY2xpZW50LWp3dCIsImlkIjoxLCJyb2xlIjoxLCJpYXQiOjE3NjEyOTY1OTYsImV4cCI6MTc2Mzg4ODU5Nn0.xSJS9bZlX88ossBMUwl8CUQxNQckfWHx7fNa-Kog61o';
 
   static Future<StoreRepository> init() async {
     await StoreBox.open();
@@ -74,7 +74,9 @@ class StoreRepository {
 
   //===============================================
 
-  Future<List<Product>> readFavorites() async {
+  Future<List<Product>> readFavorites({
+    required String accessToken,
+  }) async {
     await Future.delayed(const Duration(seconds: 1));
     final res = await BusinessWS.client.get(
       BusinessWS.urls.favorite,
@@ -87,7 +89,10 @@ class StoreRepository {
   //   //  await BusinessWS.client.
   // }
 
-  Future<void> addFavorite(Product product) async {
+  Future<void> addFavorite({
+    required String accessToken,
+    required Product product,
+  }) async {
     await BusinessWS.client.post(
       BusinessWS.urls.favorite,
       accessToken: accessToken,
@@ -97,7 +102,10 @@ class StoreRepository {
     );
   }
 
-  Future<void> removeFavorite(Product product) async {
+  Future<void> removeFavorite({
+    required String accessToken,
+    required Product product,
+  }) async {
     await BusinessWS.client.delete(
       BusinessWS.urls.favorite,
       accessToken: accessToken,

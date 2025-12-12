@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shop_app_auth/domains/user/user_repository.dart';
+import 'package:shop_app_auth/modules/app/router.dart';
 import '/ui_kit/ui_kit.dart' as U;
 import '/tool_kit/tool_kit.dart' as T;
 
@@ -40,6 +43,16 @@ class _ProfilePageState extends State<ProfilePage> {
               child: ListView(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 children: [
+                  U.Button(
+                    title: 'Logout',
+                    onPressed: () {
+                      context.read<UserRepository>().logout();
+                      GoRouter.of(rootNavKey.currentState!.context).refresh();
+                    },
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
                   U.Button(
                     title: 'Open Scaffold Snack',
                     onPressed: () {

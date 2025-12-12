@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:shop_app_auth/domains/user/user_repository.dart';
 import '/domains/store/models/product.dart';
 import '/domains/store/store_repository.dart';
 
@@ -7,16 +8,24 @@ part 'favorites_state.dart';
 
 class FavoritesCubit extends Cubit<FavoritesState> {
   //
-  final StoreRepository storeRepo;
+  final UserRepository _userRepo;
 
-  FavoritesCubit({required this.storeRepo}) : super(FavoritesState.init()) {
+  final StoreRepository _storeRepo;
+
+  FavoritesCubit({
+    required UserRepository userRepo,
+    required StoreRepository storeRepo,
+  })  : _userRepo = userRepo,
+        _storeRepo = storeRepo,
+        super(FavoritesState.init()) {
     onInit();
   }
 
   //===========================Functions========================================
   Future<void> getFavorites() async {
     try {
-      final res = await storeRepo.readFavorites();
+      final token = await _userRepo.readAccessToken();
+      final res = await _storeRepo.readFavorites(accessToken: token);
       emit(state.copyWith(
         favorites: res,
         contentStatus: res.isEmpty
@@ -58,15 +67,17 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
   Future<void> onFavoriteButtonTapped(Product data) async {
     //
+    final token = await _userRepo.readAccessToken();
     final favTemp = [...state.favorites];
     final dataIndex = favTemp.indexOf(data);
+
     if (dataIndex == -1) {
       favTemp.add(data);
-      await storeRepo.addFavorite(data);
+      await _storeRepo.addFavorite(accessToken: token, product: data);
       toast('به لیست علاقه مندی اضافه شد!');
     } else {
       favTemp.remove(data);
-      await storeRepo.removeFavorite(data);
+      await _storeRepo.removeFavorite(accessToken: token, product: data);
       toast('از لیست علاقه مندی حذف شد!');
     }
 
