@@ -25,8 +25,8 @@ class UserRepository {
     final accessToken = UserBox.getToken();
     final token = accessToken?.token;
     if (token != null) {
-      // return token;
-      return 'dadsadjashdjkhsad';
+      return token;
+      // return 'dadsadjashdjkhsad';
     } else {
       _jwtAuthStreamCtrl.add(false);
       throw Exception('Token Not Found!');
