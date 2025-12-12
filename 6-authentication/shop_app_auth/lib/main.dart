@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:shop_app_auth/domains/user/user_repository.dart';
+import 'package:shop_app_auth/modules/app/cubit/app_cubit.dart';
 import '/data_providers/businees_ws/business_ws.dart';
 import '/data_providers/hive_db/hive_db.dart';
 import '/domains/store/store_repository.dart';
@@ -11,8 +12,11 @@ void main() async {
   await HiveDB.init(appName: App.name);
   final storeRepo = await StoreRepository.init();
   final userRepo = await UserRepository.init();
+  final appCubit = AppCubit(userRepo: userRepo);
   BusinessWS.init(
-    onUnauthorized: () {},
+    onUnauthorized: () {
+      appCubit.onLogout();
+    },
     onError: (message) {
       toast(message);
     },
@@ -22,6 +26,7 @@ void main() async {
     App(
       userRepo: userRepo,
       storeRepo: storeRepo,
+      appCubit: appCubit,
     ),
   );
 }

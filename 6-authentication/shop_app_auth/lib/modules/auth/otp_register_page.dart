@@ -101,7 +101,6 @@ class OtpRegisterPage extends StatelessWidget {
                     size: U.ButtonSize.lg,
                     onPressed: () async {
                       await authCubit.onRegisterRequested();
-                      GoRouter.of(context).goNamed(StorePage.route);
                     },
                   );
                 },

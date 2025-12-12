@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shop_app_auth/domains/user/user_repository.dart';
+import 'package:shop_app_auth/modules/app/cubit/app_cubit.dart';
 import 'package:shop_app_auth/modules/auth/auth_shell.dart';
 import 'package:shop_app_auth/modules/auth/otp_confirm_page.dart';
 import 'package:shop_app_auth/modules/auth/otp_page.dart';
@@ -29,8 +30,7 @@ final router = GoRouter(
     final fullPath = state.uri.toString();
     print('fullPath');
     print(fullPath);
-    final userRepo = context.read<UserRepository>();
-    final isAuth = userRepo.checkJwtAuth();
+    final isAuth = context.read<AppCubit>().state.isAuth;
     print('isAuth');
     print(isAuth);
     if (isAuth) {

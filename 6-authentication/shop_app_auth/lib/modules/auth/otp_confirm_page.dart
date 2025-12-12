@@ -110,9 +110,7 @@ class OtpConfirmPage extends StatelessWidget {
                 size: U.ButtonSize.lg,
                 onPressed: () async {
                   final res = await authCubit.onOtpConfirmed();
-                  if (res) {
-                    GoRouter.of(context).goNamed(StorePage.route);
-                  } else {
+                  if (!res) {
                     GoRouter.of(context).goNamed(
                       OtpRegisterPage.route,
                       extra: authCubit.hashId,

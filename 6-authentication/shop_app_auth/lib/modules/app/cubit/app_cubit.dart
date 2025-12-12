@@ -1,8 +1,27 @@
 import 'package:bloc/bloc.dart';
+import 'package:shop_app_auth/domains/user/user_repository.dart';
 
 part 'app_state.dart';
 
 class AppCubit extends Cubit<AppState> {
   //
-  AppCubit() : super(AppState.init());
+  final UserRepository _userRepo;
+
+  AppCubit({required UserRepository userRepo})
+      : _userRepo = userRepo,
+        super(AppState.init(jwtAuth: userRepo.checkJwtAuth())) {
+    onInit();
+  }
+
+  void onInit() {
+    _userRepo.jwtAuthStream.listen(
+      (event) {
+        emit(state.copyWith(jwtAuth: event));
+      },
+    );
+  }
+
+  void onLogout() {
+    _userRepo.logout();
+  }
 }
