@@ -28,11 +28,11 @@ final router = GoRouter(
   navigatorKey: rootNavKey,
   redirect: (context, state) {
     final fullPath = state.uri.toString();
-    print('fullPath');
-    print(fullPath);
+    // print('fullPath');
+    // print(fullPath);
     final isAuth = context.read<AppCubit>().state.isAuth;
-    print('isAuth');
-    print(isAuth);
+    // print('isAuth');
+    // print(isAuth);
     if (isAuth) {
       return (fullPath.contains('auth') || fullPath == '/')
           ? StorePage.route

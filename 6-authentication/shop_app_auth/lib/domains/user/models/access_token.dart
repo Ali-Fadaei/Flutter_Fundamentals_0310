@@ -15,8 +15,10 @@ class AccessToken extends Equatable {
   });
 
   AccessToken.create({required this.token})
-      : ttl = DateTime.now().add(const Duration(days: 7)),
-        ttr = DateTime.now().add(const Duration(days: 5));
+      : ttl = DateTime.now().add(const Duration(minutes: 1)),
+        ttr = DateTime.now().add(const Duration(seconds: 20));
+  // : ttl = DateTime.now().add(const Duration(days: 7)),
+  //   ttr = DateTime.now().add(const Duration(days: 5));
 
   factory AccessToken.fromMap(Map map) {
     return AccessToken(
@@ -34,9 +36,17 @@ class AccessToken extends Equatable {
     };
   }
 
-  bool get canUse => !ttl.difference(DateTime.now()).isNegative;
+  bool get canUse {
+    final res = !ttl.difference(DateTime.now()).isNegative;
+    print('CanUse: $res');
+    return res;
+  }
 
-  bool get shoulReferesh => ttr.difference(DateTime.now()).isNegative;
+  bool get shoulReferesh {
+    final res = ttr.difference(DateTime.now()).isNegative;
+    print('Should Refresh: $res');
+    return res;
+  }
 
   @override
   List<Object?> get props => [

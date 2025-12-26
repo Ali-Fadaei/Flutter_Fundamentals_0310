@@ -114,7 +114,7 @@ class UserRepository {
 
   Future<void> logout() async {
     try {
-      final token = await readAccessToken();
+      final token = UserBox.getToken()?.token;
       await BusinessWS.client.post(
         BusinessWS.urls.logout,
         accessToken: token,
