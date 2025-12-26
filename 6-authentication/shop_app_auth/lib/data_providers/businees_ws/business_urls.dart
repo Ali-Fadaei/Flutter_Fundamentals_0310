@@ -17,7 +17,7 @@ class BusinessUrls {
 
   final otpRegister = '/client/otp/register';
 
-  final resfreshToken = '/client/auth/refresh';
+  final refreshToken = '/client/auth/refresh';
 
   final logout = '/client/auth/logout';
 

@@ -23,12 +23,15 @@ class UserRepository {
 
   Future<String> readAccessToken() async {
     final accessToken = UserBox.getToken();
-    final token = accessToken?.token;
-    if (token != null) {
-      return token;
-      // return 'dadsadjashdjkhsad';
+    if (accessToken?.canUse ?? false) {
+      if (accessToken?.shoulReferesh ?? false) {
+        await refresh();
+        return await readAccessToken();
+      } else {
+        return accessToken!.token;
+      }
     } else {
-      _jwtAuthStreamCtrl.add(false);
+      logout();
       throw Exception('Token Not Found!');
     }
   }
@@ -63,7 +66,7 @@ class UserRepository {
     final user = User.fromMap(res.data);
     if (user.isRegistered) {
       UserBox.setUser(user);
-      UserBox.setToken(AccessToken(token: user.token!));
+      UserBox.setToken(AccessToken.create(token: user.token!));
       _jwtAuthStreamCtrl.add(true);
       return true;
     } else {
@@ -90,14 +93,26 @@ class UserRepository {
     );
     final user = User.fromMap(res.data);
     UserBox.setUser(user);
-    UserBox.setToken(AccessToken(token: user.token!));
+    UserBox.setToken(AccessToken.create(token: user.token!));
     _jwtAuthStreamCtrl.add(true);
   }
 
+  Future<void> refresh() async {
+    //
+    final accessToken = UserBox.getToken()?.token;
+    if (accessToken != null) {
+      final res = await BusinessWS.client.post(
+        BusinessWS.urls.refreshToken,
+        accessToken: UserBox.getToken()?.token,
+        data: {},
+      );
+      final user = User.fromMap(res.data);
+      UserBox.setUser(user);
+      UserBox.setToken(AccessToken.create(token: user.token!));
+    }
+  }
+
   Future<void> logout() async {
-    UserBox.setToken(null);
-    UserBox.setUser(null);
-    _jwtAuthStreamCtrl.add(false);
     try {
       final token = await readAccessToken();
       await BusinessWS.client.post(
@@ -105,6 +120,11 @@ class UserRepository {
         accessToken: token,
         data: {},
       );
-    } catch (_) {}
+    } catch (_) {
+    } finally {
+      UserBox.setToken(null);
+      UserBox.setUser(null);
+      _jwtAuthStreamCtrl.add(false);
+    }
   }
 }
