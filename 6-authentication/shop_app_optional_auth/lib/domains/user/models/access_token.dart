@@ -15,10 +15,8 @@ class AccessToken extends Equatable {
   });
 
   AccessToken.create({required this.token})
-      : ttl = DateTime.now().add(const Duration(minutes: 1)),
-        ttr = DateTime.now().add(const Duration(seconds: 20));
-  // : ttl = DateTime.now().add(const Duration(days: 7)),
-  //   ttr = DateTime.now().add(const Duration(days: 5));
+      : ttl = DateTime.now().add(const Duration(days: 7)),
+        ttr = DateTime.now().add(const Duration(days: 5));
 
   factory AccessToken.fromMap(Map map) {
     return AccessToken(
