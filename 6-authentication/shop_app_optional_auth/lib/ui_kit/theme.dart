@@ -28,8 +28,8 @@ abstract class Theme {
   static const onPrimary = Color(0XFFFEFEFE);
   //   static const onPrimary = Color(0xFF111111);
 
-  // static const secondary = Color(0XFF110E39);
-  static const secondary = Color(0xFF8A9EF6);
+  static const secondary = Color(0XFF110E39);
+  // static const secondary = Color(0xFF8A9EF6);
 
   static const onSecondary = Color(0XFFFEFEFE);
   //   static const onSecondary = Color(0xFFFFFFFF);
