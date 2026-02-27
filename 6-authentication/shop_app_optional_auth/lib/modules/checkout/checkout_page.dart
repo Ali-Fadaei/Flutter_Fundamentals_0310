@@ -58,7 +58,7 @@ class CheckoutPage extends StatelessWidget {
                                         padding: const EdgeInsets.all(18),
                                         child: Column(
                                           children: [
-                                            const Row(
+                                            Row(
                                               children: [
                                                 U.Image(
                                                   height: 24,
@@ -77,7 +77,7 @@ class CheckoutPage extends StatelessWidget {
                                               ],
                                             ),
                                             const SizedBox(height: 5),
-                                            const U.Divider.horizontal(
+                                            U.Divider.horizontal(
                                               space: 0,
                                               color: U.Theme.secondary,
                                             ),
@@ -104,7 +104,7 @@ class CheckoutPage extends StatelessWidget {
                                                 ],
                                               ),
                                             ),
-                                            const U.Divider.horizontal(
+                                            U.Divider.horizontal(
                                               space: 0,
                                               color: U.Theme.secondary,
                                             ),
@@ -125,7 +125,7 @@ class CheckoutPage extends StatelessWidget {
                                                     mainAxisSize:
                                                         MainAxisSize.min,
                                                     children: [
-                                                      const U.Text(
+                                                      U.Text(
                                                         'جمع سبد: ',
                                                         size: U.TextSize.s14,
                                                         color: U.Theme.primary,
@@ -143,7 +143,7 @@ class CheckoutPage extends StatelessWidget {
                                                     mainAxisSize:
                                                         MainAxisSize.min,
                                                     children: [
-                                                      const U.Text(
+                                                      U.Text(
                                                         'جمع تخفیفات: ',
                                                         size: U.TextSize.s14,
                                                         color: U.Theme.primary,
@@ -161,7 +161,7 @@ class CheckoutPage extends StatelessWidget {
                                                     mainAxisSize:
                                                         MainAxisSize.min,
                                                     children: [
-                                                      const U.Text(
+                                                      U.Text(
                                                         'قابل پرداخت: ',
                                                         size: U.TextSize.s14,
                                                         color: U.Theme.primary,
@@ -187,7 +187,7 @@ class CheckoutPage extends StatelessWidget {
                                       padding: const EdgeInsets.all(18),
                                       child: Column(
                                         children: [
-                                          const Row(
+                                          Row(
                                             children: [
                                               U.Image(
                                                 height: 24,
@@ -204,7 +204,7 @@ class CheckoutPage extends StatelessWidget {
                                               Spacer(),
                                             ],
                                           ),
-                                          const U.Divider.horizontal(
+                                          U.Divider.horizontal(
                                             color: U.Theme.secondary,
                                           ),
                                           const SizedBox(height: 10),
@@ -322,7 +322,7 @@ class _CheckoutItem extends StatelessWidget {
                       size: U.TextSize.s12,
                     ),
                     const SizedBox(width: 8),
-                    const U.Text(
+                    U.Text(
                       '*',
                       size: U.TextSize.s12,
                       weight: U.TextWeight.bold,

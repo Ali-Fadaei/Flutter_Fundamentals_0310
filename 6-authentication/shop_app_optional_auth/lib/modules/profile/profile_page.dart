@@ -41,6 +41,40 @@ class _ProfilePageState extends State<ProfilePage> {
               child: ListView(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 children: [
+                  BlocBuilder<AppCubit, AppState>(
+                    builder: (context, state) {
+                      final appCubit = context.read<AppCubit>();
+                      return U.Button(
+                        title:
+                            'current theme mode = ${state.themeId} change!!!',
+                        onPressed: () {
+                          final temp = state.themeId + 1;
+                          appCubit.changeTheme(temp > 1 ? -1 : temp);
+                        },
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  U.Button(
+                    title: 'change theme mode = Dark',
+                    onPressed: () {
+                      U.Theme.changeMode(0);
+                    },
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  U.Button(
+                    title: 'change theme mode = Auto',
+                    onPressed: () {
+                      U.Theme.changeMode(-1);
+                    },
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
                   U.Button(
                     title: 'Logout',
                     onPressed: () {

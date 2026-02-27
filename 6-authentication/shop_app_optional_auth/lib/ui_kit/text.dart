@@ -33,7 +33,7 @@ class Text extends M.StatelessWidget {
 
   final TextWeight weight;
 
-  final Color color;
+  final Color? color;
 
   final TextAlign align;
 
@@ -43,9 +43,11 @@ class Text extends M.StatelessWidget {
     this.font = TextFont.iranSans,
     this.size = TextSize.s14,
     this.weight = TextWeight.regular,
-    this.color = U.Theme.onBackground,
+    this.color,
     this.align = TextAlign.start,
   });
+
+  Color get _color => color ?? U.Theme.onBackground;
 
   String get _font {
     switch (font) {
@@ -92,7 +94,7 @@ class Text extends M.StatelessWidget {
       text,
       textAlign: align,
       style: TextStyle(
-        color: color,
+        color: _color,
         fontSize: _size,
         fontFamily: _font,
         fontWeight: _weight,

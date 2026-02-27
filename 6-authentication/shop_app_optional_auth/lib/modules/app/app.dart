@@ -5,14 +5,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:shop_app_optional_auth/domains/app/app_repository.dart';
 import '/domains/user/user_repository.dart';
 import '/modules/app/router.dart';
 import '/domains/store/store_repository.dart';
 import '/modules/app/cubit/app_cubit.dart';
+import '/ui_kit/ui_kit.dart' as U;
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   //
   static const name = 'Shop App';
+
+  final AppRepository appRepo;
 
   final UserRepository userRepo;
 
@@ -22,24 +26,40 @@ class App extends StatelessWidget {
 
   const App({
     super.key,
+    required this.appRepo,
     required this.userRepo,
     required this.storeRepo,
     required this.appCubit,
   });
 
   @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  //
+  @override
+  void initState() {
+    U.Theme.init(context, -1);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(
-          create: (context) => userRepo,
+          create: (context) => widget.appRepo,
         ),
         RepositoryProvider(
-          create: (context) => storeRepo,
+          create: (context) => widget.userRepo,
+        ),
+        RepositoryProvider(
+          create: (context) => widget.storeRepo,
         ),
       ],
       child: BlocProvider.value(
-        value: appCubit,
+        value: widget.appCubit,
         child: OverlaySupport.global(
           child: BlocListener<AppCubit, AppState>(
             listenWhen: (previous, current) =>
