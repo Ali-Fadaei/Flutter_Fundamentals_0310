@@ -35,6 +35,8 @@ class Text extends M.StatelessWidget {
 
   final Color color;
 
+  final TextAlign align;
+
   const Text(
     this.text, {
     super.key,
@@ -42,6 +44,7 @@ class Text extends M.StatelessWidget {
     this.size = TextSize.s14,
     this.weight = TextWeight.regular,
     this.color = U.Theme.onBackground,
+    this.align = TextAlign.start,
   });
 
   String get _font {
@@ -87,6 +90,7 @@ class Text extends M.StatelessWidget {
   M.Widget build(M.BuildContext context) {
     return M.Text(
       text,
+      textAlign: align,
       style: TextStyle(
         color: color,
         fontSize: _size,

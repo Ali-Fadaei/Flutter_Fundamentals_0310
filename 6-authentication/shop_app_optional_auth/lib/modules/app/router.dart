@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '/domains/user/user_repository.dart';
 import '/modules/app/cubit/app_cubit.dart';
 import '/modules/auth/auth_shell.dart';
 import '/modules/auth/otp_confirm_page.dart';
@@ -38,9 +37,7 @@ final router = GoRouter(
           ? StorePage.route
           : null;
     } else {
-      return (!fullPath.contains('auth') || fullPath == '/')
-          ? OtpPage.route
-          : null;
+      return null;
     }
   },
   //auth/otp
@@ -157,8 +154,6 @@ final router = GoRouter(
               path: StorePage.route,
               name: StorePage.route,
               builder: (context, state) {
-                print('state.uri.queryParameters[pid]');
-                print(state.uri.queryParameters['pid']);
                 return StorePage(
                   initialProductId: int.tryParse(
                     state.uri.queryParameters['pid'] ?? '',

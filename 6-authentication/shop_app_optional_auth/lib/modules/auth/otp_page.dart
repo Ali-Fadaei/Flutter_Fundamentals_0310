@@ -23,10 +23,24 @@ class OtpPage extends StatelessWidget {
           color: U.Theme.surface,
           child: Column(
             children: [
-              const U.Text(
-                'ورود | ثبت‌نام',
-                size: U.TextSize.s20,
-                weight: U.TextWeight.bold,
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 35,
+                  ),
+                  const Spacer(),
+                  const U.Text(
+                    'ورود | ثبت‌نام',
+                    size: U.TextSize.s20,
+                    weight: U.TextWeight.bold,
+                  ),
+                  const Spacer(),
+                  U.IconButton(
+                    icon: Icon(Icons.arrow_forward),
+                    onPressed: () => GoRouter.of(context).pop(),
+                    size: 35,
+                  ),
+                ],
               ),
               const U.Divider.horizontal(space: 10),
               const Spacer(flex: 2),

@@ -4,6 +4,7 @@ export './banner.dart';
 export './bottom_sheet.dart';
 export './button.dart';
 export './check_box.dart';
+export './conditional_merge_builder.dart';
 export './counter.dart';
 export './divider.dart';
 export './card.dart';

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:shop_app_optional_auth/modules/app/cubit/app_cubit.dart';
+import 'package:shop_app_optional_auth/modules/auth/otp_page.dart';
 import '/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import '../../domains/store/models/product.dart';
 import 'product_btms.dart';
@@ -77,8 +80,13 @@ class ProductCard extends StatelessWidget {
                             color: U.Theme.onPrimary,
                           ),
                           color: U.Theme.primary,
-                          onPressed: () =>
-                              shopCartCubit.onAddToShopCartPressed(data),
+                          onPressed: () {
+                            if (context.read<AppCubit>().state.isAuth) {
+                              shopCartCubit.onAddToShopCartPressed(data);
+                            } else {
+                              GoRouter.of(context).pushNamed(OtpPage.route);
+                            }
+                          },
                         ),
                       );
                     },
